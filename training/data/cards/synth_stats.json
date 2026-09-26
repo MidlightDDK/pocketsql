@@ -1,0 +1,191 @@
+{
+ "generator": {
+  "questions": {
+   "model": "openai/gpt-oss-120b",
+   "temperature": 1.0,
+   "reasoning_effort": "low",
+   "max_completion_tokens": 8192,
+   "response_format": {
+    "type": "json_object"
+   }
+  },
+  "answers": {
+   "gpt-oss-20b": {
+    "model": "openai/gpt-oss-20b",
+    "temperature": 0,
+    "reasoning_effort": "low",
+    "max_completion_tokens": 4096,
+    "response_format": {
+     "type": "json_object"
+    }
+   },
+   "qwen3.8-27b": {
+    "model": "qwen/qwen3.8-27b",
+    "temperature": 0,
+    "max_completion_tokens": 1000,
+    "response_format": {
+     "type": "json_object"
+    }
+   }
+  },
+  "batch": 20,
+  "answer_batch": {
+   "gpt-oss-20b": 20,
+   "qwen3.8-27b": 7
+  }
+ },
+ "topics": [
+  "filters",
+  "aggregates",
+  "grouping",
+  "joins",
+  "subqueries",
+  "windows",
+  "time",
+  "conditional",
+  "multistep",
+  "sets",
+  "text"
+ ],
+ "totals": {
+  "questions": 1128,
+  "agreed": 701,
+  "dropped_after_agreement": {
+   "duplicate_sql": 4,
+   "test_leakage_same_result": 25,
+   "test_leakage_text": 4,
+   "over_target": 77
+  },
+  "kept": 591
+ },
+ "per_db": {
+  "chinook": {
+   "questions": 478,
+   "decisions": {
+    "too_few_valid": 213,
+    "agreed": 218,
+    "no_agreement": 47
+   },
+   "votes_of_agreed": {
+    "2": 88,
+    "3": 130
+   },
+   "dropped_after_agreement": {
+    "duplicate_sql": 2,
+    "test_leakage_same_result": 10,
+    "test_leakage_text": 1,
+    "over_target": 5
+   },
+   "kept": 200,
+   "kept_rate": 0.4184,
+   "difficulty": {
+    "easy": 64,
+    "medium": 64,
+    "hard": 58,
+    "extra": 14
+   }
+  },
+  "penguins": {
+   "questions": 409,
+   "decisions": {
+    "agreed": 287,
+    "too_few_valid": 97,
+    "no_agreement": 25
+   },
+   "votes_of_agreed": {
+    "3": 202,
+    "2": 85
+   },
+   "dropped_after_agreement": {
+    "duplicate_sql": 2,
+    "test_leakage_same_result": 10,
+    "test_leakage_text": 3,
+    "over_target": 72
+   },
+   "kept": 200,
+   "kept_rate": 0.489,
+   "difficulty": {
+    "easy": 67,
+    "medium": 68,
+    "hard": 55,
+    "extra": 10
+   }
+  },
+  "world_bank": {
+   "questions": 241,
+   "decisions": {
+    "agreed": 196,
+    "no_agreement": 11,
+    "too_few_valid": 34
+   },
+   "votes_of_agreed": {
+    "3": 155,
+    "2": 41
+   },
+   "dropped_after_agreement": {
+    "test_leakage_same_result": 5
+   },
+   "kept": 191,
+   "kept_rate": 0.7925,
+   "difficulty": {
+    "easy": 49,
+    "medium": 67,
+    "hard": 54,
+    "extra": 21
+   }
+  }
+ },
+ "candidates": {
+  "gpt-oss-120b": {
+   "candidates": 1128,
+   "valid": 801,
+   "problems": {
+    "nondeterministic": 122,
+    "empty": 103,
+    "order_ties": 27,
+    "error": 73,
+    "all_null": 2
+   }
+  },
+  "gpt-oss-20b": {
+   "candidates": 1128,
+   "valid": 713,
+   "problems": {
+    "error": 76,
+    "missing": 94,
+    "empty": 94,
+    "nondeterministic": 114,
+    "order_ties": 31,
+    "limit_without_order": 3,
+    "all_null": 3
+   }
+  },
+  "qwen3.8-27b": {
+   "candidates": 1128,
+   "valid": 809,
+   "problems": {
+    "nondeterministic": 135,
+    "error": 40,
+    "empty": 97,
+    "order_ties": 33,
+    "limit_without_order": 4,
+    "all_null": 2,
+    "missing": 8
+   }
+  }
+ },
+ "groq_usage": {
+  "openai/gpt-oss-120b": {
+   "calls": 54,
+   "tokens": 174281
+  },
+  "openai/gpt-oss-20b": {
+   "calls": 85,
+   "tokens": 140295
+  },
+  "qwen/qwen3.8-27b": {
+   "calls": 184,
+   "tokens": 206574
+  }
+ }
+}

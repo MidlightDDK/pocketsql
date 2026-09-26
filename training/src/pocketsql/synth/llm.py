@@ -29,8 +29,13 @@ class QuotaExhausted(Exception):
     pass
 
 
+class NotCached(Exception):
+    """A call missing from the cache in cached-only mode."""
+
+
 class Groq:
-    def __init__(self) -> None:
+    def __init__(self, cached_only: bool = False) -> None:
+        self.cached_only = cached_only
         self.key: str | None = None
         self.next_ok: dict[str, float] = {}
         self.tokens: Counter[str] = Counter()
@@ -41,6 +46,8 @@ class Groq:
         cached = CACHE / f"{digest[:32]}.json"
         if cached.exists():
             out = json.loads(cached.read_text(encoding="utf-8"))
+        elif self.cached_only:
+            raise NotCached(body["model"])
         else:
             out = self._post(body)
             CACHE.mkdir(parents=True, exist_ok=True)

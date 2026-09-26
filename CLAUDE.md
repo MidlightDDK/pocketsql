@@ -119,7 +119,7 @@ When compacting, keep: the goal, current milestone, decisions and constraints, f
 - [x] M0 Scaffold + hello-world deploy + CLIs ready
 - [x] M1 Data: Spider → DuckDB, serializer, splits
 - [x] M2 Own test set, baselines, export spike
-- [ ] M3 Synthetic data + dataset release
+- [x] M3 Synthetic data + dataset release
 - [x] M4 Train v1 on Kaggle
 - [ ] M5 Artifact eval, gate, model release
 - [ ] M6 Offline web app

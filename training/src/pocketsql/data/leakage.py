@@ -16,7 +16,7 @@ from pocketsql.data import paths
 JACCARD = 0.9
 # Pinned dataset revision for CI (bump after every dataset upload).
 HUB_REPO = "MidlightDDK/pocketsql-data"
-HUB_REVISION = "d3f8c1fcbead60e77b7f37e89b71457a5a6ca2d8"
+HUB_REVISION = "b078ef1fa000c95020ebd50f093abde126126e4e"
 
 
 def normalize_question(q: str) -> str:

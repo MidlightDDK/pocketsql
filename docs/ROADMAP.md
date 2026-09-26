@@ -93,8 +93,8 @@ Acceptance:
 ## M3: Synthetic data + dataset release
 - Generator with self-consistency filtering, dedupe, test-leakage removal, 50-item user review; dataset pushed to the Hub with a complete card.
 Acceptance:
-- [ ] Counts and filter rates reported; review acceptance ≥ 80% (otherwise iterate on the generator).
-- [ ] Dataset card complete; leakage check passes.
+- [x] Counts and filter rates reported; review acceptance ≥ 80% (otherwise iterate on the generator).
+- [x] Dataset card complete; leakage check passes.
 
 ## M4: Train v1 on Kaggle
 - Kernel files, first run, `summary.json`, val EX vs base model, export of the fine-tuned model with the proven path.

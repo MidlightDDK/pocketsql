@@ -1,0 +1,207 @@
+{
+ "reviewer": "Claude (claude-opus-5-5), 2026-09-26",
+ "sample": "50 kept pairs: 17 chinook, 17 penguins, 16 world_bank, drawn with random.Random('pocketsql-synth-review-v1:<db_id>') (synth.__main__.review_sample)",
+ "method": "Each pair's SQL was run on its database and the result read next to the question. Accept when the SQL returns what a reasonable analyst would read the question as asking on this data; reject ambiguous questions, wrong NULL handling, off-by-one periods, or an answer that would change on other data.",
+ "verdicts": {
+  "synth_chinook_0005": {
+   "accept": true,
+   "note": "ILIKE '%great%' also matches 'Greatest'; acceptable reading"
+  },
+  "synth_chinook_0009": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_chinook_0013": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_chinook_0024": {
+   "accept": false,
+   "note": "average skips the 4 empty playlists (622.5 instead of 484.17)"
+  },
+  "synth_chinook_0032": {
+   "accept": false,
+   "note": "a NULL billing state is ranked as a state (top row)"
+  },
+  "synth_chinook_0041": {
+   "accept": true,
+   "note": "two playlists named 'Music' are correctly kept apart"
+  },
+  "synth_chinook_0042": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_chinook_0065": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_chinook_0068": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_chinook_0100": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_chinook_0118": {
+   "accept": true,
+   "note": "substring match also counts 'Johnson'; acceptable reading"
+  },
+  "synth_chinook_0139": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_chinook_0153": {
+   "accept": true,
+   "note": "contrived question, but the SQL does what it asks"
+  },
+  "synth_chinook_0166": {
+   "accept": false,
+   "note": "'last 30 days of the year' coded as Dec 1-31 (31 days)"
+  },
+  "synth_chinook_0173": {
+   "accept": true,
+   "note": "rounds the share to 2 decimals though not asked"
+  },
+  "synth_chinook_0192": {
+   "accept": true,
+   "note": "billing country stands in for customer country"
+  },
+  "synth_chinook_0193": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0021": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0029": {
+   "accept": true,
+   "note": "wording mixes 'each year' with 'the lowest year'; SQL returns the lowest year, matching 'return year and average'"
+  },
+  "synth_penguins_0050": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0055": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0056": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0059": {
+   "accept": false,
+   "note": "ambiguous: the island-level condition is applied per island and species, and the average covers only the below-average penguins"
+  },
+  "synth_penguins_0074": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0083": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0091": {
+   "accept": false,
+   "note": "the 2 penguins with no bill depth fall into 'large' through ELSE"
+  },
+  "synth_penguins_0100": {
+   "accept": true,
+   "note": "includes the unknown-sex groups, which are combinations in the data"
+  },
+  "synth_penguins_0120": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0125": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0135": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0139": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0140": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0159": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_penguins_0177": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0013": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0014": {
+   "accept": false,
+   "note": "calls population / GDP 'population density': teaches a wrong meaning"
+  },
+  "synth_world_bank_0045": {
+   "accept": true,
+   "note": "unweighted mean over the region's countries; fair reading of 'together'"
+  },
+  "synth_world_bank_0055": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0061": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0069": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0073": {
+   "accept": true,
+   "note": "share of the 2022 rows, i.e. countries with 2022 data"
+  },
+  "synth_world_bank_0106": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0117": {
+   "accept": true,
+   "note": "sums whichever countries report each year; coverage barely changes"
+  },
+  "synth_world_bank_0119": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0136": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0144": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0156": {
+   "accept": true,
+   "note": ""
+  },
+  "synth_world_bank_0166": {
+   "accept": true,
+   "note": "contrived but precise"
+  },
+  "synth_world_bank_0176": {
+   "accept": true,
+   "note": "contrived but precise; Israel has no capital in the source data"
+  },
+  "synth_world_bank_0182": {
+   "accept": true,
+   "note": ""
+  }
+ }
+}

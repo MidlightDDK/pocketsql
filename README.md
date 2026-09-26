@@ -10,7 +10,7 @@ Spider + synthetic data → LoRA fine-tune of a sub-1B open model on Kaggle's fr
 
 ## Data
 
-Spider's SQLite databases and gold queries, converted to DuckDB and kept only when DuckDB returns the same result as SQLite: 7,376 train and 858 val pairs (val = 16 held-out databases), plus a 981-item Spider-dev test set in `evals/sets/`. Retention is 95.9% (train), 92.8% (val), and 94.9% (dev); per-database numbers are in `training/data/cards/stats.json`. Published as [MidlightDDK/pocketsql-data](https://huggingface.co/datasets/MidlightDDK/pocketsql-data). The app's demo databases (Chinook, Palmer penguins, World Bank indicators) are in `web/public/data/`.
+Spider's SQLite databases and gold queries, converted to DuckDB and kept only when DuckDB returns the same result as SQLite: 7,376 train and 858 val pairs (val = 16 held-out databases), plus a 981-item Spider-dev test set in `evals/sets/`. Retention is 95.9% (train), 92.8% (val), and 94.9% (dev); per-database numbers are in `training/data/cards/stats.json`. On top of that, 591 synthetic pairs over the three demo schemas: gpt-oss-120b writes questions with SQL, gpt-oss-20b and Qwen3.8-27B answer them independently, and a pair is kept only when 2 of the 3 queries return the same non-empty, order-independent result and it is not close to a test item (52% of 1,128 questions kept; a 50-pair review accepted 88%). Published as [MidlightDDK/pocketsql-data](https://huggingface.co/datasets/MidlightDDK/pocketsql-data). The app's demo databases (Chinook, Palmer penguins, World Bank indicators) are in `web/public/data/`.
 
 ## Repo layout
 
@@ -66,5 +66,6 @@ Code: MIT. Data:
 - [Chinook](https://github.com/lerocha/chinook-database): MIT.
 - [Palmer penguins](https://allisonhorst.github.io/palmerpenguins/) (Gorman, Williams & Fraser, 2014): CC0 1.0.
 - [World Development Indicators](https://datacatalog.worldbank.org/search/dataset/0037712), World Bank: CC BY 4.0 (snapshot retrieved 2026-09-26).
+- Synthetic pairs: generated with gpt-oss-120b and gpt-oss-20b (OpenAI) and Qwen3.8-27B (Qwen team), all Apache-2.0, through the Groq API (outputs belong to the customer under Groq's terms).
 
 Base model: [Qwen2.5-Coder-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-0.5B-Instruct) (Qwen team): Apache-2.0.

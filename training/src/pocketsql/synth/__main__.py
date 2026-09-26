@@ -7,7 +7,8 @@ Per schema, in rounds over TOPICS:
 3. A question is kept when at least 2 of the 3 SQL candidates return the same result,
    and that result is non-empty and deterministic (own_test's checks). The shortest
    agreeing SQL becomes the target.
-Then dedupe, drop test leakage, and keep the first --n per schema. Writes
+Then dedupe, drop test leakage, and keep the first --n per schema (--cached-only
+rebuilds from cached calls and stops a schema at its first uncached one). Writes
 processed/synth.jsonl (merged into train.jsonl), processed/synth_candidates.jsonl
 (every candidate and decision), processed/synth_review.jsonl (50 random kept pairs
 for review), and cards/synth_stats.json. All three generators are Apache-2.0.
@@ -36,7 +37,7 @@ from pocketsql.synth.filters import (
     unordered_limit,
     vote,
 )
-from pocketsql.synth.llm import Groq, QuotaExhausted, json_content
+from pocketsql.synth.llm import Groq, NotCached, QuotaExhausted, json_content
 
 
 class Topic(NamedTuple):
@@ -416,11 +417,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dbs", nargs="+", default=list(DEMO_DBS), choices=DEMO_DBS)
     parser.add_argument("--topics", nargs="+", choices=[t.name for t in TOPICS])
     parser.add_argument("--dry-run", action="store_true", help="print stats only")
+    parser.add_argument(
+        "--cached-only",
+        action="store_true",
+        help="no API calls: each schema stops at its first uncached call",
+    )
     args = parser.parse_args(argv)
 
     schemas = load_schemas()
     tests = [t for f in sorted(paths.EVAL_SETS.glob("*.jsonl")) for t in read_jsonl(f)]
-    groq = Groq()
+    groq = Groq(cached_only=args.cached_only)
     records: list[dict] = []
     try:
         for db_id in args.dbs:
@@ -444,19 +450,28 @@ def main(argv: list[str] | None = None) -> int:
                     and (not args.topics or t.name in args.topics)
                 ]
                 previous: dict[str, list[str]] = defaultdict(list)
-                for rnd in range(args.rounds):
-                    for topic in topics:
-                        items = generate(
-                            groq, schema, notes, topic, previous[topic.name]
-                        )
-                        for rec in run_batch(groq, db_id, schema, items, con, rev):
-                            records.append({**rec, "topic": topic.name, "round": rnd})
-                        previous[topic.name] += [str(i.get("question")) for i in items]
+                try:
+                    for rnd in range(args.rounds):
+                        for topic in topics:
+                            items = generate(
+                                groq, schema, notes, topic, previous[topic.name]
+                            )
+                            for rec in run_batch(groq, db_id, schema, items, con, rev):
+                                records.append(
+                                    {**rec, "topic": topic.name, "round": rnd}
+                                )
+                            previous[topic.name] += [
+                                str(i.get("question")) for i in items
+                            ]
+                        kept, _ = finalize(records, tests, args.n)
+                        have = sum(r["db_id"] == db_id for r in kept)
+                        print(f"{db_id} round {rnd + 1}: {have} kept", flush=True)
+                        if have >= args.n:
+                            break
+                except NotCached as e:
                     kept, _ = finalize(records, tests, args.n)
                     have = sum(r["db_id"] == db_id for r in kept)
-                    print(f"{db_id} round {rnd + 1}: {have} kept", flush=True)
-                    if have >= args.n:
-                        break
+                    print(f"{db_id}: {have} kept, stopped at an uncached {e} call")
     except QuotaExhausted as e:
         print(f"daily Groq quota spent ({e}); rerun later, cached calls are reused")
         return 2

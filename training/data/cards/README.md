@@ -26,16 +26,17 @@ configs:
 
 Question → DuckDB SQL pairs used to fine-tune [PocketSQL](https://github.com/MidlightDDK/pocketsql), a sub-1B model that writes DuckDB SQL in the browser. Every pair was checked by running it: the DuckDB query must return the same result as Spider's original SQLite query on the same data.
 
-**Version:** v0 (milestone M1): Spider-derived pairs only. Synthetic pairs for the app's demo schemas, with a manual review, are added in M3.
+**Version:** v1 (milestone M3): Spider-derived pairs plus 591 synthetic pairs for the app's three demo schemas, filtered by 3-model self-consistency and spot-reviewed (88% acceptance). v0 (Spider only) is the previous revision.
 
 ## Files
 
 | File | Rows | What |
 |---|---|---|
-| `train.jsonl` | 7,376 | Spider train pairs, 130 databases |
+| `train.jsonl` | 7,967 | 7,376 Spider train pairs (130 databases) + 591 synthetic pairs for the demo schemas (`source: synthetic`) |
 | `val.jsonl` | 858 | Spider train pairs from 16 held-out databases (no database is in both train and val) |
 | `spider_dev_duckdb.jsonl` | 981 | Spider dev pairs, 20 databases: the test set. Never used for training. |
 | `databases.zip` | 36 files | DuckDB files for the val and test databases, for execution scoring |
+| `synth_review.jsonl` | 50 | The reviewed sample of synthetic pairs, with each verdict (`accept`, `review_note`) |
 
 Train/val row: `{id, db_id, schema_text, question, sql, source, difficulty}`. Test row: `{id, db_id, question, gold_sql, gold_result_hash, difficulty}`. `difficulty` is Spider's official hardness (easy, medium, hard, extra), computed from Spider's parsed SQL.
 
@@ -51,6 +52,27 @@ Code: `training/src/pocketsql/data/` in the GitHub repo (`python -m pocketsql.da
 4. **Execution filter.** A pair is kept only if the DuckDB result equals the SQLite result: order matters only when the query has a top-level ORDER BY, floats match within 1e-6, and ints, floats, and numeric strings compare as numbers.
 5. **Dedupe and split.** 42 exact duplicates (same database, question, and SQL) were removed from train. Val is a seeded set of Spider train databases (about 10% of pairs).
 6. **Leakage check.** No train or val item shares a database and a normalized question or SQL with a test item, or has question token-Jaccard ≥ 0.9 with one (`python -m pocketsql.data.leakage`, run in CI against this dataset).
+
+## Synthetic pairs (demo schemas)
+
+The web app queries three small databases: Chinook (music store), Palmer penguins, and a World Bank indicators snapshot. Spider has nothing like them, so the model also trains on synthetic questions over these exact schemas. Code: `training/src/pocketsql/synth/` (`python -m pocketsql.synth --n 200`).
+
+1. **Questions.** gpt-oss-120b (temperature 1.0) writes batches of 20 difficulty-tagged questions with SQL for one of 11 topics (filters, aggregates, grouping, joins, subqueries, windows, time, conditional, multistep, sets, text), shown the schema, a few data notes, and the questions already asked on that topic.
+2. **Two more answers.** gpt-oss-20b and Qwen3.8-27B (temperature 0) answer the same questions independently from the schema alone.
+3. **Self-consistency filter.** A question is kept only when at least 2 of the 3 SQL candidates run and return the same result, and that result is non-empty, not all NULL, and deterministic: the same on a copy of the database with rows in reverse order, and unchanged when ties in a top-level `ORDER BY` are broken either way. The shortest agreeing SQL becomes the target.
+4. **Dedupe and leakage.** Repeated questions or SQL (normalized) and near-duplicate questions (token-Jaccard ≥ 0.9) on the same database are dropped (4 repeated SQL; no repeated questions), and so is anything close to a test item on the same database: the same normalized question or SQL, the same result as a test item's gold query, or question token-Jaccard ≥ 0.9.
+5. **Cap.** At most 200 pairs per schema, in generation order.
+
+| Schema | Questions | Agreed (≥ 2 of 3) | Dropped: leakage | Dropped: duplicate | Kept | Kept / questions |
+|---|---|---|---|---|---|---|
+| chinook | 478 | 218 | 11 | 2 | 200 | 41.8% |
+| penguins | 409 | 287 | 13 | 2 | 200 | 48.9% |
+| world_bank | 241 | 196 | 5 | 0 | 191 | 79.3% |
+| **total** | **1,128** | **701** | **29** | **4** | **591** | **52.4%** |
+
+Chinook and penguins reached the 200 cap (77 more agreed pairs were left over); world_bank stopped at 191 when the Groq free-tier daily token quota ran out, and the set was finalized from the cached calls. Of the questions that were not kept, 344 had fewer than 2 valid candidates (errors, empty or order-dependent results) and 83 had candidates that disagreed. Difficulty of the kept pairs: 180 easy, 199 medium, 167 hard, 45 extra. Per-model candidate validity and every decision are in `training/data/cards/synth_stats.json` and `processed/synth_candidates.jsonl` in the GitHub repo.
+
+**Review.** 50 kept pairs (17 chinook, 17 penguins, 16 world_bank, seeded random sample) were checked by running each SQL and reading its result next to the question. A pair is accepted when the SQL returns what a reasonable analyst would read the question as asking on this data; ambiguous questions, wrong NULL handling, off-by-one periods, and answers that would change on other data are rejected. **44/50 accepted (88%)**: chinook 14/17, penguins 15/17, world_bank 15/16. The rejections: an average that skips empty playlists, a NULL billing state ranked as a state, "last 30 days" coded as a 31-day month, an ambiguous nested penguin question, penguins with no bill depth bucketed as 'large' through `ELSE`, and a question that calls population ÷ GDP "population density". The review was done by Claude (claude-opus-5-5) on the project owner's instruction; verdicts are in `synth_review.jsonl`.
 
 ## Retention
 
@@ -78,6 +100,8 @@ Prompt + SQL length with the Qwen3 tokenizer: median 297 tokens, p95 701, max 2,
 ## License and attribution
 
 Derived from Spider (Yu et al., 2018), licensed CC BY-SA 4.0; this dataset keeps the same license.
+
+Synthetic pairs: generated with gpt-oss-120b, gpt-oss-20b (OpenAI, Apache-2.0), and Qwen3.8-27B (Qwen team, Apache-2.0) through the Groq API, whose terms leave outputs to the customer. The demo databases they are written against are Chinook (MIT), Palmer penguins (CC0 1.0), and World Bank World Development Indicators (CC BY 4.0).
 
 ```bibtex
 @inproceedings{yu-etal-2018-spider,
