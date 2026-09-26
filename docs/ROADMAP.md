@@ -80,9 +80,9 @@ training/runs/**
 ## M1: Data (Spider → DuckDB, serializer, splits)
 - Spider download (pinned URL + sha256; manual fallback), SQLite → DuckDB, sqlglot transpile + execution-equivalence filter, the serializer in Python and TS with golden fixtures and tokenization parity, train/val split, leakage check, stats; the 3 demo datasets as DuckDB files.
 Acceptance:
-- [ ] Retention rate per database reported; total train/val counts reported.
-- [ ] Golden-fixture and tokenization-parity tests pass in both languages.
-- [ ] The leakage check passes and runs in CI.
+- [x] Retention rate per database reported; total train/val counts reported.
+- [x] Golden-fixture and tokenization-parity tests pass in both languages.
+- [x] The leakage check passes and runs in CI.
 
 ## M2: Own test set, baselines, export spike
 - Claude drafts 120 questions + SQL over the demo schemas; the user verifies and edits; keep 100 as `own_test`. Scorer; Groq large-model baseline; zero-shot EX of 2–3 base candidates on 100 Spider-dev items + `own_test` (on Kaggle, or a CPU subset); export spike on each finalist.
