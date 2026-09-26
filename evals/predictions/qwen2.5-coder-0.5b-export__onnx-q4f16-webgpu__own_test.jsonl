@@ -9,7 +9,6 @@
 {"id":"own_chinook_11","sql":"SELECT T2.Name FROM PlaylistTrack AS T1 JOIN Track AS T2 ON T1.TrackId = T2.TrackId WHERE T2.Milliseconds / 60 > 20","latency_ms":1477.8,"tokens_out":39}
 {"id":"own_chinook_13","sql":"SELECT T2.GenreName, COUNT(T1.TrackId) FROM Album AS T1 JOIN InvoiceLine AS T2 ON T1.AlbumId = T2.AlbumId GROUP BY T2.GenreId","latency_ms":1698.1,"tokens_out":44}
 {"id":"own_chinook_14","sql":"SELECT T1.Name FROM Album AS T1 JOIN Artist AS T2 ON T1.ArtistId = T2.ArtistId GROUP BY T1.ArtistId ORDER BY COUNT(*) DESC LIMIT 1","latency_ms":1693.2,"tokens_out":42}
-{"id":"own_chinook_15","sql":"SELECT FirstName, LastName, SUM(InvoiceLine.Price * InvoiceLine.Quantity) AS TotalSpent\nFROM Customer\nJOIN InvoiceLine ON Customer.CustomerId = InvoiceLine.CustomerId\nGROUP BY Customer.CustomerId\nORDER BY TotalSpent DESC\nLIMIT 5;","latency_ms":2086.5,"tokens_out":54}
 {"id":"own_chinook_16","sql":"SELECT T1.Country, SUM(T2.Total) AS Revenue\nFROM Customer AS T1\nJOIN InvoiceLine AS T2 ON T1.CustomerId = T2.CustomerId\nGROUP BY T1.Country\nORDER BY Revenue DESC\nLIMIT 5;","latency_ms":2113.1,"tokens_out":52}
 {"id":"own_chinook_17","sql":"SELECT COUNT(*) FROM Invoice WHERE YEAR(InvoiceDate) = 2023","latency_ms":1051.9,"tokens_out":18}
 {"id":"own_chinook_18","sql":"```sql\nSELECT \n    YEAR(InvoiceDate) AS Year,\n    SUM(Total) AS TotalRevenue\nFROM \n    Invoice\nGROUP BY \n    Year;\n```","latency_ms":1560.7,"tokens_out":36}
@@ -98,3 +97,4 @@
 {"id":"own_penguins_28","sql":"SELECT species, island FROM penguins WHERE flipper_length_mm > (SELECT avg(flipper_length_mm) FROM penguins)","latency_ms":984.4,"tokens_out":27}
 {"id":"own_penguins_29","sql":"```sql\nSELECT \n    species,\n    AVG(bill_length_mm) AS avg_bill_length_mm,\n    RANK() OVER (ORDER BY avg_bill_length_mm DESC) AS rank\nFROM \n    penguins\nGROUP BY \n    species;\n```","latency_ms":1800.9,"tokens_out":52}
 {"id":"own_penguins_30","sql":"SELECT species, avg(body_mass_g) AS standard_deviation FROM penguins GROUP BY species;","latency_ms":743.1,"tokens_out":20}
+{"id":"own_chinook_15","sql":"SELECT FirstName, LastName, SUM(InvoiceLine.Price * InvoiceLine.Quantity) AS TotalSpent\nFROM Customer\nJOIN InvoiceLine ON Customer.CustomerId = InvoiceLine.CustomerId\nGROUP BY Customer.CustomerId\nORDER BY TotalSpent DESC\nLIMIT 3;","latency_ms":1312.2,"tokens_out":54}

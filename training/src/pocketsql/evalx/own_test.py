@@ -2,7 +2,9 @@
 
 Every gold query must execute, return a non-empty result that isn't all NULL, and be
 deterministic: it must give the same result on a copy of the database whose tables
-are stored in reverse row order (this catches ORDER BY ties and LIMIT boundaries).
+are stored in reverse row order, and an ORDER BY query must give the same rows when
+every output column is appended as an ascending or a descending tie-breaker (hash
+aggregates don't follow row order, so only the second check catches all ties).
 
 `python -m pocketsql.evalx.own_test [--write]`: --write refreshes gold_result_hash.
 """
@@ -12,6 +14,8 @@ import json
 from pathlib import Path
 
 import duckdb
+import sqlglot
+from sqlglot import exp
 
 from pocketsql.data import paths
 from pocketsql.data.convert import quote_ident
@@ -45,6 +49,24 @@ def reversed_copy(db_id: str) -> duckdb.DuckDBPyConnection:
     return con
 
 
+def tie_broken(sql: str, desc: bool) -> str:
+    """`sql` with every output column appended to its top-level ORDER BY."""
+    tree = sqlglot.parse_one(sql, read="duckdb")
+    order = tree.args["order"]
+    n = len(tree.selects) if isinstance(tree, exp.Query) else 0
+    order.set(
+        "expressions",
+        [
+            *order.expressions,
+            *(
+                exp.Ordered(this=exp.Literal.number(i), desc=desc)
+                for i in range(1, n + 1)
+            ),
+        ],
+    )
+    return tree.sql(dialect="duckdb")
+
+
 def check_item(
     item: dict, con: duckdb.DuckDBPyConnection, rev: duckdb.DuckDBPyConnection
 ) -> tuple[str | None, str | None]:
@@ -62,6 +84,10 @@ def check_item(
         return "all-NULL result", None
     if not results_match(rows, rev_rows, ordered):
         return "non-deterministic (ties or unordered LIMIT)", None
+    if ordered:
+        asc, desc = (run_duckdb(con, tie_broken(sql, d)) for d in (False, True))
+        if not results_match(asc, desc, True):
+            return "ORDER BY ties change the result", None
     return None, result_hash(rows, ordered)
 
 

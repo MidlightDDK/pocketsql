@@ -31,6 +31,16 @@ def test_own_test_items_check_out() -> None:
     assert own_test.check(items) == {}
 
 
+def test_tie_broken_appends_every_output_column() -> None:
+    sql = "SELECT a, sum(b) AS s FROM t GROUP BY a ORDER BY s DESC LIMIT 5"
+    assert own_test.tie_broken(sql, desc=True).endswith(
+        "ORDER BY s DESC, 1 DESC, 2 DESC LIMIT 5"
+    )
+    assert own_test.tie_broken(sql, desc=False).endswith(
+        "ORDER BY s DESC, 1 ASC, 2 ASC LIMIT 5"
+    )
+
+
 def test_sets_are_fixed() -> None:
     dev = load_set("spider_dev_100")
     assert len(dev) == 100 and dev == load_set("spider_dev_100")

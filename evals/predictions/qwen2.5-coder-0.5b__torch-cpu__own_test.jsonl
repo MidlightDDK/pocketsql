@@ -9,7 +9,6 @@
 {"id": "own_chinook_11", "sql": "SELECT T2.Name FROM Track AS T1 JOIN PlaylistTrack AS T2 ON T1.TrackId = T2.TrackId WHERE T1.Milliseconds > 20 * 60000", "latency_ms": 17203.8, "tokens_out": 42}
 {"id": "own_chinook_13", "sql": "SELECT T2.Name, COUNT(T1.TrackId) FROM Genre AS T1 JOIN Track AS T2 ON T1.GenreId = T2.GenreId GROUP BY T1.Name", "latency_ms": 17568.3, "tokens_out": 39}
 {"id": "own_chinook_14", "sql": "SELECT T2.Name FROM Artist AS T1 JOIN Album AS T2 ON T1.ArtistId = T2.ArtistId GROUP BY T1.ArtistId ORDER BY COUNT(*) DESC LIMIT 1", "latency_ms": 16549.9, "tokens_out": 42}
-{"id": "own_chinook_15", "sql": "SELECT FirstName, LastName, SUM(Total) AS TotalSpent\nFROM Customer\nGROUP BY FirstName, LastName\nORDER BY TotalSpent DESC\nLIMIT 5", "latency_ms": 13648.1, "tokens_out": 34}
 {"id": "own_chinook_16", "sql": "SELECT T2.Country, SUM(T1.Total) AS Revenue\nFROM InvoiceLine AS T1\nJOIN Invoice AS T2 ON T1.InvoiceId = T2.InvoiceId\nGROUP BY T2.Country\nORDER BY Revenue DESC\nLIMIT 5", "latency_ms": 14341.0, "tokens_out": 53}
 {"id": "own_chinook_17", "sql": "SELECT COUNT(*) FROM Invoice WHERE YEAR(InvoiceDate) = 2023", "latency_ms": 8019.9, "tokens_out": 18}
 {"id": "own_chinook_18", "sql": "SELECT YEAR(InvoiceDate) AS Year, SUM(Total) AS TotalRevenue\nFROM Invoice\nGROUP BY YEAR(InvoiceDate)\nORDER BY Year", "latency_ms": 10093.3, "tokens_out": 31}
@@ -98,3 +97,4 @@
 {"id": "own_penguins_28", "sql": "SELECT species, island FROM penguins WHERE flipper_length_mm > (SELECT avg(flipper_length_mm) FROM penguins)", "latency_ms": 3666.9, "tokens_out": 27}
 {"id": "own_penguins_29", "sql": "SELECT rank(), species, avg(bill_length_mm) FROM penguins ORDER BY avg(bill_length_mm) DESC", "latency_ms": 4058.5, "tokens_out": 24}
 {"id": "own_penguins_30", "sql": "SELECT species, STDDEV(body_mass_g) FROM penguins GROUP BY species", "latency_ms": 2485.4, "tokens_out": 16}
+{"id": "own_chinook_15", "sql": "SELECT FirstName, LastName, SUM(Total) AS TotalSpent\nFROM Customer\nGROUP BY CustomerId\nORDER BY TotalSpent DESC\nLIMIT 3", "latency_ms": 7622.2, "tokens_out": 33}
