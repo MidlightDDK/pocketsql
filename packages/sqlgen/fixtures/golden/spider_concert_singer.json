@@ -1,0 +1,119 @@
+{
+  "schema": {
+    "tables": [
+      {
+        "name": "concert",
+        "columns": [
+          {
+            "name": "concert_ID",
+            "type": "BIGINT"
+          },
+          {
+            "name": "concert_Name",
+            "type": "VARCHAR",
+            "examples": ["Week 1", "Auditions"]
+          },
+          {
+            "name": "Theme",
+            "type": "VARCHAR",
+            "examples": ["Bleeding Love", "Free choice"]
+          },
+          {
+            "name": "Stadium_ID",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Year",
+            "type": "BIGINT"
+          }
+        ]
+      },
+      {
+        "name": "singer",
+        "columns": [
+          {
+            "name": "Singer_ID",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Name",
+            "type": "VARCHAR",
+            "examples": ["Joe Sharp", "John Nizinik"]
+          },
+          {
+            "name": "Country",
+            "type": "VARCHAR",
+            "examples": ["France", "Netherlands"]
+          },
+          {
+            "name": "Song_Name",
+            "type": "VARCHAR",
+            "examples": ["Dangerous", "Gentleman"]
+          },
+          {
+            "name": "Song_release_year",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Age",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Is_male",
+            "type": "VARCHAR",
+            "examples": ["T", "F"]
+          }
+        ]
+      },
+      {
+        "name": "singer_in_concert",
+        "columns": [
+          {
+            "name": "concert_ID",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Singer_ID",
+            "type": "BIGINT"
+          }
+        ]
+      },
+      {
+        "name": "stadium",
+        "columns": [
+          {
+            "name": "Stadium_ID",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Location",
+            "type": "VARCHAR",
+            "examples": ["Alloa Athletic", "Arbroath"]
+          },
+          {
+            "name": "Name",
+            "type": "VARCHAR",
+            "examples": ["Balmoor", "Bayview Stadium"]
+          },
+          {
+            "name": "Capacity",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Highest",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Lowest",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Average",
+            "type": "BIGINT"
+          }
+        ]
+      }
+    ]
+  },
+  "question": "What is the average age of singers from France?"
+}

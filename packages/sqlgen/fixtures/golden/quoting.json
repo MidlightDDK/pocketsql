@@ -1,0 +1,22 @@
+{
+  "schema": {
+    "tables": [
+      {
+        "name": "order",
+        "columns": [
+          { "name": "Order ID", "type": "BIGINT" },
+          {
+            "name": "group",
+            "type": "VARCHAR",
+            "examples": ["O'Brien & Sons", "it's"]
+          },
+          { "name": "2nd_line", "type": "VARCHAR" },
+          { "name": "say \"hi\"", "type": "VARCHAR" },
+          { "name": "Select_Count", "type": "BIGINT" },
+          { "name": "_private", "type": "BIGINT" }
+        ]
+      }
+    ]
+  },
+  "question": "  Which groups placed more than 3 orders?  "
+}

@@ -1,0 +1,18 @@
+{
+  "schema": {
+    "tables": [
+      {
+        "name": "café",
+        "columns": [
+          {
+            "name": "città",
+            "type": "VARCHAR",
+            "examples": ["Zürich", "東京"]
+          },
+          { "name": "prix_€", "type": "DOUBLE" }
+        ]
+      }
+    ]
+  },
+  "question": "Quel est le prix moyen à Zürich ?"
+}

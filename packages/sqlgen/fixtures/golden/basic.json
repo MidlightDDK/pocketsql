@@ -1,0 +1,27 @@
+{
+  "schema": {
+    "tables": [
+      {
+        "name": "singer",
+        "columns": [
+          { "name": "singer_id", "type": "BIGINT" },
+          { "name": "name", "type": "VARCHAR" },
+          {
+            "name": "country",
+            "type": "VARCHAR",
+            "examples": ["France", "Netherlands"]
+          },
+          { "name": "age", "type": "BIGINT" }
+        ]
+      },
+      {
+        "name": "concert",
+        "columns": [
+          { "name": "concert_id", "type": "BIGINT" },
+          { "name": "year", "type": "BIGINT" }
+        ]
+      }
+    ]
+  },
+  "question": "How many singers are from France?"
+}

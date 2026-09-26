@@ -1,0 +1,13 @@
+CREATE TABLE Album (AlbumId BIGINT, Title VARCHAR, ArtistId BIGINT);
+CREATE TABLE Artist (ArtistId BIGINT, Name VARCHAR);
+CREATE TABLE Customer (CustomerId BIGINT, FirstName VARCHAR, LastName VARCHAR, Company VARCHAR /* e.g. 'Apple Inc.', 'Banco do Brasil S.A.' */, Address VARCHAR, City VARCHAR, State VARCHAR, Country VARCHAR, PostalCode VARCHAR, Phone VARCHAR, Fax VARCHAR /* e.g. '+1 (212) 221-4679', '+1 (408) 996-1011' */, Email VARCHAR, SupportRepId BIGINT);
+CREATE TABLE Employee (EmployeeId BIGINT, LastName VARCHAR /* e.g. 'Adams', 'Callahan' */, FirstName VARCHAR /* e.g. 'Andrew', 'Jane' */, Title VARCHAR /* e.g. 'Sales Support Agent', 'IT Staff' */, ReportsTo BIGINT, BirthDate TIMESTAMP, HireDate TIMESTAMP, Address VARCHAR /* e.g. '1111 6 Ave SW', '11120 Jasper Ave NW' */, City VARCHAR /* e.g. 'Calgary', 'Lethbridge' */, State VARCHAR /* e.g. 'AB' */, Country VARCHAR /* e.g. 'Canada' */, PostalCode VARCHAR /* e.g. 'T1H 1Y8', 'T1K 5N8' */, Phone VARCHAR /* e.g. '+1 (403) 262-3443', '+1 (403) 246-9887' */, Fax VARCHAR /* e.g. '+1 (403) 246-9899', '+1 (403) 262-3322' */, Email VARCHAR /* e.g. 'andrew@chinookcorp.com', 'jane@chinookcorp.com' */);
+CREATE TABLE Genre (GenreId BIGINT, Name VARCHAR);
+CREATE TABLE Invoice (InvoiceId BIGINT, CustomerId BIGINT, InvoiceDate TIMESTAMP, BillingAddress VARCHAR, BillingCity VARCHAR, BillingState VARCHAR, BillingCountry VARCHAR, BillingPostalCode VARCHAR, Total DOUBLE);
+CREATE TABLE InvoiceLine (InvoiceLineId BIGINT, InvoiceId BIGINT, TrackId BIGINT, UnitPrice DOUBLE, Quantity BIGINT);
+CREATE TABLE MediaType (MediaTypeId BIGINT, Name VARCHAR /* e.g. 'AAC audio file', 'MPEG audio file' */);
+CREATE TABLE Playlist (PlaylistId BIGINT, Name VARCHAR /* e.g. 'Audiobooks', 'Movies' */);
+CREATE TABLE PlaylistTrack (PlaylistId BIGINT, TrackId BIGINT);
+CREATE TABLE Track (TrackId BIGINT, Name VARCHAR, AlbumId BIGINT, MediaTypeId BIGINT, GenreId BIGINT, Composer VARCHAR, Milliseconds BIGINT, Bytes BIGINT, UnitPrice DOUBLE);
+
+Question: Which genre earned the most revenue in 2024?

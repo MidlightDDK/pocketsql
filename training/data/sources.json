@@ -1,0 +1,52 @@
+{
+  "spider": {
+    "description": "Spider 1.0: train, dev, and the SQLite databases (Yu et al., EMNLP 2018)",
+    "homepage": "https://yale-lily.github.io/spider",
+    "license": "CC BY-SA 4.0",
+    "file": "spider_data.zip",
+    "sha256": "00636695dabed6b5f4b8328a16b13e069a2f16591d5efcce57660669c85b121b",
+    "urls": [
+      "https://drive.usercontent.google.com/download?id=1403EGqzIDoHMdQF4c9Bkyl7dZLZ5Wt6J&export=download&confirm=t",
+      "https://huggingface.co/datasets/HAL-9001/spider-databases/resolve/4a01bbac6520cd35b216db9e1724e5e1ada60aa4/spider_data.zip"
+    ]
+  },
+  "chinook": {
+    "description": "Chinook sample database (digital music store), SQLite build",
+    "homepage": "https://github.com/lerocha/chinook-database",
+    "license": "MIT",
+    "file": "Chinook_Sqlite.sqlite",
+    "sha256": "7651ba378ac2fcd0dfc3c66fb101f7a7eed3ba39a612ec642b96e20702061f15",
+    "urls": [
+      "https://raw.githubusercontent.com/lerocha/chinook-database/7f67772503d71ba90f19283c38e93923addb43fa/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite"
+    ]
+  },
+  "penguins": {
+    "description": "Palmer Archipelago penguin measurements (Gorman, Williams & Fraser 2014), via the palmerpenguins R package",
+    "homepage": "https://allisonhorst.github.io/palmerpenguins/",
+    "license": "CC0 1.0",
+    "file": "penguins.csv",
+    "sha256": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+    "urls": [
+      "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/8957207b78d6ccd1b4654a9dd9c9041b657478ab/inst/extdata/penguins.csv"
+    ]
+  },
+  "world_bank": {
+    "description": "World Development Indicators snapshot through the World Bank API v2; the committed web/public/data/world_bank.duckdb is the frozen copy",
+    "homepage": "https://datacatalog.worldbank.org/search/dataset/0037712",
+    "license": "CC BY 4.0",
+    "retrieved": "2026-09-26",
+    "urls": [
+      "https://api.worldbank.org/v2/"
+    ],
+    "indicators": {
+      "population": "SP.POP.TOTL",
+      "gdp_usd": "NY.GDP.MKTP.CD",
+      "gdp_per_capita_usd": "NY.GDP.PCAP.CD",
+      "life_expectancy_years": "SP.DYN.LE00.IN",
+      "fertility_rate": "SP.DYN.TFRT.IN",
+      "urban_population_pct": "SP.URB.TOTL.IN.ZS",
+      "internet_users_pct": "IT.NET.USER.ZS",
+      "unemployment_pct": "SL.UEM.TOTL.ZS"
+    }
+  }
+}

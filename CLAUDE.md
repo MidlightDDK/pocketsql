@@ -86,7 +86,7 @@ When compacting, keep: the goal, current milestone, decisions and constraints, f
 
 ## Commands (create these scripts in M0; keep the names stable)
 - Setup: `uv sync --project training` · `pnpm i`
-- Data: `uv run --project training python -m pocketsql.data.prepare` · `uv run --project training python -m pocketsql.synth --n 200` (needs `GROQ_API_KEY`)
+- Data: `uv run --project training python -m pocketsql.data.prepare` · `uv run --project training python -m pocketsql.data.demo` · `uv run --project training python -m pocketsql.data.leakage [--from-hub]` · `uv run --project training python -m pocketsql.synth --n 200` (needs `GROQ_API_KEY`)
 - Python checks: `uv run --project training ruff check -q` · `uv run --project training pytest -q`
 - JS checks: `pnpm -s lint` · `pnpm -s typecheck` · `pnpm -s test` · `pnpm -s e2e`
 - Kaggle: `kaggle kernels push -p kaggle/train` (needs approval) · `kaggle kernels status majedazar/pocketsql-train` · `kaggle kernels output majedazar/pocketsql-train -p training/runs/<run_id>`

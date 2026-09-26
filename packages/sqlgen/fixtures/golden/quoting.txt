@@ -1,0 +1,3 @@
+CREATE TABLE "order" ("Order ID" BIGINT, "group" VARCHAR /* e.g. 'O''Brien & Sons', 'it''s' */, "2nd_line" VARCHAR, "say ""hi""" VARCHAR, Select_Count BIGINT, _private BIGINT);
+
+Question: Which groups placed more than 3 orders?

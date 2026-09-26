@@ -42,3 +42,4 @@ jobs:
       - run: uv run --project training ruff check -q
       - run: uv run --project training ruff format --check -q
       - run: uv run --project training pytest -q
+      - run: uv run --project training python -m pocketsql.data.leakage --from-hub

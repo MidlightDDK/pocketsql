@@ -1,0 +1,6 @@
+CREATE TABLE concert (concert_ID BIGINT, concert_Name VARCHAR /* e.g. 'Week 1', 'Auditions' */, Theme VARCHAR /* e.g. 'Bleeding Love', 'Free choice' */, Stadium_ID BIGINT, Year BIGINT);
+CREATE TABLE singer (Singer_ID BIGINT, Name VARCHAR /* e.g. 'Joe Sharp', 'John Nizinik' */, Country VARCHAR /* e.g. 'France', 'Netherlands' */, Song_Name VARCHAR /* e.g. 'Dangerous', 'Gentleman' */, Song_release_year BIGINT, Age BIGINT, Is_male VARCHAR /* e.g. 'T', 'F' */);
+CREATE TABLE singer_in_concert (concert_ID BIGINT, Singer_ID BIGINT);
+CREATE TABLE stadium (Stadium_ID BIGINT, Location VARCHAR /* e.g. 'Alloa Athletic', 'Arbroath' */, Name VARCHAR /* e.g. 'Balmoor', 'Bayview Stadium' */, Capacity BIGINT, Highest BIGINT, Lowest BIGINT, Average BIGINT);
+
+Question: What is the average age of singers from France?

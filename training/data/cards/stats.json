@@ -1,0 +1,2019 @@
+{
+  "spider_sha256": "00636695dabed6b5f4b8328a16b13e069a2f16591d5efcce57660669c85b121b",
+  "outputs": {
+    "train": 7376,
+    "val": 858,
+    "spider_dev_duckdb": 981
+  },
+  "by_split": {
+    "train": {
+      "databases": 130,
+      "pairs": 7733,
+      "kept": 7417,
+      "retention": 0.9591,
+      "dropped": {
+        "duckdb_error": 66,
+        "result_mismatch": 247,
+        "sqlite_error": 3
+      }
+    },
+    "val": {
+      "databases": 16,
+      "pairs": 926,
+      "kept": 859,
+      "retention": 0.9276,
+      "dropped": {
+        "duckdb_error": 14,
+        "result_mismatch": 53
+      }
+    },
+    "dev": {
+      "databases": 20,
+      "pairs": 1034,
+      "kept": 981,
+      "retention": 0.9487,
+      "dropped": {
+        "duckdb_error": 11,
+        "result_mismatch": 42
+      }
+    }
+  },
+  "train_duplicates_removed": 42,
+  "empty_results": {
+    "train+val": 1580,
+    "spider_dev_duckdb": 49
+  },
+  "difficulty": {
+    "train": {
+      "easy": 1741,
+      "medium": 2518,
+      "hard": 1614,
+      "extra": 1503
+    },
+    "val": {
+      "easy": 203,
+      "medium": 355,
+      "hard": 200,
+      "extra": 100
+    },
+    "spider_dev_duckdb": {
+      "easy": 236,
+      "medium": 433,
+      "hard": 164,
+      "extra": 148
+    }
+  },
+  "val_databases": [
+    "bike_1",
+    "coffee_shop",
+    "college_2",
+    "company_employee",
+    "cre_Docs_and_Epenses",
+    "debate",
+    "e_government",
+    "e_learning",
+    "farm",
+    "flight_1",
+    "match_season",
+    "news_report",
+    "phone_market",
+    "products_gen_characteristics",
+    "store_product",
+    "wrestler"
+  ],
+  "leakage_problems": 0,
+  "schema_chars": {
+    "p50": 738,
+    "p95": 2285,
+    "max": 6961
+  },
+  "databases": {
+    "academic": {
+      "split": "train",
+      "pairs": 181,
+      "kept": 181,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "activity_1": {
+      "split": "train",
+      "pairs": 88,
+      "kept": 81,
+      "retention": 0.9205,
+      "dropped": {
+        "result_mismatch": 7
+      },
+      "notes": []
+    },
+    "aircraft": {
+      "split": "train",
+      "pairs": 46,
+      "kept": 44,
+      "retention": 0.9565,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column match.Winning_Pilot: numbers stored as text read as BIGINT",
+        "column match.Winning_Aircraft: numbers stored as text read as BIGINT"
+      ]
+    },
+    "allergy_1": {
+      "split": "train",
+      "pairs": 98,
+      "kept": 98,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "apartment_rentals": {
+      "split": "train",
+      "pairs": 80,
+      "kept": 76,
+      "retention": 0.95,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": [
+        "column Apartments.room_count: numbers stored as text read as BIGINT",
+        "column View_Unit_Status.available_yn: numbers stored as text read as BIGINT"
+      ]
+    },
+    "architecture": {
+      "split": "train",
+      "pairs": 17,
+      "kept": 15,
+      "retention": 0.8824,
+      "dropped": {
+        "duckdb_error": 1,
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column architect.id: numbers stored as text read as BIGINT"
+      ]
+    },
+    "assets_maintenance": {
+      "split": "train",
+      "pairs": 31,
+      "kept": 30,
+      "retention": 0.9677,
+      "dropped": {
+        "sqlite_error": 1
+      },
+      "notes": [
+        "column Parts.chargeable_yn: numbers stored as text read as BIGINT",
+        "column Parts.chargeable_amount: numbers stored as text read as BIGINT",
+        "column Staff.gender: numbers stored as text read as BIGINT"
+      ]
+    },
+    "baseball_1": {
+      "split": "train",
+      "pairs": 82,
+      "kept": 69,
+      "retention": 0.8415,
+      "dropped": {
+        "result_mismatch": 11,
+        "duckdb_error": 2
+      },
+      "notes": [
+        "column all_star.gp: empty strings read as NULL",
+        "column all_star.starting_pos: empty strings read as NULL",
+        "column appearances.g_all: empty strings read as NULL",
+        "column appearances.gs: empty strings read as NULL",
+        "column appearances.g_defense: empty strings read as NULL",
+        "column appearances.g_dh: empty strings read as NULL",
+        "column appearances.g_ph: empty strings read as NULL",
+        "column appearances.g_pr: empty strings read as NULL",
+        "column batting.ab: empty strings read as NULL",
+        "column batting.r: empty strings read as NULL",
+        "column batting.h: empty strings read as NULL",
+        "column batting.double: empty strings read as NULL",
+        "column batting.triple: empty strings read as NULL",
+        "column batting.hr: empty strings read as NULL",
+        "column batting.rbi: empty strings read as NULL",
+        "column batting.sb: empty strings read as NULL",
+        "column batting.cs: empty strings read as NULL",
+        "column batting.bb: empty strings read as NULL",
+        "column batting.so: empty strings read as NULL",
+        "column batting.ibb: empty strings read as NULL",
+        "column batting.hbp: empty strings read as NULL",
+        "column batting.sh: empty strings read as NULL",
+        "column batting.sf: empty strings read as NULL",
+        "column batting.g_idp: empty strings read as NULL",
+        "column batting_postseason.cs: empty strings read as NULL",
+        "column batting_postseason.ibb: empty strings read as NULL",
+        "column batting_postseason.hbp: empty strings read as NULL",
+        "column batting_postseason.sh: empty strings read as NULL",
+        "column batting_postseason.sf: empty strings read as NULL",
+        "column batting_postseason.g_idp: empty strings read as NULL",
+        "column fielding.gs: empty strings read as NULL",
+        "column fielding.inn_outs: empty strings read as NULL",
+        "column fielding.po: empty strings read as NULL",
+        "column fielding.a: empty strings read as NULL",
+        "column fielding.e: empty strings read as NULL",
+        "column fielding.dp: empty strings read as NULL",
+        "column fielding.pb: empty strings read as NULL",
+        "column fielding.wp: empty strings read as NULL",
+        "column fielding.sb: empty strings read as NULL",
+        "column fielding.cs: empty strings read as NULL",
+        "column fielding.zr: empty strings read as NULL",
+        "column fielding_outfield.glf: empty strings read as NULL",
+        "column fielding_outfield.gcf: empty strings read as NULL",
+        "column fielding_outfield.grf: empty strings read as NULL",
+        "column fielding_postseason.gs: empty strings read as NULL",
+        "column fielding_postseason.inn_outs: empty strings read as NULL",
+        "column fielding_postseason.pb: empty strings read as NULL",
+        "column fielding_postseason.sb: empty strings read as NULL",
+        "column fielding_postseason.cs: empty strings read as NULL",
+        "column hall_of_fame.ballots: empty strings read as NULL",
+        "column hall_of_fame.needed: empty strings read as NULL",
+        "column hall_of_fame.votes: empty strings read as NULL",
+        "column manager.rank: empty strings read as NULL",
+        "column manager_award.notes: empty strings read as NULL",
+        "column pitching.ipouts: empty strings read as NULL",
+        "column pitching.baopp: empty strings read as NULL",
+        "column pitching.era: empty strings read as NULL",
+        "column pitching.ibb: empty strings read as NULL",
+        "column pitching.wp: empty strings read as NULL",
+        "column pitching.hbp: empty strings read as NULL",
+        "column pitching.bfp: empty strings read as NULL",
+        "column pitching.gf: empty strings read as NULL",
+        "column pitching.sh: empty strings read as NULL",
+        "column pitching.sf: empty strings read as NULL",
+        "column pitching.g_idp: empty strings read as NULL",
+        "column pitching_postseason.era: empty strings read as NULL",
+        "column pitching_postseason.ibb: empty strings read as NULL",
+        "column pitching_postseason.wp: empty strings read as NULL",
+        "column pitching_postseason.hbp: empty strings read as NULL",
+        "column pitching_postseason.bk: empty strings read as NULL",
+        "column pitching_postseason.bfp: empty strings read as NULL",
+        "column pitching_postseason.sh: empty strings read as NULL",
+        "column pitching_postseason.sf: empty strings read as NULL",
+        "column pitching_postseason.g_idp: empty strings read as NULL",
+        "column player.birth_year: empty strings read as NULL",
+        "column player.birth_month: empty strings read as NULL",
+        "column player.birth_day: empty strings read as NULL",
+        "column player.death_year: empty strings read as NULL",
+        "column player.death_month: empty strings read as NULL",
+        "column player.death_day: empty strings read as NULL",
+        "column player.weight: empty strings read as NULL",
+        "column player.height: empty strings read as NULL",
+        "column player_award_vote.votes_first: empty strings read as NULL",
+        "column team.ghome: empty strings read as NULL",
+        "column team.so: empty strings read as NULL",
+        "column team.sb: empty strings read as NULL",
+        "column team.cs: empty strings read as NULL",
+        "column team.hbp: empty strings read as NULL",
+        "column team.sf: empty strings read as NULL",
+        "column team.dp: empty strings read as NULL",
+        "column team.attendance: empty strings read as NULL"
+      ]
+    },
+    "battle_death": {
+      "split": "dev",
+      "pairs": 16,
+      "kept": 15,
+      "retention": 0.9375,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "behavior_monitoring": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 38,
+      "retention": 0.95,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column Teachers.gender: numbers stored as text read as BIGINT"
+      ]
+    },
+    "bike_1": {
+      "split": "val",
+      "pairs": 104,
+      "kept": 80,
+      "retention": 0.7692,
+      "dropped": {
+        "result_mismatch": 18,
+        "duckdb_error": 6
+      },
+      "notes": [
+        "column trip.zip_code kept as VARCHAR (declared BIGINT)",
+        "column weather.max_temperature_f: empty strings read as NULL",
+        "column weather.mean_temperature_f: empty strings read as NULL",
+        "column weather.min_temperature_f: empty strings read as NULL",
+        "column weather.max_dew_point_f: empty strings read as NULL",
+        "column weather.mean_dew_point_f: empty strings read as NULL",
+        "column weather.min_dew_point_f: empty strings read as NULL",
+        "column weather.max_humidity: empty strings read as NULL",
+        "column weather.mean_humidity: empty strings read as NULL",
+        "column weather.min_humidity: empty strings read as NULL",
+        "column weather.max_sea_level_pressure_inches: empty strings read as NULL",
+        "column weather.mean_sea_level_pressure_inches: empty strings read as NULL",
+        "column weather.min_sea_level_pressure_inches: empty strings read as NULL",
+        "column weather.max_visibility_miles: empty strings read as NULL",
+        "column weather.mean_visibility_miles: empty strings read as NULL",
+        "column weather.min_visibility_miles: empty strings read as NULL",
+        "column weather.max_wind_Speed_mph: empty strings read as NULL",
+        "column weather.mean_wind_speed_mph: empty strings read as NULL",
+        "column weather.max_gust_speed_mph: empty strings read as NULL",
+        "column weather.precipitation_inches kept as VARCHAR (declared BIGINT)",
+        "column weather.cloud_cover: empty strings read as NULL",
+        "column weather.wind_dir_degrees: empty strings read as NULL"
+      ]
+    },
+    "body_builder": {
+      "split": "train",
+      "pairs": 24,
+      "kept": 24,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "book_2": {
+      "split": "train",
+      "pairs": 21,
+      "kept": 20,
+      "retention": 0.9524,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "browser_web": {
+      "split": "train",
+      "pairs": 18,
+      "kept": 18,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "candidate_poll": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 38,
+      "retention": 0.95,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "car_1": {
+      "split": "dev",
+      "pairs": 92,
+      "kept": 86,
+      "retention": 0.9348,
+      "dropped": {
+        "duckdb_error": 6
+      },
+      "notes": [
+        "column car_makers.Country: numbers stored as text read as BIGINT"
+      ]
+    },
+    "chinook_1": {
+      "split": "train",
+      "pairs": 84,
+      "kept": 80,
+      "retention": 0.9524,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "cinema": {
+      "split": "train",
+      "pairs": 30,
+      "kept": 30,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "city_record": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column hosting_city.Host_City: numbers stored as text read as BIGINT"
+      ]
+    },
+    "climbing": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "club_1": {
+      "split": "train",
+      "pairs": 70,
+      "kept": 68,
+      "retention": 0.9714,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "coffee_shop": {
+      "split": "val",
+      "pairs": 18,
+      "kept": 18,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column shop.Num_of_staff: numbers stored as text read as BIGINT",
+        "column shop.Open_Year: numbers stored as text read as BIGINT"
+      ]
+    },
+    "college_1": {
+      "split": "train",
+      "pairs": 164,
+      "kept": 154,
+      "retention": 0.939,
+      "dropped": {
+        "result_mismatch": 10
+      },
+      "notes": [
+        "column CLASS.CLASS_CODE: numbers stored as text read as BIGINT",
+        "column CLASS.CLASS_SECTION: numbers stored as text read as BIGINT",
+        "column DEPARTMENT.DEPT_EXTENSION: numbers stored as text read as BIGINT",
+        "column ENROLL.CLASS_CODE: numbers stored as text read as BIGINT",
+        "column PROFESSOR.PROF_EXTENSION: numbers stored as text read as BIGINT",
+        "column STUDENT.STU_PHONE: numbers stored as text read as BIGINT"
+      ]
+    },
+    "college_2": {
+      "split": "val",
+      "pairs": 170,
+      "kept": 162,
+      "retention": 0.9529,
+      "dropped": {
+        "result_mismatch": 6,
+        "duckdb_error": 2
+      },
+      "notes": [
+        "column advisor.s_ID: numbers stored as text read as BIGINT",
+        "column advisor.i_ID: numbers stored as text read as BIGINT",
+        "column classroom.room_number: numbers stored as text read as BIGINT",
+        "column course.course_id: numbers stored as text read as BIGINT",
+        "column instructor.ID: numbers stored as text read as BIGINT",
+        "column prereq.course_id: numbers stored as text read as BIGINT",
+        "column prereq.prereq_id: numbers stored as text read as BIGINT",
+        "column section.course_id: numbers stored as text read as BIGINT",
+        "column section.sec_id: numbers stored as text read as BIGINT",
+        "column section.room_number: numbers stored as text read as BIGINT",
+        "column student.ID: numbers stored as text read as BIGINT",
+        "column takes.ID: numbers stored as text read as BIGINT",
+        "column takes.course_id: numbers stored as text read as BIGINT",
+        "column takes.sec_id: numbers stored as text read as BIGINT",
+        "column teaches.ID: numbers stored as text read as BIGINT",
+        "column teaches.course_id: numbers stored as text read as BIGINT",
+        "column teaches.sec_id: numbers stored as text read as BIGINT"
+      ]
+    },
+    "college_3": {
+      "split": "train",
+      "pairs": 74,
+      "kept": 56,
+      "retention": 0.7568,
+      "dropped": {
+        "duckdb_error": 6,
+        "result_mismatch": 12
+      },
+      "notes": []
+    },
+    "company_1": {
+      "split": "train",
+      "pairs": 7,
+      "kept": 7,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "company_employee": {
+      "split": "val",
+      "pairs": 16,
+      "kept": 15,
+      "retention": 0.9375,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "company_office": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 38,
+      "retention": 0.95,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column Companies.Market_Value_billion: numbers stored as text read as DOUBLE"
+      ]
+    },
+    "concert_singer": {
+      "split": "dev",
+      "pairs": 45,
+      "kept": 42,
+      "retention": 0.9333,
+      "dropped": {
+        "duckdb_error": 1,
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column singer.Is_male kept as VARCHAR (declared BIGINT)",
+        "column concert.Stadium_ID: numbers stored as text read as BIGINT",
+        "column concert.Year: numbers stored as text read as BIGINT",
+        "column singer.Song_release_year: numbers stored as text read as BIGINT",
+        "column singer_in_concert.Singer_ID: numbers stored as text read as BIGINT"
+      ]
+    },
+    "county_public_safety": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "course_teach": {
+      "split": "dev",
+      "pairs": 30,
+      "kept": 26,
+      "retention": 0.8667,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": [
+        "column teacher.Age: numbers stored as text read as BIGINT"
+      ]
+    },
+    "cre_Doc_Control_Systems": {
+      "split": "train",
+      "pairs": 33,
+      "kept": 33,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column Documents.receipt_number: numbers stored as text read as BIGINT"
+      ]
+    },
+    "cre_Doc_Template_Mgt": {
+      "split": "dev",
+      "pairs": 84,
+      "kept": 80,
+      "retention": 0.9524,
+      "dropped": {
+        "result_mismatch": 2,
+        "duckdb_error": 2
+      },
+      "notes": []
+    },
+    "cre_Doc_Tracking_DB": {
+      "split": "train",
+      "pairs": 90,
+      "kept": 90,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "cre_Docs_and_Epenses": {
+      "split": "val",
+      "pairs": 84,
+      "kept": 82,
+      "retention": 0.9762,
+      "dropped": {
+        "duckdb_error": 2
+      },
+      "notes": [
+        "column Accounts.Account_Details: numbers stored as text read as DOUBLE"
+      ]
+    },
+    "cre_Drama_Workshop_Groups": {
+      "split": "train",
+      "pairs": 82,
+      "kept": 80,
+      "retention": 0.9756,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column Addresses.Address_ID: numbers stored as text read as BIGINT",
+        "column Bookings.Workshop_Group_ID: numbers stored as text read as BIGINT",
+        "column Customers.Customer_ID: numbers stored as text read as BIGINT",
+        "column Invoices.Order_Quantity: numbers stored as text read as BIGINT",
+        "column Order_Items.Order_Quantity: numbers stored as text read as BIGINT",
+        "column Products.Product_ID: numbers stored as text read as BIGINT",
+        "column Ref_Service_Types.Service_Type_Code: numbers stored as text read as BIGINT",
+        "column Ref_Service_Types.Parent_Service_Type_Code: numbers stored as text read as BIGINT",
+        "column Services.Service_Type_Code: numbers stored as text read as BIGINT",
+        "column Stores.Store_ID: numbers stored as text read as BIGINT"
+      ]
+    },
+    "cre_Theme_park": {
+      "split": "train",
+      "pairs": 84,
+      "kept": 72,
+      "retention": 0.8571,
+      "dropped": {
+        "result_mismatch": 10,
+        "duckdb_error": 2
+      },
+      "notes": [
+        "column Hotels.price_range: empty strings read as NULL",
+        "column Hotels.star_rating_code: numbers stored as text read as BIGINT",
+        "column Ref_Attraction_Types.Attraction_Type_Code: numbers stored as text read as BIGINT",
+        "column Ref_Hotel_Star_Ratings.star_rating_code: numbers stored as text read as BIGINT",
+        "column Tourist_Attractions.Attraction_Type_Code: numbers stored as text read as BIGINT"
+      ]
+    },
+    "csu_1": {
+      "split": "train",
+      "pairs": 70,
+      "kept": 70,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "culture_company": {
+      "split": "train",
+      "pairs": 38,
+      "kept": 38,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column culture_company.book_club_id: numbers stored as text read as BIGINT",
+        "column culture_company.movie_id: numbers stored as text read as BIGINT"
+      ]
+    },
+    "customer_complaints": {
+      "split": "train",
+      "pairs": 46,
+      "kept": 38,
+      "retention": 0.8261,
+      "dropped": {
+        "result_mismatch": 8
+      },
+      "notes": [
+        "column Staff.gender: numbers stored as text read as BIGINT"
+      ]
+    },
+    "customer_deliveries": {
+      "split": "train",
+      "pairs": 16,
+      "kept": 15,
+      "retention": 0.9375,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column Trucks.truck_licence_number: numbers stored as text read as BIGINT"
+      ]
+    },
+    "customers_and_addresses": {
+      "split": "train",
+      "pairs": 88,
+      "kept": 82,
+      "retention": 0.9318,
+      "dropped": {
+        "duckdb_error": 2,
+        "result_mismatch": 4
+      },
+      "notes": [
+        "column Addresses.zip_postcode: numbers stored as text read as BIGINT",
+        "column Order_Items.order_quantity: numbers stored as text read as BIGINT"
+      ]
+    },
+    "customers_and_invoices": {
+      "split": "train",
+      "pairs": 82,
+      "kept": 76,
+      "retention": 0.9268,
+      "dropped": {
+        "result_mismatch": 4,
+        "duckdb_error": 2
+      },
+      "notes": [
+        "column Accounts.account_name: numbers stored as text read as BIGINT",
+        "column Customers.gender: numbers stored as text read as BIGINT",
+        "column Invoice_Line_Items.product_quantity: numbers stored as text read as BIGINT",
+        "column Order_Items.product_quantity: numbers stored as text read as BIGINT"
+      ]
+    },
+    "customers_and_products_contacts": {
+      "split": "train",
+      "pairs": 15,
+      "kept": 12,
+      "retention": 0.8,
+      "dropped": {
+        "result_mismatch": 1,
+        "duckdb_error": 2
+      },
+      "notes": [
+        "column Customers.customer_number: numbers stored as text read as BIGINT"
+      ]
+    },
+    "customers_campaigns_ecommerce": {
+      "split": "train",
+      "pairs": 15,
+      "kept": 15,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column Customer_Orders.order_shipping_charges: numbers stored as text read as DOUBLE",
+        "column Order_Items.item_order_quantity: numbers stored as text read as BIGINT"
+      ]
+    },
+    "customers_card_transactions": {
+      "split": "train",
+      "pairs": 80,
+      "kept": 75,
+      "retention": 0.9375,
+      "dropped": {
+        "result_mismatch": 5
+      },
+      "notes": [
+        "column Customers_Cards.card_number: numbers stored as text read as BIGINT",
+        "column Customers_Cards.other_card_details: numbers stored as text read as BIGINT"
+      ]
+    },
+    "debate": {
+      "split": "val",
+      "pairs": 15,
+      "kept": 14,
+      "retention": 0.9333,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column debate_people.If_Affirmative_Win kept as VARCHAR (declared BIGINT)"
+      ]
+    },
+    "decoration_competition": {
+      "split": "train",
+      "pairs": 15,
+      "kept": 15,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "department_management": {
+      "split": "train",
+      "pairs": 16,
+      "kept": 16,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column department.Creation: numbers stored as text read as BIGINT"
+      ]
+    },
+    "department_store": {
+      "split": "train",
+      "pairs": 88,
+      "kept": 84,
+      "retention": 0.9545,
+      "dropped": {
+        "duckdb_error": 2,
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column Customers.customer_code: numbers stored as text read as BIGINT",
+        "column Product_Suppliers.total_amount_purchased: numbers stored as text read as DOUBLE",
+        "column Staff.staff_gender: numbers stored as text read as BIGINT"
+      ]
+    },
+    "device": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "document_management": {
+      "split": "train",
+      "pairs": 44,
+      "kept": 38,
+      "retention": 0.8636,
+      "dropped": {
+        "sqlite_error": 2,
+        "result_mismatch": 4
+      },
+      "notes": [
+        "column Document_Functional_Areas.document_code: numbers stored as text read as BIGINT",
+        "column Document_Functional_Areas.functional_area_code: numbers stored as text read as BIGINT",
+        "column Document_Sections.document_code: numbers stored as text read as BIGINT",
+        "column Document_Sections.section_code: numbers stored as text read as BIGINT",
+        "column Document_Structures.document_structure_code: numbers stored as text read as BIGINT",
+        "column Document_Structures.parent_document_structure_code: numbers stored as text read as BIGINT",
+        "column Documents.document_code: numbers stored as text read as BIGINT",
+        "column Documents.document_structure_code: numbers stored as text read as BIGINT",
+        "column Functional_Areas.functional_area_code: numbers stored as text read as BIGINT",
+        "column Functional_Areas.parent_functional_area_code: numbers stored as text read as BIGINT",
+        "column Users.user_login: numbers stored as text read as BIGINT"
+      ]
+    },
+    "dog_kennels": {
+      "split": "dev",
+      "pairs": 82,
+      "kept": 82,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column Dogs.abandoned_yn: numbers stored as text read as BIGINT",
+        "column Dogs.age: numbers stored as text read as BIGINT",
+        "column Dogs.gender: numbers stored as text read as BIGINT",
+        "column Dogs.weight: numbers stored as text read as DOUBLE"
+      ]
+    },
+    "dorm_1": {
+      "split": "train",
+      "pairs": 100,
+      "kept": 96,
+      "retention": 0.96,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "driving_school": {
+      "split": "train",
+      "pairs": 93,
+      "kept": 93,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column Lessons.lesson_time: numbers stored as text read as BIGINT"
+      ]
+    },
+    "e_government": {
+      "split": "val",
+      "pairs": 40,
+      "kept": 36,
+      "retention": 0.9,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": [
+        "column Forms.form_number: numbers stored as text read as BIGINT",
+        "column Organizations.uk_vat_number: numbers stored as text read as BIGINT"
+      ]
+    },
+    "e_learning": {
+      "split": "val",
+      "pairs": 82,
+      "kept": 80,
+      "retention": 0.9756,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column Course_Authors_and_Tutors.author_tutor_ATB: numbers stored as text read as BIGINT",
+        "column Course_Authors_and_Tutors.gender_mf: numbers stored as text read as BIGINT"
+      ]
+    },
+    "election": {
+      "split": "train",
+      "pairs": 68,
+      "kept": 68,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "election_representative": {
+      "split": "train",
+      "pairs": 20,
+      "kept": 20,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "employee_hire_evaluation": {
+      "split": "dev",
+      "pairs": 38,
+      "kept": 38,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column hiring.Is_full_time kept as VARCHAR (declared BIGINT)",
+        "column evaluation.Employee_ID: numbers stored as text read as BIGINT",
+        "column evaluation.Year_awarded: numbers stored as text read as BIGINT",
+        "column hiring.Start_from: numbers stored as text read as BIGINT"
+      ]
+    },
+    "entertainment_awards": {
+      "split": "train",
+      "pairs": 22,
+      "kept": 21,
+      "retention": 0.9545,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "entrepreneur": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "epinions_1": {
+      "split": "train",
+      "pairs": 30,
+      "kept": 30,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "farm": {
+      "split": "val",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "film_rank": {
+      "split": "train",
+      "pairs": 48,
+      "kept": 44,
+      "retention": 0.9167,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "flight_1": {
+      "split": "val",
+      "pairs": 96,
+      "kept": 88,
+      "retention": 0.9167,
+      "dropped": {
+        "result_mismatch": 8
+      },
+      "notes": [
+        "column flight.departure_date kept as VARCHAR (declared DATE)",
+        "column flight.arrival_date kept as VARCHAR (declared DATE)"
+      ]
+    },
+    "flight_2": {
+      "split": "dev",
+      "pairs": 80,
+      "kept": 76,
+      "retention": 0.95,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "flight_4": {
+      "split": "train",
+      "pairs": 82,
+      "kept": 72,
+      "retention": 0.878,
+      "dropped": {
+        "result_mismatch": 10
+      },
+      "notes": []
+    },
+    "flight_company": {
+      "split": "train",
+      "pairs": 19,
+      "kept": 18,
+      "retention": 0.9474,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "formula_1": {
+      "split": "train",
+      "pairs": 80,
+      "kept": 74,
+      "retention": 0.925,
+      "dropped": {
+        "duckdb_error": 4,
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column results.number: empty strings read as NULL",
+        "column results.laps: numbers stored as text read as BIGINT"
+      ]
+    },
+    "game_1": {
+      "split": "train",
+      "pairs": 86,
+      "kept": 82,
+      "retention": 0.9535,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "game_injury": {
+      "split": "train",
+      "pairs": 19,
+      "kept": 18,
+      "retention": 0.9474,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "gas_company": {
+      "split": "train",
+      "pairs": 46,
+      "kept": 44,
+      "retention": 0.9565,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "geo": {
+      "split": "train",
+      "pairs": 564,
+      "kept": 564,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "gymnast": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 38,
+      "retention": 0.95,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "hospital_1": {
+      "split": "train",
+      "pairs": 100,
+      "kept": 97,
+      "retention": 0.97,
+      "dropped": {
+        "result_mismatch": 3
+      },
+      "notes": [
+        "column Prescribes.Dose: numbers stored as text read as BIGINT"
+      ]
+    },
+    "hr_1": {
+      "split": "train",
+      "pairs": 124,
+      "kept": 100,
+      "retention": 0.8065,
+      "dropped": {
+        "duckdb_error": 14,
+        "result_mismatch": 10
+      },
+      "notes": [
+        "column job_history.START_DATE kept as VARCHAR (declared DATE)",
+        "column job_history.END_DATE kept as VARCHAR (declared DATE)"
+      ]
+    },
+    "icfp_1": {
+      "split": "train",
+      "pairs": 66,
+      "kept": 66,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "imdb": {
+      "split": "train",
+      "pairs": 109,
+      "kept": 109,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "inn_1": {
+      "split": "train",
+      "pairs": 74,
+      "kept": 70,
+      "retention": 0.9459,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "insurance_and_eClaims": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "insurance_fnol": {
+      "split": "train",
+      "pairs": 42,
+      "kept": 40,
+      "retention": 0.9524,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "insurance_policies": {
+      "split": "train",
+      "pairs": 48,
+      "kept": 48,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "journal_committee": {
+      "split": "train",
+      "pairs": 18,
+      "kept": 17,
+      "retention": 0.9444,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "loan_1": {
+      "split": "train",
+      "pairs": 80,
+      "kept": 80,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column customer.cust_ID: numbers stored as text read as BIGINT",
+        "column loan.loan_ID: numbers stored as text read as BIGINT",
+        "column loan.cust_ID: numbers stored as text read as BIGINT",
+        "column loan.branch_ID: numbers stored as text read as BIGINT"
+      ]
+    },
+    "local_govt_and_lot": {
+      "split": "train",
+      "pairs": 17,
+      "kept": 15,
+      "retention": 0.8824,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "local_govt_in_alabama": {
+      "split": "train",
+      "pairs": 15,
+      "kept": 14,
+      "retention": 0.9333,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "local_govt_mdm": {
+      "split": "train",
+      "pairs": 14,
+      "kept": 14,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "machine_repair": {
+      "split": "train",
+      "pairs": 30,
+      "kept": 30,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "manufactory_1": {
+      "split": "train",
+      "pairs": 80,
+      "kept": 76,
+      "retention": 0.95,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "manufacturer": {
+      "split": "train",
+      "pairs": 16,
+      "kept": 15,
+      "retention": 0.9375,
+      "dropped": {
+        "duckdb_error": 1
+      },
+      "notes": []
+    },
+    "match_season": {
+      "split": "val",
+      "pairs": 58,
+      "kept": 58,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "medicine_enzyme_interaction": {
+      "split": "train",
+      "pairs": 44,
+      "kept": 42,
+      "retention": 0.9545,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "mountain_photos": {
+      "split": "train",
+      "pairs": 17,
+      "kept": 16,
+      "retention": 0.9412,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "movie_1": {
+      "split": "train",
+      "pairs": 98,
+      "kept": 82,
+      "retention": 0.8367,
+      "dropped": {
+        "duckdb_error": 6,
+        "result_mismatch": 10
+      },
+      "notes": []
+    },
+    "museum_visit": {
+      "split": "dev",
+      "pairs": 18,
+      "kept": 17,
+      "retention": 0.9444,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column museum.Open_Year: numbers stored as text read as BIGINT",
+        "column visit.visitor_ID: numbers stored as text read as BIGINT"
+      ]
+    },
+    "music_1": {
+      "split": "train",
+      "pairs": 100,
+      "kept": 90,
+      "retention": 0.9,
+      "dropped": {
+        "duckdb_error": 2,
+        "result_mismatch": 8
+      },
+      "notes": [
+        "column song.releasedate kept as VARCHAR (declared DATE)",
+        "column genre.rating: numbers stored as text read as BIGINT"
+      ]
+    },
+    "music_2": {
+      "split": "train",
+      "pairs": 100,
+      "kept": 100,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "music_4": {
+      "split": "train",
+      "pairs": 60,
+      "kept": 60,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "musical": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "network_1": {
+      "split": "dev",
+      "pairs": 56,
+      "kept": 52,
+      "retention": 0.9286,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "network_2": {
+      "split": "train",
+      "pairs": 86,
+      "kept": 86,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "news_report": {
+      "split": "val",
+      "pairs": 18,
+      "kept": 17,
+      "retention": 0.9444,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column journalist.Age: numbers stored as text read as BIGINT"
+      ]
+    },
+    "orchestra": {
+      "split": "dev",
+      "pairs": 40,
+      "kept": 34,
+      "retention": 0.85,
+      "dropped": {
+        "duckdb_error": 2,
+        "result_mismatch": 4
+      },
+      "notes": [
+        "column show.If_first_show kept as VARCHAR (declared BIGINT)"
+      ]
+    },
+    "party_host": {
+      "split": "train",
+      "pairs": 30,
+      "kept": 30,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column party_host.Is_Main_in_Charge kept as VARCHAR (declared BIGINT)",
+        "column host.Age: numbers stored as text read as BIGINT",
+        "column party.First_year: numbers stored as text read as BIGINT",
+        "column party.Last_year: numbers stored as text read as BIGINT"
+      ]
+    },
+    "party_people": {
+      "split": "train",
+      "pairs": 44,
+      "kept": 44,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column member.Party_ID: numbers stored as text read as BIGINT",
+        "column party.Took_office: numbers stored as text read as BIGINT",
+        "column party.Left_office: numbers stored as text read as BIGINT"
+      ]
+    },
+    "performance_attendance": {
+      "split": "train",
+      "pairs": 15,
+      "kept": 13,
+      "retention": 0.8667,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column member.Member_ID: numbers stored as text read as BIGINT"
+      ]
+    },
+    "perpetrator": {
+      "split": "train",
+      "pairs": 21,
+      "kept": 21,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "pets_1": {
+      "split": "dev",
+      "pairs": 42,
+      "kept": 42,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "phone_1": {
+      "split": "train",
+      "pairs": 29,
+      "kept": 29,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column phone.screen_mode: numbers stored as text read as BIGINT"
+      ]
+    },
+    "phone_market": {
+      "split": "val",
+      "pairs": 15,
+      "kept": 14,
+      "retention": 0.9333,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column phone_market.Phone_ID: numbers stored as text read as BIGINT"
+      ]
+    },
+    "pilot_record": {
+      "split": "train",
+      "pairs": 15,
+      "kept": 14,
+      "retention": 0.9333,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "poker_player": {
+      "split": "dev",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "product_catalog": {
+      "split": "train",
+      "pairs": 42,
+      "kept": 40,
+      "retention": 0.9524,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column Catalog_Contents.capacity: numbers stored as text read as BIGINT",
+        "column Catalog_Contents.length: numbers stored as text read as BIGINT",
+        "column Catalog_Contents.height: numbers stored as text read as BIGINT",
+        "column Catalog_Contents.width: numbers stored as text read as BIGINT",
+        "column Catalog_Contents_Additional_Attributes.attribute_value: numbers stored as text read as BIGINT"
+      ]
+    },
+    "products_for_hire": {
+      "split": "train",
+      "pairs": 18,
+      "kept": 17,
+      "retention": 0.9444,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column Bookings.returned_damaged_yn: numbers stored as text read as BIGINT",
+        "column Bookings.count_hired: numbers stored as text read as BIGINT",
+        "column Customers.gender_mf: numbers stored as text read as BIGINT",
+        "column Payments.amount_paid_in_full_yn: numbers stored as text read as BIGINT",
+        "column Products_Booked.returned_yn: numbers stored as text read as BIGINT",
+        "column Products_Booked.returned_late_yn: numbers stored as text read as BIGINT",
+        "column View_Product_Availability.available_yn: numbers stored as text read as BIGINT"
+      ]
+    },
+    "products_gen_characteristics": {
+      "split": "val",
+      "pairs": 86,
+      "kept": 82,
+      "retention": 0.9535,
+      "dropped": {
+        "duckdb_error": 2,
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column Products.color_code: numbers stored as text read as BIGINT",
+        "column Ref_Colors.color_code: numbers stored as text read as BIGINT"
+      ]
+    },
+    "program_share": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 39,
+      "retention": 0.975,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "protein_institute": {
+      "split": "train",
+      "pairs": 20,
+      "kept": 20,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column Institution.Institution_id: numbers stored as text read as BIGINT",
+        "column Institution.building_id: numbers stored as text read as BIGINT",
+        "column building.building_id: numbers stored as text read as BIGINT",
+        "column protein.Institution_id: numbers stored as text read as BIGINT"
+      ]
+    },
+    "race_track": {
+      "split": "train",
+      "pairs": 42,
+      "kept": 42,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column race.Track_ID: numbers stored as text read as BIGINT"
+      ]
+    },
+    "railway": {
+      "split": "train",
+      "pairs": 21,
+      "kept": 20,
+      "retention": 0.9524,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column manager.Working_year_starts: numbers stored as text read as BIGINT",
+        "column railway_manage.From_Year: numbers stored as text read as BIGINT",
+        "column train.Train_Num: numbers stored as text read as BIGINT"
+      ]
+    },
+    "real_estate_properties": {
+      "split": "dev",
+      "pairs": 4,
+      "kept": 4,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "restaurant_1": {
+      "split": "train",
+      "pairs": 22,
+      "kept": 21,
+      "retention": 0.9545,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "restaurants": {
+      "split": "train",
+      "pairs": 125,
+      "kept": 125,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "riding_club": {
+      "split": "train",
+      "pairs": 17,
+      "kept": 16,
+      "retention": 0.9412,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "roller_coaster": {
+      "split": "train",
+      "pairs": 17,
+      "kept": 17,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column roller_coaster.Speed: numbers stored as text read as DOUBLE"
+      ]
+    },
+    "sakila_1": {
+      "split": "train",
+      "pairs": 82,
+      "kept": 74,
+      "retention": 0.9024,
+      "dropped": {
+        "result_mismatch": 6,
+        "duckdb_error": 2
+      },
+      "notes": [
+        "column film.release_year: numbers stored as text read as BIGINT"
+      ]
+    },
+    "scholar": {
+      "split": "train",
+      "pairs": 569,
+      "kept": 568,
+      "retention": 0.9982,
+      "dropped": {
+        "duckdb_error": 1
+      },
+      "notes": []
+    },
+    "school_bus": {
+      "split": "train",
+      "pairs": 18,
+      "kept": 18,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column school_bus.If_full_time kept as VARCHAR (declared BIGINT)"
+      ]
+    },
+    "school_finance": {
+      "split": "train",
+      "pairs": 26,
+      "kept": 24,
+      "retention": 0.9231,
+      "dropped": {
+        "duckdb_error": 1,
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column School.School_id: numbers stored as text read as BIGINT",
+        "column budget.Budget_invested_percent: numbers stored as text read as DOUBLE"
+      ]
+    },
+    "school_player": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "scientist_1": {
+      "split": "train",
+      "pairs": 48,
+      "kept": 48,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "ship_1": {
+      "split": "train",
+      "pairs": 48,
+      "kept": 46,
+      "retention": 0.9583,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column captain.age: numbers stored as text read as BIGINT"
+      ]
+    },
+    "ship_mission": {
+      "split": "train",
+      "pairs": 30,
+      "kept": 30,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "shop_membership": {
+      "split": "train",
+      "pairs": 44,
+      "kept": 34,
+      "retention": 0.7727,
+      "dropped": {
+        "result_mismatch": 10
+      },
+      "notes": [
+        "column branch.Open_year: numbers stored as text read as BIGINT",
+        "column branch.membership_amount: numbers stored as text read as BIGINT",
+        "column membership_register_branch.Branch_ID: numbers stored as text read as BIGINT",
+        "column membership_register_branch.Register_Year: numbers stored as text read as BIGINT",
+        "column purchase.Branch_ID: numbers stored as text read as BIGINT",
+        "column purchase.Year: numbers stored as text read as BIGINT"
+      ]
+    },
+    "singer": {
+      "split": "dev",
+      "pairs": 30,
+      "kept": 30,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "small_bank_1": {
+      "split": "train",
+      "pairs": 50,
+      "kept": 50,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "soccer_1": {
+      "split": "train",
+      "pairs": 14,
+      "kept": 12,
+      "retention": 0.8571,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "soccer_2": {
+      "split": "train",
+      "pairs": 106,
+      "kept": 104,
+      "retention": 0.9811,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "solvency_ii": {
+      "split": "train",
+      "pairs": 15,
+      "kept": 14,
+      "retention": 0.9333,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "sports_competition": {
+      "split": "train",
+      "pairs": 52,
+      "kept": 52,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column club.Start_year: numbers stored as text read as BIGINT"
+      ]
+    },
+    "station_weather": {
+      "split": "train",
+      "pairs": 16,
+      "kept": 15,
+      "retention": 0.9375,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "store_1": {
+      "split": "train",
+      "pairs": 112,
+      "kept": 103,
+      "retention": 0.9196,
+      "dropped": {
+        "result_mismatch": 7,
+        "duckdb_error": 2
+      },
+      "notes": []
+    },
+    "store_product": {
+      "split": "val",
+      "pairs": 44,
+      "kept": 41,
+      "retention": 0.9318,
+      "dropped": {
+        "result_mismatch": 1,
+        "duckdb_error": 2
+      },
+      "notes": []
+    },
+    "storm_record": {
+      "split": "train",
+      "pairs": 44,
+      "kept": 43,
+      "retention": 0.9773,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "student_1": {
+      "split": "train",
+      "pairs": 68,
+      "kept": 68,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "student_assessment": {
+      "split": "train",
+      "pairs": 53,
+      "kept": 53,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": [
+        "column Courses.course_id: numbers stored as text read as BIGINT"
+      ]
+    },
+    "student_transcripts_tracking": {
+      "split": "dev",
+      "pairs": 78,
+      "kept": 73,
+      "retention": 0.9359,
+      "dropped": {
+        "result_mismatch": 5
+      },
+      "notes": []
+    },
+    "swimming": {
+      "split": "train",
+      "pairs": 30,
+      "kept": 29,
+      "retention": 0.9667,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": [
+        "column event.Year: numbers stored as text read as BIGINT"
+      ]
+    },
+    "theme_gallery": {
+      "split": "train",
+      "pairs": 40,
+      "kept": 40,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "tracking_grants_for_research": {
+      "split": "train",
+      "pairs": 78,
+      "kept": 76,
+      "retention": 0.9744,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "tracking_orders": {
+      "split": "train",
+      "pairs": 60,
+      "kept": 52,
+      "retention": 0.8667,
+      "dropped": {
+        "result_mismatch": 8
+      },
+      "notes": []
+    },
+    "tracking_share_transactions": {
+      "split": "train",
+      "pairs": 41,
+      "kept": 30,
+      "retention": 0.7317,
+      "dropped": {
+        "duckdb_error": 10,
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "tracking_software_problems": {
+      "split": "train",
+      "pairs": 48,
+      "kept": 46,
+      "retention": 0.9583,
+      "dropped": {
+        "duckdb_error": 2
+      },
+      "notes": []
+    },
+    "train_station": {
+      "split": "train",
+      "pairs": 23,
+      "kept": 23,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "tvshow": {
+      "split": "dev",
+      "pairs": 62,
+      "kept": 60,
+      "retention": 0.9677,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": [
+        "column Cartoon.Channel: numbers stored as text read as BIGINT",
+        "column TV_Channel.id: numbers stored as text read as BIGINT",
+        "column TV_series.Rating: numbers stored as text read as DOUBLE",
+        "column TV_series.Viewers_m: numbers stored as text read as DOUBLE",
+        "column TV_series.Channel: numbers stored as text read as BIGINT"
+      ]
+    },
+    "twitter_1": {
+      "split": "train",
+      "pairs": 27,
+      "kept": 27,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "university_basketball": {
+      "split": "train",
+      "pairs": 46,
+      "kept": 44,
+      "retention": 0.9565,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "voter_1": {
+      "split": "dev",
+      "pairs": 15,
+      "kept": 14,
+      "retention": 0.9333,
+      "dropped": {
+        "result_mismatch": 1
+      },
+      "notes": []
+    },
+    "voter_2": {
+      "split": "train",
+      "pairs": 72,
+      "kept": 70,
+      "retention": 0.9722,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "wedding": {
+      "split": "train",
+      "pairs": 20,
+      "kept": 20,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    },
+    "wine_1": {
+      "split": "train",
+      "pairs": 82,
+      "kept": 74,
+      "retention": 0.9024,
+      "dropped": {
+        "result_mismatch": 6,
+        "duckdb_error": 2
+      },
+      "notes": [
+        "column wine.Cases kept as VARCHAR (declared BIGINT)"
+      ]
+    },
+    "workshop_paper": {
+      "split": "train",
+      "pairs": 30,
+      "kept": 28,
+      "retention": 0.9333,
+      "dropped": {
+        "result_mismatch": 2
+      },
+      "notes": []
+    },
+    "world_1": {
+      "split": "dev",
+      "pairs": 120,
+      "kept": 116,
+      "retention": 0.9667,
+      "dropped": {
+        "result_mismatch": 4
+      },
+      "notes": []
+    },
+    "wrestler": {
+      "split": "val",
+      "pairs": 40,
+      "kept": 32,
+      "retention": 0.8,
+      "dropped": {
+        "result_mismatch": 8
+      },
+      "notes": [
+        "column Elimination.Elimination_ID: numbers stored as text read as BIGINT",
+        "column Elimination.Wrestler_ID: numbers stored as text read as BIGINT",
+        "column wrestler.Reign: numbers stored as text read as BIGINT",
+        "column wrestler.Days_held: numbers stored as text read as BIGINT"
+      ]
+    },
+    "wta_1": {
+      "split": "dev",
+      "pairs": 62,
+      "kept": 54,
+      "retention": 0.871,
+      "dropped": {
+        "result_mismatch": 8
+      },
+      "notes": [
+        "table players copied through Python (invalid UTF-8)",
+        "column players.birth_date kept as VARCHAR (declared DATE)",
+        "column rankings.ranking_date kept as VARCHAR (declared DATE)",
+        "column rankings.player_id: empty strings read as NULL",
+        "column rankings.ranking_date: numbers stored as text read as BIGINT"
+      ]
+    },
+    "yelp": {
+      "split": "train",
+      "pairs": 111,
+      "kept": 111,
+      "retention": 1.0,
+      "dropped": {},
+      "notes": []
+    }
+  },
+  "train_val_tokens_prompt_plus_sql": {
+    "p50": 297,
+    "p95": 701,
+    "max": 2249
+  }
+}

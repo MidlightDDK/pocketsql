@@ -3,7 +3,6 @@ import importlib
 import pytest
 
 CLIS = [
-    ("pocketsql.data.prepare", "M1"),
     ("pocketsql.synth.__main__", "M3"),
     ("pocketsql.evalx.score", "M2"),
     ("pocketsql.release.gate", "M5"),

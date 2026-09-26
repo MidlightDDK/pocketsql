@@ -1,0 +1,3 @@
+CREATE TABLE "café" ("città" VARCHAR /* e.g. 'Zürich', '東京' */, "prix_€" DOUBLE);
+
+Question: Quel est le prix moyen à Zürich ?

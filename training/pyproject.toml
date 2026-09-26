@@ -3,7 +3,13 @@ name = "pocketsql"
 version = "0.0.0"
 description = "Data, training, export, eval, and release pipeline for PocketSQL."
 requires-python = ">=3.12,<3.13"
-dependencies = []
+dependencies = [
+    "duckdb==1.5.5",
+    "huggingface-hub==1.33.0",
+    "jinja2==3.1.6",
+    "sqlglot==30.19.0",
+    "transformers==5.17.0",
+]
 
 [dependency-groups]
 dev = [

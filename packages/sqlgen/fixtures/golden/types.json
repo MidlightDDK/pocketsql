@@ -1,0 +1,20 @@
+{
+  "schema": {
+    "tables": [
+      {
+        "name": "payments",
+        "columns": [
+          { "name": "amount", "type": "DECIMAL(10,2)" },
+          { "name": "paid_on", "type": "DATE" },
+          { "name": "created_at", "type": "TIMESTAMP" },
+          { "name": "refunded", "type": "BOOLEAN" },
+          { "name": "rate", "type": "DOUBLE" },
+          { "name": "method", "type": "VARCHAR", "examples": [] },
+          { "name": "status", "type": "VARCHAR", "examples": ["paid"] }
+        ]
+      },
+      { "name": "t", "columns": [{ "name": "x", "type": "INTEGER" }] }
+    ]
+  },
+  "question": "What was the total amount paid in March 2024?"
+}

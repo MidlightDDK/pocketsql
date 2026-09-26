@@ -1,0 +1,333 @@
+{
+  "schema": {
+    "tables": [
+      {
+        "name": "Album",
+        "columns": [
+          {
+            "name": "AlbumId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Title",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "ArtistId",
+            "type": "BIGINT"
+          }
+        ]
+      },
+      {
+        "name": "Artist",
+        "columns": [
+          {
+            "name": "ArtistId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Name",
+            "type": "VARCHAR"
+          }
+        ]
+      },
+      {
+        "name": "Customer",
+        "columns": [
+          {
+            "name": "CustomerId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "FirstName",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "LastName",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Company",
+            "type": "VARCHAR",
+            "examples": ["Apple Inc.", "Banco do Brasil S.A."]
+          },
+          {
+            "name": "Address",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "City",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "State",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Country",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "PostalCode",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Phone",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Fax",
+            "type": "VARCHAR",
+            "examples": ["+1 (212) 221-4679", "+1 (408) 996-1011"]
+          },
+          {
+            "name": "Email",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "SupportRepId",
+            "type": "BIGINT"
+          }
+        ]
+      },
+      {
+        "name": "Employee",
+        "columns": [
+          {
+            "name": "EmployeeId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "LastName",
+            "type": "VARCHAR",
+            "examples": ["Adams", "Callahan"]
+          },
+          {
+            "name": "FirstName",
+            "type": "VARCHAR",
+            "examples": ["Andrew", "Jane"]
+          },
+          {
+            "name": "Title",
+            "type": "VARCHAR",
+            "examples": ["Sales Support Agent", "IT Staff"]
+          },
+          {
+            "name": "ReportsTo",
+            "type": "BIGINT"
+          },
+          {
+            "name": "BirthDate",
+            "type": "TIMESTAMP"
+          },
+          {
+            "name": "HireDate",
+            "type": "TIMESTAMP"
+          },
+          {
+            "name": "Address",
+            "type": "VARCHAR",
+            "examples": ["1111 6 Ave SW", "11120 Jasper Ave NW"]
+          },
+          {
+            "name": "City",
+            "type": "VARCHAR",
+            "examples": ["Calgary", "Lethbridge"]
+          },
+          {
+            "name": "State",
+            "type": "VARCHAR",
+            "examples": ["AB"]
+          },
+          {
+            "name": "Country",
+            "type": "VARCHAR",
+            "examples": ["Canada"]
+          },
+          {
+            "name": "PostalCode",
+            "type": "VARCHAR",
+            "examples": ["T1H 1Y8", "T1K 5N8"]
+          },
+          {
+            "name": "Phone",
+            "type": "VARCHAR",
+            "examples": ["+1 (403) 262-3443", "+1 (403) 246-9887"]
+          },
+          {
+            "name": "Fax",
+            "type": "VARCHAR",
+            "examples": ["+1 (403) 246-9899", "+1 (403) 262-3322"]
+          },
+          {
+            "name": "Email",
+            "type": "VARCHAR",
+            "examples": ["andrew@chinookcorp.com", "jane@chinookcorp.com"]
+          }
+        ]
+      },
+      {
+        "name": "Genre",
+        "columns": [
+          {
+            "name": "GenreId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Name",
+            "type": "VARCHAR"
+          }
+        ]
+      },
+      {
+        "name": "Invoice",
+        "columns": [
+          {
+            "name": "InvoiceId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "CustomerId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "InvoiceDate",
+            "type": "TIMESTAMP"
+          },
+          {
+            "name": "BillingAddress",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "BillingCity",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "BillingState",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "BillingCountry",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "BillingPostalCode",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Total",
+            "type": "DOUBLE"
+          }
+        ]
+      },
+      {
+        "name": "InvoiceLine",
+        "columns": [
+          {
+            "name": "InvoiceLineId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "InvoiceId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "TrackId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "UnitPrice",
+            "type": "DOUBLE"
+          },
+          {
+            "name": "Quantity",
+            "type": "BIGINT"
+          }
+        ]
+      },
+      {
+        "name": "MediaType",
+        "columns": [
+          {
+            "name": "MediaTypeId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Name",
+            "type": "VARCHAR",
+            "examples": ["AAC audio file", "MPEG audio file"]
+          }
+        ]
+      },
+      {
+        "name": "Playlist",
+        "columns": [
+          {
+            "name": "PlaylistId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Name",
+            "type": "VARCHAR",
+            "examples": ["Audiobooks", "Movies"]
+          }
+        ]
+      },
+      {
+        "name": "PlaylistTrack",
+        "columns": [
+          {
+            "name": "PlaylistId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "TrackId",
+            "type": "BIGINT"
+          }
+        ]
+      },
+      {
+        "name": "Track",
+        "columns": [
+          {
+            "name": "TrackId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Name",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "AlbumId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "MediaTypeId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "GenreId",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Composer",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "Milliseconds",
+            "type": "BIGINT"
+          },
+          {
+            "name": "Bytes",
+            "type": "BIGINT"
+          },
+          {
+            "name": "UnitPrice",
+            "type": "DOUBLE"
+          }
+        ]
+      }
+    ]
+  },
+  "question": "Which genre earned the most revenue in 2024?"
+}

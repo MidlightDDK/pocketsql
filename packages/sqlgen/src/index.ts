@@ -1,3 +1,11 @@
-// Identical in training, evals, and the browser (.claude/rules/data.md).
-export const SYSTEM_PROMPT =
-  "Write one DuckDB SQL query that answers the question. Output only SQL.";
+export { SYSTEM_PROMPT } from "./prompt.ts";
+export {
+  buildMessages,
+  buildUserPrompt,
+  type ChatMessage,
+  type Column,
+  ident,
+  type Schema,
+  serializeSchema,
+  type Table,
+} from "./schema.ts";

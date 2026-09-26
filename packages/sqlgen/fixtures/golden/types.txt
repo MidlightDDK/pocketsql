@@ -1,0 +1,4 @@
+CREATE TABLE payments (amount DECIMAL(10,2), paid_on DATE, created_at TIMESTAMP, refunded BOOLEAN, rate DOUBLE, method VARCHAR, status VARCHAR /* e.g. 'paid' */);
+CREATE TABLE t (x INTEGER);
+
+Question: What was the total amount paid in March 2024?

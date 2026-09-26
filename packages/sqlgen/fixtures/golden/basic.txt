@@ -1,0 +1,4 @@
+CREATE TABLE singer (singer_id BIGINT, name VARCHAR, country VARCHAR /* e.g. 'France', 'Netherlands' */, age BIGINT);
+CREATE TABLE concert (concert_id BIGINT, year BIGINT);
+
+Question: How many singers are from France?
