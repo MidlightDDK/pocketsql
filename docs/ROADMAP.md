@@ -8,8 +8,8 @@ One milestone at a time. Start each with an ≤ 8-line plan and wait for approva
 - Worker serving a placeholder page plus `GET /api/health`; `ci.yml` (Python and JS checks, build).
 - The user authenticates the `kaggle` and `hf` CLIs and confirms `kaggle kernels list --mine` and `hf auth whoami` (or `huggingface-cli whoami`) work, without sharing any token.
 Acceptance:
-- [ ] `https://pocket-sql.<account-subdomain>.workers.dev` shows the placeholder; CI is green on a PR.
-- [ ] `git check-ignore -v training/data/raw/x training/runs/r1/model.safetensors w.onnx` shows all three ignored, and `git check-ignore training/runs/r1/summary.json` shows it is not.
+- [x] `https://pocket-sql.<account-subdomain>.workers.dev` shows the placeholder; CI is green on a PR. (Done: live at https://pocket-sql.azar-majed7.workers.dev; CI green on a push to main, since the user asked for main-only work with no PRs.)
+- [x] `git check-ignore -v training/data/raw/x training/runs/r1/model.safetensors w.onnx` shows all three ignored, and `git check-ignore training/runs/r1/summary.json` shows it is not.
 - [ ] The user confirmed both CLIs are authenticated.
 
 `.gitignore`:
