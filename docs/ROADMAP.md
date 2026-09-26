@@ -10,7 +10,7 @@ One milestone at a time. Start each with an ≤ 8-line plan and wait for approva
 Acceptance:
 - [x] `https://pocket-sql.<account-subdomain>.workers.dev` shows the placeholder; CI is green on a PR. (Done: live at https://pocket-sql.azar-majed7.workers.dev; CI green on a push to main, since the user asked for main-only work with no PRs.)
 - [x] `git check-ignore -v training/data/raw/x training/runs/r1/model.safetensors w.onnx` shows all three ignored, and `git check-ignore training/runs/r1/summary.json` shows it is not.
-- [ ] The user confirmed both CLIs are authenticated.
+- [x] The user confirmed both CLIs are authenticated. (2026-09-26: `hf auth whoami` → MidlightDDK; `kaggle kernels list --mine` succeeds; Kaggle username `majedazar`, given by the user.)
 
 `.gitignore`:
 ```gitignore

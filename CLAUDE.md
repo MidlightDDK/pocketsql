@@ -89,7 +89,7 @@ When compacting, keep: the goal, current milestone, decisions and constraints, f
 - Data: `uv run --project training python -m pocketsql.data.prepare` · `uv run --project training python -m pocketsql.synth --n 200` (needs `GROQ_API_KEY`)
 - Python checks: `uv run --project training ruff check -q` · `uv run --project training pytest -q`
 - JS checks: `pnpm -s lint` · `pnpm -s typecheck` · `pnpm -s test` · `pnpm -s e2e`
-- Kaggle: `kaggle kernels push -p kaggle/train` (needs approval) · `kaggle kernels status <kaggle-username>/pocketsql-train` · `kaggle kernels output <kaggle-username>/pocketsql-train -p training/runs/<run_id>`
+- Kaggle: `kaggle kernels push -p kaggle/train` (needs approval) · `kaggle kernels status majedazar/pocketsql-train` · `kaggle kernels output majedazar/pocketsql-train -p training/runs/<run_id>`
 - Evals: `pnpm eval:onnx --model <hf-repo>@<revision> --set own_test` · `uv run --project training python -m pocketsql.evalx.score evals/predictions/<file>.jsonl`
 - Release: `uv run --project training python -m pocketsql.release.gate` → upload with `hf upload` (needs approval)
 - Web: `pnpm dev` · `pnpm build` · `pnpm run deploy` (needs approval)
@@ -106,7 +106,7 @@ When compacting, keep: the goal, current milestone, decisions and constraints, f
 - Everything under `web/` ships to browsers and is public.
 
 ## Human-only steps (stop, give exact instructions, wait)
-- Create free accounts without a card: Kaggle (phone-verified for GPU), Hugging Face, Cloudflare, Groq. Install and authenticate the `kaggle` and `hf` CLIs; run `wrangler login`; add GitHub Actions secrets. Tell Claude your `<kaggle-username>` and `<hf-username>`.
+- Create free accounts without a card: Kaggle (phone-verified for GPU), Hugging Face, Cloudflare, Groq. Install and authenticate the `kaggle` and `hf` CLIs; run `wrangler login`; add GitHub Actions secrets. Tell Claude your `<kaggle-username>` and `<hf-username>` (given: Kaggle `majedazar`, Hugging Face `MidlightDDK`).
 - Download Spider manually if the scripted download is blocked.
 - Verify every SQL in `own_test`; review 50 synthetic pairs; accept gated model licenses on the Hub if needed.
 - Run the browser speed test on your own devices; record the demo video; approve the final README.
@@ -116,7 +116,7 @@ When compacting, keep: the goal, current milestone, decisions and constraints, f
 - `docs/ROADMAP.md`: milestones, acceptance criteria, M0 file templates, README outline.
 
 ## Milestone status (tick only when every acceptance box for that milestone passes)
-- [ ] M0 Scaffold + hello-world deploy + CLIs ready
+- [x] M0 Scaffold + hello-world deploy + CLIs ready
 - [ ] M1 Data: Spider → DuckDB, serializer, splits
 - [ ] M2 Own test set, baselines, export spike
 - [ ] M3 Synthetic data + dataset release

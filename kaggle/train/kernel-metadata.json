@@ -1,0 +1,10 @@
+{
+  "id": "majedazar/pocketsql-train",
+  "title": "pocketsql-train",
+  "code_file": "train.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true
+}

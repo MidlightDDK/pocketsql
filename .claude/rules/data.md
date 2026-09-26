@@ -29,6 +29,6 @@ paths:
 
 ## Outputs
 - `training/data/processed/{train,val}.jsonl`: `{id, db_id, schema_text, question, sql, source, difficulty}`.
-- Pushed as a public Hugging Face dataset `<hf-username>/pocketsql-data`, including an archive of the DuckDB database files needed for val/test scoring, with a card: sources, licenses (Spider-derived data keeps Spider's license terms), filters, retention rates, review stats.
+- Pushed as a public Hugging Face dataset `MidlightDDK/pocketsql-data`, including an archive of the DuckDB database files needed for val/test scoring, with a card: sources, licenses (Spider-derived data keeps Spider's license terms), filters, retention rates, review stats.
 - Test sets live in `evals/` and are never used for training or synthetic seeding. A leakage check script runs in CI.
 

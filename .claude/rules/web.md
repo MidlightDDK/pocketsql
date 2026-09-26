@@ -6,7 +6,7 @@ paths:
 # Web app + Worker
 
 ## Runtime
-- Transformers.js v4: `AutoModelForCausalLM` + tokenizer for `<hf-username>/pocketsql-<size>` pinned to a revision; `device: "webgpu"`, `dtype: "q4f16"`; fallback `device: "wasm"`, `dtype: "q4"` with a visible "slower mode" notice. Generation runs in a Web Worker; greedy; `max_new_tokens` 256.
+- Transformers.js v4: `AutoModelForCausalLM` + tokenizer for `MidlightDDK/pocketsql-<size>` pinned to a revision; `device: "webgpu"`, `dtype: "q4f16"`; fallback `device: "wasm"`, `dtype: "q4"` with a visible "slower mode" notice. Generation runs in a Web Worker; greedy; `max_new_tokens` 256.
 - Post-process with `packages/sqlgen`: strip fences, keep the first statement, validate with DuckDB `EXPLAIN`. On failure, retry once with a second sample (temperature 0.3), then show the error honestly.
 - DuckDB-WASM (pinned; jsDelivr bundles) with the 3 demo datasets (committed, ≤ 2 MB each) plus user upload (CSV or Parquet).
 
