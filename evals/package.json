@@ -5,6 +5,10 @@
   "scripts": {
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.0",
+    "@pocketsql/sqlgen": "workspace:*"
+  },
   "devDependencies": {
     "typescript": "^7.0.2"
   }

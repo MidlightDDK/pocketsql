@@ -1,0 +1,20 @@
+{"id":"own_chinook_01","sql":"SELECT count(*) FROM Customer","latency_ms":6253.6,"tokens_out":6}
+{"id":"own_chinook_14","sql":"SELECT T2.Name FROM Artist AS T1 JOIN Album AS T2 ON T1.ArtistId = T2.ArtistId GROUP BY T1.ArtistId ORDER BY COUNT(*) DESC LIMIT 1","latency_ms":13803.2,"tokens_out":42}
+{"id":"own_chinook_24","sql":"SELECT e.FirstName, e.LastName, COUNT(c.CustomerId) FROM Employee e JOIN Customer c ON e.EmployeeId = c.SupportRepId GROUP BY e.EmployeeId","latency_ms":11296.7,"tokens_out":33}
+{"id":"own_chinook_37","sql":"SELECT DISTINCT T1.Name FROM Artist AS T1 JOIN Genre AS T2 ON T1.ArtistId = T2.ArtistId GROUP BY T1.Name HAVING COUNT(T2.GenreId) > 1","latency_ms":13376.3,"tokens_out":45}
+{"id":"own_chinook_49","sql":"SELECT strftime('%Y-%m', t.InvoiceDate) AS Month, SUM(t.Total) AS Revenue\nFROM InvoiceLine t\nJOIN Invoice i ON t.InvoiceId = i.InvoiceId\nWHERE strftime('%Y', i.InvoiceDate) = '2022'\nGROUP BY strftime('%Y-%m', t.InvoiceDate)\nORDER BY strftime('%Y-%m', t.InvoiceDate);","latency_ms":22299.6,"tokens_out":85}
+{"id":"own_world_bank_14","sql":"SELECT SUM(population) AS combined_population, YEAR FROM countries GROUP BY YEAR ORDER BY YEAR","latency_ms":4394,"tokens_out":19}
+{"id":"own_world_bank_25","sql":"SELECT income_group, SUM(gdp_usd) AS total_gdp\nFROM country_stats\nWHERE year = 2023\nGROUP BY income_group\nORDER BY total_gdp DESC","latency_ms":7680.8,"tokens_out":40}
+{"id":"own_world_bank_36","sql":"SELECT T1.name FROM countries AS T1 JOIN country_stats AS T2 ON T1.iso3 = T2.iso3 WHERE T2.year BETWEEN 2010 AND 2023 AND T2.internet_users_pct < 10 AND T2.internet_users_pct > 50","latency_ms":11239.6,"tokens_out":62}
+{"id":"own_penguins_07","sql":"SELECT AVG(flipper_length_mm) FROM penguins","latency_ms":2895.4,"tokens_out":12}
+{"id":"own_penguins_21","sql":"SELECT COUNT(species) FROM penguins WHERE bill_length_mm > (SELECT AVG(bill_length_mm) FROM penguins)","latency_ms":4971.6,"tokens_out":26}
+{"id":"spider_dev_0030","sql":"SELECT T2.Country FROM singer AS T1 JOIN singer_in_concert AS T2 ON T1.Singer_ID = T2.Singer_ID WHERE T1.Age > 40 AND T1.Age < 30","latency_ms":9688.7,"tokens_out":46}
+{"id":"spider_dev_0169","sql":"SELECT MAX(MPG) FROM cars_data WHERE Cylinders = 8 AND Year < 1980","latency_ms":5555.5,"tokens_out":24}
+{"id":"spider_dev_0259","sql":"SELECT count(*) FROM employee","latency_ms":2797.7,"tokens_out":6}
+{"id":"spider_dev_0364","sql":"SELECT T2.Paragraph_ID, T2.Paragraph_Text FROM Documents AS T1 JOIN Paragraphs AS T2 ON T1.Document_ID = T2.Document_ID WHERE T1.Document_Name = 'Welcome to NY'","latency_ms":8825.3,"tokens_out":45}
+{"id":"spider_dev_0436","sql":"SELECT AVG(winner_age) AS avg_winner_age, AVG(loser_age) AS avg_loser_age FROM matches","latency_ms":6508.1,"tokens_out":24}
+{"id":"spider_dev_0543","sql":"SELECT DISTINCT T2.semester_name FROM Student_Enrolment AS T1 JOIN Semesters AS T2 ON T1.semester_id = T2.semester_id WHERE T1.student_id IS NULL","latency_ms":15264.5,"tokens_out":42}
+{"id":"spider_dev_0648","sql":"SELECT COUNT(*) FROM poker_player","latency_ms":2422.1,"tokens_out":7}
+{"id":"spider_dev_0745","sql":"SELECT COUNT(DISTINCT T1.Code) FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code = T2.CountryCode WHERE T2.Language = 'English' AND T2.Language = 'Dutch'","latency_ms":9372.1,"tokens_out":47}
+{"id":"spider_dev_0884","sql":"SELECT h.name, COUNT(l.student_id) FROM Highschooler h JOIN Likes l ON h.id = l.highest_schooler_id GROUP BY h.name","latency_ms":5989.4,"tokens_out":32}
+{"id":"spider_dev_0927","sql":"SELECT DISTINCT T1.first_name FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id = T2.owner_id WHERE T1.first_name NOT IN (SELECT T2.first_name FROM Dogs AS T2 WHERE T2.name NOT IN (SELECT T1.first_name FROM Owners AS T1))","latency_ms":19400.5,"tokens_out":63}

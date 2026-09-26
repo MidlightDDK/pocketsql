@@ -16,6 +16,19 @@ dev = [
     "pytest>=9.1.1",
     "ruff>=0.16.8",
 ]
+# PyTorch zero-shot baselines on CPU (the Windows PyPI wheel is CPU-only); not synced in CI.
+infer = [
+    "torch==2.14.0",
+]
+# ONNX export with the ONNX Runtime GenAI model builder (how onnx-community built
+# Qwen3-0.6B-ONNX); onnxruntime matches onnxruntime-node in Transformers.js 4.3.0.
+export = [
+    "onnx==1.23.0",
+    "onnx-ir==1.0.0",
+    "onnxruntime==1.30.0",
+    "onnxruntime-genai==0.17.0",
+    "torch==2.14.0",
+]
 
 [build-system]
 requires = ["uv_build>=0.12.18,<0.13"]

@@ -2,7 +2,7 @@
 
 A small model I fine-tuned to turn plain-English questions into DuckDB SQL, quantized and running entirely in your browser (Transformers.js on WebGPU with a WASM fallback, DuckDB-WASM to execute the SQL). It keeps working with Wi-Fi off.
 
-**Status:** data pipeline done (milestone M1). Placeholder: https://pocket-sql.azar-majed7.workers.dev
+**Status:** baselines and export spike done (milestone M2). Placeholder: https://pocket-sql.azar-majed7.workers.dev
 
 ## Planned pipeline
 
@@ -39,7 +39,21 @@ uv run --project training python -m pocketsql.data.demo     # demo DuckDB files
 - Data filtering by execution, not by string rules: a Spider query is kept only if its DuckDB translation returns SQLite's result. Four rewrites keep SQLite's meaning (double-quoted strings → literals, `LIKE` → `ILIKE`, bare columns added to `GROUP BY`, no `NULLIF`/`NULLS FIRST` guards); they took retention from 88.5% to 95.9% on train.
 - Demo databases use 16 KiB DuckDB blocks: the default 256 KiB blocks made Chinook 3 MB; now it is 684 KiB (readable by DuckDB ≥ 1.2).
 
-More decisions (base model, export path, quantization) will be added with the numbers behind them.
+- Base model: **Qwen2.5-Coder-0.5B-Instruct** (Apache-2.0), chosen over Qwen3-0.6B and Qwen3.5-0.8B on zero-shot execution accuracy (EX) of the artifact the browser would load, then download size. Scored on `own_test` (100 questions over the demo databases) and the first 100 Spider-dev items; greedy decoding, same prompt everywhere, PyTorch on CPU and ONNX through Transformers.js 4.3.0 in Node:
+
+  | Model | Runtime | own_test EX | Spider-dev EX | Browser download |
+  |---|---|---|---|---|
+  | gpt-oss-120b (Groq API, reference) | API | 75% | 73% | none, ~$0.0001/query |
+  | **Qwen2.5-Coder-0.5B-Instruct** | PyTorch fp32 | 36% | 39% | |
+  | | **ONNX q4f16 (our export)** | **29%** | **32%** | **276 MiB** |
+  | Qwen3-0.6B | PyTorch fp32 | 29% | 42% | |
+  | | ONNX q4f16 (our export) | 20% | 30% | 341 MiB |
+  | | ONNX q4f16, k-quant + int8 layers | 21% | 37% | 477 MiB |
+  | | ONNX q4f16 (onnx-community) | 19% | 32% | 552 MiB |
+  | Qwen3.5-0.8B | PyTorch fp32 | 29% | 21% | 576 MiB (onnx-community) |
+
+  Qwen3-0.6B's 3-point Spider-dev lead in PyTorch is within noise at n = 100 (±5 points); after 4-bit quantization the coder model is ahead on both sets combined (61 vs 58 of 200 for Qwen3's best recipe) at 58% of the download. Full numbers: `evals/reports/latest.json`.
+- Export path: the ONNX Runtime GenAI model builder, the tool behind the onnx-community Qwen ONNX builds, then two fixes for Transformers.js (KV-cache head dimension pinned, `transformers.js_config` in `config.json`). The fp32 export matches PyTorch greedy output on 20/20 parity prompts for both finalists. 4-bit quantization (int4, block 32) changes the text of 16/20 outputs but keeps the DuckDB result on 13/20; that drop is the fine-tuning target, and the numbers I report come from the quantized artifact. The unmodified export is [MidlightDDK/pocketsql-base-0.5b](https://huggingface.co/MidlightDDK/pocketsql-base-0.5b).
 
 ## License
 

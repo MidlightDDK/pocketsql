@@ -22,6 +22,13 @@ importers:
         version: 5.0.2(@types/node@26.6.3)(vite@8.3.1(@types/node@26.6.3)(esbuild@0.28.1)(jiti@2.7.0))
 
   evals:
+    dependencies:
+      '@huggingface/transformers':
+        specifier: 4.3.0
+        version: 4.3.0(@types/node@26.6.3)
+      '@pocketsql/sqlgen':
+        specifier: workspace:*
+        version: link:../packages/sqlgen
     devDependencies:
       typescript:
         specifier: ^7.0.2
@@ -38,6 +45,12 @@ importers:
 
   web:
     dependencies:
+      '@huggingface/transformers':
+        specifier: 4.3.0
+        version: 4.3.0(@types/node@26.6.3)
+      '@pocketsql/sqlgen':
+        specifier: workspace:*
+        version: link:../packages/sqlgen
       react:
         specifier: ^19.3.0
         version: 19.3.0

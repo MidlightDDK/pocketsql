@@ -1,0 +1,20 @@
+{"id":"own_chinook_01","sql":"SELECT COUNT(*) FROM Customer;","latency_ms":1420.3,"tokens_out":7}
+{"id":"own_chinook_14","sql":"SELECT Name FROM Artist ORDER BY AlbumId DESC LIMIT 1;","latency_ms":952.5,"tokens_out":14}
+{"id":"own_chinook_24","sql":"SELECT FirstName, LastName, COUNT(*) AS numberOfCustomers\nFROM Employee\nJOIN Customer ON Employee.SupportRepId = Customer.SupportRepId\nGROUP BY FirstName, LastName;","latency_ms":2249.1,"tokens_out":34}
+{"id":"own_chinook_37","sql":"SELECT ArtistId, COUNT(DISTINCT GenreId) AS distinct_genres\nFROM Artist\nJOIN Genre ON Artist.ArtistId = Genre.ArtistId\nGROUP BY ArtistId;","latency_ms":2009.5,"tokens_out":38}
+{"id":"own_chinook_49","sql":"SELECT InvoiceDate, Total, Month(InvoiceDate) AS Month\nFROM Invoice\nGROUP BY InvoiceDate, Month(InvoiceDate)\nORDER BY Month(InvoiceDate) ASC;","latency_ms":2289.6,"tokens_out":37}
+{"id":"own_world_bank_14","sql":"SELECT year, population\nFROM country_stats\nGROUP BY iso3, year\nORDER BY year;","latency_ms":885.5,"tokens_out":21}
+{"id":"own_world_bank_25","sql":"SELECT income_group, gdp_usd\nFROM countries\nJOIN country_stats ON countries.iso3 = country_stats.iso3\nWHERE year = 2023\nORDER BY gdp_usd DESC;","latency_ms":1697.5,"tokens_out":43}
+{"id":"own_world_bank_36","sql":"SELECT iso3\nFROM countries\nWHERE iso3 IN (\n    SELECT iso3\n    FROM country_stats\n    WHERE year = 2010 AND internet_users_pct < 10\n    AND iso3 IN (\n        SELECT iso3\n        FROM country_stats\n        WHERE year = 2023 AND internet_users_pct > 50\n    )\n)","latency_ms":2826.2,"tokens_out":78}
+{"id":"own_penguins_07","sql":"SELECT AVG(flipper_length_mm) AS average_flipper_length FROM penguins;","latency_ms":852.2,"tokens_out":18}
+{"id":"own_penguins_21","sql":"SELECT COUNT(*) AS penguin_count\nFROM penguins\nWHERE body_mass_g > (\n    SELECT AVG(body_mass_g) FROM penguins\n    GROUP BY species\n);","latency_ms":1667.1,"tokens_out":36}
+{"id":"spider_dev_0030","sql":"SELECT Country\nFROM singer\nWHERE Age > 40 OR Age < 30;","latency_ms":1203.6,"tokens_out":20}
+{"id":"spider_dev_0169","sql":"SELECT MAX(MPG) FROM cars_data WHERE Cylinders = 8 AND Year < 1980;","latency_ms":1599.7,"tokens_out":25}
+{"id":"spider_dev_0259","sql":"SELECT COUNT(*) FROM employee;","latency_ms":675.3,"tokens_out":7}
+{"id":"spider_dev_0364","sql":"SELECT Paragraph_ID, Paragraph_Text\nFROM Paragraphs\nWHERE Document_ID = (\n    SELECT Document_ID\n    FROM Documents\n    WHERE Document_Name = 'Welcome to NY'\n);","latency_ms":2326.6,"tokens_out":38}
+{"id":"spider_dev_0436","sql":"SELECT AVG(loser_age), AVG(winner_age) FROM matches;","latency_ms":1219.8,"tokens_out":15}
+{"id":"spider_dev_0543","sql":"SELECT semester_name FROM Semesters WHERE semester_id NOT IN (SELECT semester_id FROM Student_Enrolment)","latency_ms":2034.3,"tokens_out":23}
+{"id":"spider_dev_0648","sql":"SELECT COUNT(*) FROM poker_player;","latency_ms":441.5,"tokens_out":8}
+{"id":"spider_dev_0745","sql":"SELECT COUNT(*) FROM countrylanguage WHERE Language IN ('English', 'Dutch');","latency_ms":761.4,"tokens_out":17}
+{"id":"spider_dev_0884","sql":"SELECT name, COUNT(*) AS number_of_friends\nFROM Highschooler\nGROUP BY name;","latency_ms":862.4,"tokens_out":20}
+{"id":"spider_dev_0927","sql":"SELECT first_name\nFROM Owners\nWHERE first_name NOT IN (\n    SELECT first_name\n    FROM Dogs\n    WHERE name = ?\n)","latency_ms":2234.7,"tokens_out":29}
