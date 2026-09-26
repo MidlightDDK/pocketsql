@@ -1,0 +1,26 @@
+# Run v1: the starting point in .claude/rules/training.md, on Spider only (the dataset
+# revision before the synthetic pairs). Change one thing per run.
+run_id: v1
+base_model: qwen2.5-coder-0.5b # key in pocketsql.evalx.models.MODELS (pinned revision)
+dataset:
+  repo: MidlightDDK/pocketsql-data
+  revision: d3f8c1fcbead60e77b7f37e89b71457a5a6ca2d8
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.0
+  target_modules: all-linear
+train:
+  epochs: 2
+  learning_rate: 2.0e-4
+  lr_scheduler: cosine
+  warmup: 0.03 # fraction of total steps
+  max_seq_len: 1024 # longer pairs are dropped, not truncated
+  per_device_batch: 8
+  grad_accum: 4 # effective batch 32 on one GPU
+  seed: 42
+eval:
+  batch_size: 32
+  max_new_tokens: 256
+export:
+  dtypes: [q4f16, q4]

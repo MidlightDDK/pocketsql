@@ -29,6 +29,16 @@ export = [
     "onnxruntime-genai==0.17.0",
     "torch==2.14.0",
 ]
+# LoRA SFT (pocketsql.train). Kaggle keeps its image's CUDA torch; kaggle/train/train.py
+# pins the rest to these versions. Unsloth 2026.9.11 needs transformers<=5.5, trl<=0.24.
+train = [
+    "accelerate==1.15.0",
+    "datasets==5.0.1",
+    "peft==0.21.0",
+    "pyyaml==6.0.3",
+    "torch==2.14.0",
+    "trl==1.14.0",
+]
 
 [build-system]
 requires = ["uv_build>=0.12.18,<0.13"]
