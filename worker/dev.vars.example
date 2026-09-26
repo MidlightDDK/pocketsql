@@ -1,0 +1,5 @@
+# Copy to worker/.dev.vars (gitignored) and fill in locally. Never commit values.
+# In production, the user sets each one with `wrangler secret put <NAME>`.
+GROQ_API_KEY=
+TURNSTILE_SECRET_KEY=
+SESSION_HMAC_SECRET=

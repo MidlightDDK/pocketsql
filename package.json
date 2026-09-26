@@ -1,0 +1,26 @@
+{
+  "name": "pocketsql",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @pocketsql/web --filter @pocketsql/worker dev",
+    "build": "pnpm --filter @pocketsql/web build && pnpm --filter @pocketsql/worker build",
+    "deploy": "pnpm build && pnpm --filter @pocketsql/worker run deploy",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "vitest run",
+    "e2e": "pnpm --filter @pocketsql/web e2e",
+    "eval:onnx": "node evals/src/onnx.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "@types/node": "^26.6.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
+  }
+}
