@@ -3,7 +3,6 @@ import importlib
 import pytest
 
 CLIS = [
-    ("pocketsql.synth.__main__", "M3"),
     ("pocketsql.release.gate", "M5"),
 ]
 

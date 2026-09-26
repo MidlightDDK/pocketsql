@@ -22,7 +22,12 @@ import sqlglot
 from pocketsql.data import paths
 from pocketsql.data.convert import hardness, load_sqlite, schema_names, transpile
 from pocketsql.data.download import fetch, sha256
-from pocketsql.data.leakage import check, normalize_question, normalize_sql
+from pocketsql.data.leakage import (
+    check,
+    normalize_question,
+    normalize_sql,
+    read_jsonl,
+)
 from pocketsql.data.schema import introspect, serialize
 from pocketsql.evalx.compare import (
     has_order_by,
@@ -31,6 +36,7 @@ from pocketsql.evalx.compare import (
     run_duckdb,
     run_sqlite,
 )
+from pocketsql.evalx.sets import DEMO_DBS
 
 VAL_FRACTION = 0.10
 VAL_SEED = "pocketsql-val-v1"
@@ -208,17 +214,21 @@ def main(argv: list[str] | None = None) -> int:
         }
         for k in sorted(dev_kept, key=lambda k: k["id"])
     ]
-    write_jsonl(paths.PROCESSED / "train.jsonl", train)
+    # Synthetic pairs for the demo schemas (python -m pocketsql.synth) train only.
+    synthetic = read_jsonl(paths.SYNTH) if paths.SYNTH.exists() else []
+    write_jsonl(paths.PROCESSED / "train.jsonl", train + synthetic)
     write_jsonl(paths.PROCESSED / "val.jsonl", val)
     write_jsonl(TEST_SET, test)
 
-    # DuckDB files needed to score val and the Spider-dev test set.
+    # DuckDB files needed to score val, Spider dev, and own_test (the demo databases).
     archive = paths.PROCESSED / "databases.zip"
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as z:
         for db in sorted(val_dbs | {t["db_id"] for t in test}):
             z.write(paths.DUCKDB_DIR / f"{db}.duckdb", f"{db}.duckdb")
+        for db in DEMO_DBS:
+            z.write(paths.DEMO_DIR / f"{db}.duckdb", f"{db}.duckdb")
 
-    problems = check(train, val, test)
+    problems = check(train + synthetic, val, test)
 
     def split_of(db: str) -> str:
         return (
@@ -250,7 +260,8 @@ def main(argv: list[str] | None = None) -> int:
     stats = {
         "spider_sha256": sha256(fetch("spider")),
         "outputs": {
-            "train": len(train),
+            "train": len(train) + len(synthetic),
+            "train_synthetic": len(synthetic),
             "val": len(val),
             "spider_dev_duckdb": len(test),
         },
@@ -288,7 +299,7 @@ def main(argv: list[str] | None = None) -> int:
             len(prompt_ids(r["schema_text"], r["question"]))
             + len(tok.encode(r["sql"]))
             + 2
-            for r in train + val
+            for r in train + synthetic + val
         ]
         stats["train_val_tokens_prompt_plus_sql"] = _pct(lengths)
     paths.CARDS.mkdir(parents=True, exist_ok=True)
