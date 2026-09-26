@@ -99,9 +99,9 @@ Acceptance:
 ## M4: Train v1 on Kaggle
 - Kernel files, first run, `summary.json`, val EX vs base model, export of the fine-tuned model with the proven path.
 Acceptance:
-- [ ] `summary.json` committed with GPU minutes logged.
-- [ ] Val EX beats the base model by a clear margin (report both numbers).
-- [ ] The fine-tuned model exports and loads in Node.
+- [x] `summary.json` committed with GPU minutes logged.
+- [x] Val EX beats the base model by a clear margin (report both numbers).
+- [x] The fine-tuned model exports and loads in Node.
 
 ## M5: Artifact eval, gate, model release
 - Node predictions for the q4f16 and q4 artifacts on `own_test` + Spider-dev; parity report; gate; Hub upload with the model card; `latest.json` updated.

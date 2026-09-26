@@ -10,6 +10,7 @@ https://github.com/Kaggle/kaggle-cli/blob/main/docs/kernels_metadata.md
 
 import io
 import os
+import shutil
 import subprocess
 import sys
 import tarfile
@@ -18,7 +19,7 @@ import urllib.request
 from pathlib import Path
 
 STARTED = time.time()
-CODE_REVISION = "0000000000000000000000000000000000000000"
+CODE_REVISION = "88585e2955fd06173c106cda940a909741723e00"
 CONFIG = "training/configs/train_v1.yaml"
 PINS = [
     "accelerate==1.15.0",
@@ -39,7 +40,14 @@ PINS = [
     "trl==1.14.0",
 ]
 
+# Unverified Kaggle accounts get silently neither GPU nor internet: fail fast.
+if not shutil.which("nvidia-smi"):
+    sys.exit("no GPU attached (is the Kaggle account phone-verified?)")
 subprocess.run([sys.executable, "-m", "pip", "install", "-q", *PINS], check=True)
+# PEFT raises on the image's torchao 0.10 (needs > 0.16) when it looks for quantized
+# layers; we use neither torchao nor gptqmodel.
+pip_rm = [sys.executable, "-m", "pip", "uninstall", "-y", "-q", "torchao", "gptqmodel"]
+subprocess.run(pip_rm, check=True)
 src = Path("/tmp/pocketsql")
 url = f"https://codeload.github.com/MidlightDDK/pocketsql/tar.gz/{CODE_REVISION}"
 with (

@@ -1,0 +1,337 @@
+{
+  "run_id": "v1",
+  "created": "2026-09-26T21:01:18+00:00",
+  "code_revision": "88585e2955fd06173c106cda940a909741723e00",
+  "config": {
+    "run_id": "v1",
+    "base_model": "qwen2.5-coder-0.5b",
+    "dataset": {
+      "repo": "MidlightDDK/pocketsql-data",
+      "revision": "d3f8c1fcbead60e77b7f37e89b71457a5a6ca2d8"
+    },
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.0,
+      "target_modules": "all-linear"
+    },
+    "train": {
+      "epochs": 2,
+      "learning_rate": 0.0002,
+      "lr_scheduler": "cosine",
+      "warmup": 0.03,
+      "max_seq_len": 1024,
+      "per_device_batch": 8,
+      "grad_accum": 4,
+      "seed": 42
+    },
+    "eval": {
+      "batch_size": 32,
+      "max_new_tokens": 256
+    },
+    "export": {
+      "dtypes": [
+        "q4f16",
+        "q4"
+      ]
+    }
+  },
+  "base_model": {
+    "repo": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+    "revision": "ea3f2471cf1b1f0db85067f1ef93848e38e88c25"
+  },
+  "dataset": {
+    "repo": "MidlightDDK/pocketsql-data",
+    "revision": "d3f8c1fcbead60e77b7f37e89b71457a5a6ca2d8"
+  },
+  "hardware": {
+    "gpu": "Tesla T4",
+    "gpu_count": 1,
+    "cuda": "12.8",
+    "python": "3.12.13"
+  },
+  "versions": {
+    "torch": "2.10.0+cu128",
+    "transformers": "5.17.0",
+    "trl": "1.14.0",
+    "peft": "0.21.0",
+    "accelerate": "1.15.0",
+    "onnxruntime-genai": "0.17.0"
+  },
+  "data": {
+    "train_pairs": 7227,
+    "train_by_source": {
+      "spider": 5602,
+      "spider_others": 1625
+    },
+    "train_dropped_over_max_len": 149,
+    "val_pairs": 858,
+    "limits": {
+      "train": null,
+      "val": null
+    }
+  },
+  "train": {
+    "steps": 452,
+    "epochs": 2.0,
+    "train_loss": 0.1105,
+    "train_runtime_s": 2853.4,
+    "trainable_params": 8798208,
+    "val_loss_by_epoch": [
+      0.1802,
+      0.1974
+    ],
+    "loss_curve": [
+      {
+        "step": 10,
+        "loss": 0.4349
+      },
+      {
+        "step": 20,
+        "loss": 0.3072
+      },
+      {
+        "step": 30,
+        "loss": 0.2182
+      },
+      {
+        "step": 40,
+        "loss": 0.211
+      },
+      {
+        "step": 50,
+        "loss": 0.1874
+      },
+      {
+        "step": 60,
+        "loss": 0.1648
+      },
+      {
+        "step": 70,
+        "loss": 0.1645
+      },
+      {
+        "step": 80,
+        "loss": 0.1525
+      },
+      {
+        "step": 90,
+        "loss": 0.1599
+      },
+      {
+        "step": 100,
+        "loss": 0.1406
+      },
+      {
+        "step": 110,
+        "loss": 0.1314
+      },
+      {
+        "step": 120,
+        "loss": 0.1292
+      },
+      {
+        "step": 130,
+        "loss": 0.1429
+      },
+      {
+        "step": 140,
+        "loss": 0.133
+      },
+      {
+        "step": 150,
+        "loss": 0.1258
+      },
+      {
+        "step": 160,
+        "loss": 0.1197
+      },
+      {
+        "step": 170,
+        "loss": 0.1146
+      },
+      {
+        "step": 180,
+        "loss": 0.1124
+      },
+      {
+        "step": 190,
+        "loss": 0.1091
+      },
+      {
+        "step": 200,
+        "loss": 0.1099
+      },
+      {
+        "step": 210,
+        "loss": 0.1154
+      },
+      {
+        "step": 220,
+        "loss": 0.0928
+      },
+      {
+        "step": 230,
+        "loss": 0.0935
+      },
+      {
+        "step": 240,
+        "loss": 0.0709
+      },
+      {
+        "step": 250,
+        "loss": 0.0689
+      },
+      {
+        "step": 260,
+        "loss": 0.0676
+      },
+      {
+        "step": 270,
+        "loss": 0.068
+      },
+      {
+        "step": 280,
+        "loss": 0.0669
+      },
+      {
+        "step": 290,
+        "loss": 0.0659
+      },
+      {
+        "step": 300,
+        "loss": 0.061
+      },
+      {
+        "step": 310,
+        "loss": 0.065
+      },
+      {
+        "step": 320,
+        "loss": 0.0615
+      },
+      {
+        "step": 330,
+        "loss": 0.0603
+      },
+      {
+        "step": 340,
+        "loss": 0.0596
+      },
+      {
+        "step": 350,
+        "loss": 0.057
+      },
+      {
+        "step": 360,
+        "loss": 0.052
+      },
+      {
+        "step": 370,
+        "loss": 0.0607
+      },
+      {
+        "step": 380,
+        "loss": 0.052
+      },
+      {
+        "step": 390,
+        "loss": 0.0598
+      },
+      {
+        "step": 400,
+        "loss": 0.0484
+      },
+      {
+        "step": 410,
+        "loss": 0.0523
+      },
+      {
+        "step": 420,
+        "loss": 0.0468
+      },
+      {
+        "step": 430,
+        "loss": 0.0533
+      },
+      {
+        "step": 440,
+        "loss": 0.0592
+      },
+      {
+        "step": 450,
+        "loss": 0.0562
+      }
+    ],
+    "max_steps_override": null
+  },
+  "val_ex": {
+    "base": {
+      "n": 858,
+      "ex": 0.4324,
+      "valid_sql": 0.5862,
+      "by_difficulty": {
+        "easy": {
+          "n": 203,
+          "ex": 0.6995
+        },
+        "medium": {
+          "n": 355,
+          "ex": 0.431
+        },
+        "hard": {
+          "n": 200,
+          "ex": 0.315
+        },
+        "extra": {
+          "n": 100,
+          "ex": 0.13
+        }
+      }
+    },
+    "finetuned": {
+      "n": 858,
+      "ex": 0.5991,
+      "valid_sql": 0.7844,
+      "by_difficulty": {
+        "easy": {
+          "n": 203,
+          "ex": 0.7783
+        },
+        "medium": {
+          "n": 355,
+          "ex": 0.6085
+        },
+        "hard": {
+          "n": 200,
+          "ex": 0.475
+        },
+        "extra": {
+          "n": 100,
+          "ex": 0.45
+        }
+      }
+    },
+    "delta_points": 16.7
+  },
+  "export": {
+    "dtypes": [
+      "q4f16",
+      "q4"
+    ],
+    "files_mib": {
+      "model_q4.onnx": 302.9,
+      "model_q4f16.onnx": 269.3
+    }
+  },
+  "timings_s": {
+    "setup": 16.3,
+    "base_eval": 214.6,
+    "train": 2889.0,
+    "finetuned_eval": 232.1,
+    "merge_save": 1.7,
+    "export": 50.9
+  },
+  "wall_time_s": 3474,
+  "gpu_minutes": 57.9
+}

@@ -2,7 +2,7 @@
 
 A small model I fine-tuned to turn plain-English questions into DuckDB SQL, quantized and running entirely in your browser (Transformers.js on WebGPU with a WASM fallback, DuckDB-WASM to execute the SQL). It keeps working with Wi-Fi off.
 
-**Status:** baselines and export spike done (milestone M2). Placeholder: https://pocket-sql.azar-majed7.workers.dev
+**Status:** first fine-tuned model trained and exported (milestone M4); synthetic training data (M3) in progress. Placeholder: https://pocket-sql.azar-majed7.workers.dev
 
 ## Planned pipeline
 
@@ -29,6 +29,7 @@ pnpm -s lint && pnpm -s typecheck && pnpm -s test && pnpm -s e2e
 pnpm dev
 uv run --project training python -m pocketsql.data.prepare  # Spider → DuckDB pairs
 uv run --project training python -m pocketsql.data.demo     # demo DuckDB files
+kaggle kernels push -p kaggle/train                          # LoRA run on a Kaggle T4 (training/configs/)
 ```
 
 ## Design decisions
@@ -55,6 +56,7 @@ uv run --project training python -m pocketsql.data.demo     # demo DuckDB files
   Qwen3-0.6B's 3-point Spider-dev lead in PyTorch is within noise at n = 100 (±5 points); after 4-bit quantization the coder model is ahead on both sets combined (61 vs 58 of 200 for Qwen3's best recipe) at 58% of the download. Full numbers: `evals/reports/latest.json`.
 - Export path: the ONNX Runtime GenAI model builder, the tool behind the onnx-community Qwen ONNX builds, then two fixes for Transformers.js (KV-cache head dimension pinned, `transformers.js_config` in `config.json`). The fp32 export matches PyTorch greedy output on 20/20 parity prompts for both finalists. 4-bit quantization (int4, block 32) changes the text of 16/20 outputs but keeps the DuckDB result on 13/20; that drop is the fine-tuning target, and the numbers I report come from the quantized artifact. The unmodified export is [MidlightDDK/pocketsql-base-0.5b](https://huggingface.co/MidlightDDK/pocketsql-base-0.5b).
 - Browser check (Chrome 153, Windows, Intel Gen9 integrated GPU): the q4f16 model loads over WebGPU in 63 s on first visit and answers in 9–11 s; the WASM fallback (q4) gives the same SQL in 50–112 s, single-threaded. Two fixes came out of it: huggingface.co answers requests whose Referer is a `*.workers.dev` page with a 404, so model downloads go out with no referrer; and ONNX Runtime Web's WASM build lacks the quantized-embedding op (`GatherBlockQuantized`) that the builder emits for tied embeddings, so the q4 graph gathers the packed int4 rows and dequantizes them with standard ops (bit-identical logits, same file size).
+- Training: LoRA SFT (r 16, alpha 32, all linear layers, 2 epochs, effective batch 32, lr 2e-4 cosine) on one Kaggle T4 in fp16 mixed precision, with the loss on the SQL only. The plan was Unsloth, but its current release requires transformers ≤ 5.5 and TRL ≤ 0.24, while the tokenizer and export parity checks rely on transformers 5.17, so it runs on plain TRL + PEFT; for a 0.5B model that takes 48 minutes. Run v1 (Spider only, 7,227 pairs that fit in 1,024 tokens): validation EX went from 43.2% to 59.9% (greedy decoding in PyTorch, 858 questions on 16 held-out databases) and valid SQL from 58.6% to 78.4%, with the largest gain on extra-hard questions (13% to 45%). The whole kernel took 58 GPU minutes, including both evaluations and the q4f16/q4 export; the exported model loads in Node through Transformers.js. Numbers: `training/runs/v1/summary.json`.
 
 ## License
 
@@ -65,4 +67,4 @@ Code: MIT. Data:
 - [Palmer penguins](https://allisonhorst.github.io/palmerpenguins/) (Gorman, Williams & Fraser, 2014): CC0 1.0.
 - [World Development Indicators](https://datacatalog.worldbank.org/search/dataset/0037712), World Bank: CC BY 4.0 (snapshot retrieved 2026-09-26).
 
-The base model's license will be listed once it is chosen (M2).
+Base model: [Qwen2.5-Coder-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-0.5B-Instruct) (Qwen team): Apache-2.0.
