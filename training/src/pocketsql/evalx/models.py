@@ -37,7 +37,7 @@ MODELS: dict[str, dict] = {
     "qwen2.5-coder-0.5b-export": {
         "base": "qwen2.5-coder-0.5b",
         "hf_repo": "MidlightDDK/pocketsql-base-0.5b",
-        "revision": "aca5ef37e8bac940679391652fa2eda9225b2493",
+        "revision": "cdb0fbdbb0af527488cdae1029a0c11af0da8a5d",
         "recipe": "int4 block_size=32",
         "download_mib": {"q4f16": 276, "q4": 310},
     },

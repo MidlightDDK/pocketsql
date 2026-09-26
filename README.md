@@ -43,7 +43,7 @@ uv run --project training python -m pocketsql.data.demo     # demo DuckDB files
 
   | Model | Runtime | own_test EX | Spider-dev EX | Browser download |
   |---|---|---|---|---|
-  | gpt-oss-120b (Groq API, reference) | API | 75% | 73% | none, ~$0.0001/query |
+  | gpt-oss-120b (Groq API, reference) | API | 77% | 73% | none, ~$0.0001/query |
   | **Qwen2.5-Coder-0.5B-Instruct** | PyTorch fp32 | 36% | 39% | |
   | | **ONNX q4f16 (our export)** | **29%** | **32%** | **276 MiB** |
   | Qwen3-0.6B | PyTorch fp32 | 29% | 42% | |
@@ -54,6 +54,7 @@ uv run --project training python -m pocketsql.data.demo     # demo DuckDB files
 
   Qwen3-0.6B's 3-point Spider-dev lead in PyTorch is within noise at n = 100 (±5 points); after 4-bit quantization the coder model is ahead on both sets combined (61 vs 58 of 200 for Qwen3's best recipe) at 58% of the download. Full numbers: `evals/reports/latest.json`.
 - Export path: the ONNX Runtime GenAI model builder, the tool behind the onnx-community Qwen ONNX builds, then two fixes for Transformers.js (KV-cache head dimension pinned, `transformers.js_config` in `config.json`). The fp32 export matches PyTorch greedy output on 20/20 parity prompts for both finalists. 4-bit quantization (int4, block 32) changes the text of 16/20 outputs but keeps the DuckDB result on 13/20; that drop is the fine-tuning target, and the numbers I report come from the quantized artifact. The unmodified export is [MidlightDDK/pocketsql-base-0.5b](https://huggingface.co/MidlightDDK/pocketsql-base-0.5b).
+- Browser check (Chrome 153, Windows, Intel Gen9 integrated GPU): the q4f16 model loads over WebGPU in 63 s on first visit and answers in 9–11 s; the WASM fallback (q4) gives the same SQL in 50–112 s, single-threaded. Two fixes came out of it: huggingface.co answers requests whose Referer is a `*.workers.dev` page with a 404, so model downloads go out with no referrer; and ONNX Runtime Web's WASM build lacks the quantized-embedding op (`GatherBlockQuantized`) that the builder emits for tied embeddings, so the q4 graph gathers the packed int4 rows and dequantizes them with standard ops (bit-identical logits, same file size).
 
 ## License
 

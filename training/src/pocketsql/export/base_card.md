@@ -22,7 +22,7 @@ An unmodified ONNX re-export of [Qwen/Qwen2.5-Coder-0.5B-Instruct](https://huggi
 
 ## How it was built
 
-With the ONNX Runtime GenAI model builder (`onnxruntime-genai==0.17.0`), the same tool whose producer tag appears in the onnx-community Qwen ONNX builds: `-p int4 -e webgpu --extra_options block_size=32` (q4f16) and `-p int4 -e cpu --extra_options block_size=32` (q4). The KV-cache head dimension is then pinned to 64 so Transformers.js can size the empty cache, and `transformers.js_config` in `config.json` sets q4f16 on WebGPU and q4 on WASM. Source: `training/src/pocketsql/export/build.py` in the PocketSQL repo.
+With the ONNX Runtime GenAI model builder (`onnxruntime-genai==0.17.0`), the same tool whose producer tag appears in the onnx-community Qwen ONNX builds: `-p int4 -e webgpu --extra_options block_size=32` (q4f16) and `-p int4 -e cpu --extra_options block_size=32` (q4). For q4, the int4 embedding lookup (`GatherBlockQuantized`, missing from ONNX Runtime Web's WASM build) is rewritten into standard ops with bit-identical output. The KV-cache head dimension is then pinned to 64 so Transformers.js can size the empty cache, and `transformers.js_config` in `config.json` sets q4f16 on WebGPU and q4 on WASM. Source: `training/src/pocketsql/export/build.py` in the PocketSQL repo.
 
 ## Parity (greedy outputs vs PyTorch fp32, 20 prompts, Transformers.js 4.3.0 in Node)
 

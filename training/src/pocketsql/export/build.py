@@ -59,12 +59,65 @@ def static_head_dim(model: onnx.ModelProto, head_dim: int) -> None:
                 dim.dim_value = head_dim
 
 
-def save_for_transformers_js(model_path: Path, dest: Path, head_dim: int) -> bool:
+def portable_embedding(model: onnx.ModelProto) -> None:
+    """Replace the int4 GatherBlockQuantized embedding (tied to the lm_head's packed
+    MatMulNBits weights), which onnxruntime-web's WASM build lacks, with standard ops
+    that gather the packed rows first and dequantize only those: bit-exact, no new
+    weights. Assumes uint8-packed int4 (low nibble first) and no zero points (8)."""
+    g = model.graph
+    old = next((n for n in g.node if n.op_type == "GatherBlockQuantized"), None)
+    if old is None:
+        return
+    attrs = {a.name: onnx.helper.get_attribute_value(a) for a in old.attribute}
+    assert attrs["bits"] == 4 and attrs["gather_axis"] == 0 and len(old.input) == 3
+    packed, ids, scales = old.input
+    p = "/model/embed_tokens/portable/"
+    const = {
+        "c16": onnx.helper.make_tensor(p + "c16", onnx.TensorProto.INT32, [], [16]),
+        "zp": onnx.helper.make_tensor(p + "zp", onnx.TensorProto.FLOAT, [], [8.0]),
+        "last": onnx.helper.make_tensor(p + "last", onnx.TensorProto.INT64, [1], [-1]),
+        "blocks": onnx.helper.make_tensor(
+            p + "blocks", onnx.TensorProto.INT64, [4], [0, 0, -1, attrs["block_size"]]
+        ),
+        "flat": onnx.helper.make_tensor(
+            p + "flat", onnx.TensorProto.INT64, [3], [0, 0, -1]
+        ),
+    }
+    g.initializer.extend(const.values())
+    c = {k: t.name for k, t in const.items()}
+    node = onnx.helper.make_node
+    nodes = [
+        node("Gather", [packed, ids], [p + "rows"], axis=0),
+        node("Cast", [p + "rows"], [p + "rows_i32"], to=onnx.TensorProto.INT32),
+        node("Mod", [p + "rows_i32", c["c16"]], [p + "lo"]),
+        node("Div", [p + "rows_i32", c["c16"]], [p + "hi"]),
+        node("Unsqueeze", [p + "lo", c["last"]], [p + "lo_u"]),
+        node("Unsqueeze", [p + "hi", c["last"]], [p + "hi_u"]),
+        node("Concat", [p + "lo_u", p + "hi_u"], [p + "pairs"], axis=-1),
+        node("Reshape", [p + "pairs", c["blocks"]], [p + "q"]),
+        node("Cast", [p + "q"], [p + "qf"], to=onnx.TensorProto.FLOAT),
+        node("Sub", [p + "qf", c["zp"]], [p + "centered"]),
+        node("Gather", [scales, ids], [p + "row_scales"], axis=0),
+        node("Unsqueeze", [p + "row_scales", c["last"]], [p + "scales_u"]),
+        node("Mul", [p + "centered", p + "scales_u"], [p + "deq"]),
+        node("Reshape", [p + "deq", c["flat"]], list(old.output)),
+    ]
+    at = list(g.node).index(old)
+    g.node.remove(old)
+    for i, n in enumerate(nodes):
+        g.node.insert(at + i, n)
+
+
+def save_for_transformers_js(
+    model_path: Path, dest: Path, head_dim: int, dtype: str
+) -> bool:
     """Re-save under Transformers.js file names; True if external data was needed."""
     size = sum(f.stat().st_size for f in model_path.parent.glob("model.onnx*"))
     external = size > SINGLE_FILE_LIMIT
     model = onnx.load(str(model_path), load_external_data=True)
     static_head_dim(model, head_dim)
+    if dtype == "q4":  # the WASM variant; WebGPU implements GatherBlockQuantized
+        portable_embedding(model)
     onnx.save_model(
         model,
         str(dest),
@@ -98,7 +151,7 @@ def main(argv: list[str] | None = None) -> int:
     for dtype in args.dtypes:
         built = build_variant(args.src, work, dtype, args.quant)
         name = f"model{SUFFIX[dtype]}.onnx"
-        if save_for_transformers_js(built, onnx_dir / name, head_dim):
+        if save_for_transformers_js(built, onnx_dir / name, head_dim, dtype):
             external[name] = 1
         else:
             external.pop(name, None)

@@ -88,7 +88,7 @@ Acceptance:
 - Claude drafts 120 questions + SQL over the demo schemas; the user verifies and edits; keep 100 as `own_test`. Scorer; Groq large-model baseline; zero-shot EX of 2–3 base candidates on 100 Spider-dev items + `own_test` (on Kaggle, or a CPU subset); export spike on each finalist.
 Acceptance:
 - [x] Baseline table (large API model and each candidate) in `evals/reports/latest.json`.
-- [ ] Chosen base model exported, Node parity passes, and the user loaded it in their browser; decision recorded in README.
+- [x] Chosen base model exported, Node parity passes, and the user loaded it in their browser; decision recorded in README.
 
 ## M3: Synthetic data + dataset release
 - Generator with self-consistency filtering, dedupe, test-leakage removal, 50-item user review; dataset pushed to the Hub with a complete card.

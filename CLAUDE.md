@@ -118,7 +118,7 @@ When compacting, keep: the goal, current milestone, decisions and constraints, f
 ## Milestone status (tick only when every acceptance box for that milestone passes)
 - [x] M0 Scaffold + hello-world deploy + CLIs ready
 - [x] M1 Data: Spider → DuckDB, serializer, splits
-- [ ] M2 Own test set, baselines, export spike
+- [x] M2 Own test set, baselines, export spike
 - [ ] M3 Synthetic data + dataset release
 - [ ] M4 Train v1 on Kaggle
 - [ ] M5 Artifact eval, gate, model release

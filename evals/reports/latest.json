@@ -6,12 +6,12 @@
    "set": "own_test",
    "n": 100,
    "missing": 0,
-   "ex": 0.75,
-   "valid_sql": 0.96,
+   "ex": 0.77,
+   "valid_sql": 0.95,
    "exact_match": 0.08,
-   "latency_ms_p50": 834.0,
-   "latency_ms_p95": 1581.1,
-   "tokens_out_mean": 85.1,
+   "latency_ms_p50": 835.0,
+   "latency_ms_p95": 1921.2,
+   "tokens_out_mean": 84.8,
    "api_calls_per_100": 100,
    "cost_per_query_usd": 0.00011,
    "by_difficulty": {
@@ -25,18 +25,17 @@
     },
     "hard": {
      "n": 27,
-     "ex": 0.5926
+     "ex": 0.6296
     },
     "extra": {
      "n": 21,
-     "ex": 0.5714
+     "ex": 0.619
     }
    },
    "errors": {
-    "wrong column or table": 10,
+    "wrong column or table": 9,
     "join error": 1,
-    "aggregation": 3,
-    "date/time functions": 2,
+    "aggregation": 4,
     "hallucinated schema": 4,
     "other": 5
    },
@@ -50,11 +49,11 @@
    "n": 100,
    "missing": 0,
    "ex": 0.36,
-   "valid_sql": 0.57,
+   "valid_sql": 0.58,
    "exact_match": 0.17,
    "latency_ms_p50": 7046.1,
    "latency_ms_p95": 17203.8,
-   "tokens_out_mean": 38.7,
+   "tokens_out_mean": 38.5,
    "api_calls_per_100": 0,
    "cost_per_query_usd": 0.0,
    "by_difficulty": {
@@ -78,9 +77,10 @@
    "errors": {
     "wrong column or table": 6,
     "join error": 3,
-    "aggregation": 4,
+    "aggregation": 5,
+    "date/time functions": 1,
     "dialect error": 4,
-    "hallucinated schema": 37,
+    "hallucinated schema": 35,
     "other": 10
    },
    "predictions": "evals/predictions/qwen2.5-coder-0.5b__torch-cpu__own_test.jsonl",
@@ -96,8 +96,8 @@
    "valid_sql": 0.54,
    "exact_match": 0.17,
    "latency_ms_p50": 1698.1,
-   "latency_ms_p95": 4685.7,
-   "tokens_out_mean": 46.6,
+   "latency_ms_p95": 4535.2,
+   "tokens_out_mean": 47.0,
    "api_calls_per_100": 0,
    "cost_per_query_usd": 0.0,
    "by_difficulty": {
@@ -136,11 +136,11 @@
    "n": 100,
    "missing": 0,
    "ex": 0.29,
-   "valid_sql": 0.63,
+   "valid_sql": 0.64,
    "exact_match": 0.11,
    "latency_ms_p50": 6938.0,
    "latency_ms_p95": 53227.6,
-   "tokens_out_mean": 48.0,
+   "tokens_out_mean": 47.9,
    "api_calls_per_100": 0,
    "cost_per_query_usd": 0.0,
    "by_difficulty": {
@@ -165,9 +165,9 @@
     "wrong column or table": 13,
     "join error": 2,
     "aggregation": 10,
-    "date/time functions": 1,
+    "date/time functions": 2,
     "dialect error": 8,
-    "hallucinated schema": 25,
+    "hallucinated schema": 24,
     "other": 12
    },
    "predictions": "evals/predictions/qwen3-0.6b__torch-cpu__own_test.jsonl",
@@ -182,9 +182,9 @@
    "ex": 0.2,
    "valid_sql": 0.59,
    "exact_match": 0.08,
-   "latency_ms_p50": 1270.1,
-   "latency_ms_p95": 8611.7,
-   "tokens_out_mean": 49.2,
+   "latency_ms_p50": 1268.5,
+   "latency_ms_p95": 8591.5,
+   "tokens_out_mean": 49.1,
    "api_calls_per_100": 0,
    "cost_per_query_usd": 0.0,
    "by_difficulty": {
@@ -209,9 +209,9 @@
     "wrong column or table": 22,
     "join error": 4,
     "aggregation": 12,
-    "date/time functions": 1,
-    "dialect error": 8,
-    "hallucinated schema": 24,
+    "date/time functions": 2,
+    "dialect error": 6,
+    "hallucinated schema": 25,
     "other": 9
    },
    "predictions": "evals/predictions/qwen3-0.6b-export__onnx-q4f16-webgpu__own_test.jsonl",
@@ -227,8 +227,8 @@
    "valid_sql": 0.62,
    "exact_match": 0.11,
    "latency_ms_p50": 2178.5,
-   "latency_ms_p95": 15227.6,
-   "tokens_out_mean": 60.5,
+   "latency_ms_p95": 14652.9,
+   "tokens_out_mean": 59.9,
    "api_calls_per_100": 0,
    "cost_per_query_usd": 0.0,
    "by_difficulty": {
@@ -270,8 +270,8 @@
    "ex": 0.19,
    "valid_sql": 0.58,
    "exact_match": 0.09,
-   "latency_ms_p50": 2049.7,
-   "latency_ms_p95": 10793.6,
+   "latency_ms_p50": 1983.7,
+   "latency_ms_p95": 10398,
    "tokens_out_mean": 50.6,
    "api_calls_per_100": 0,
    "cost_per_query_usd": 0.0,
@@ -312,11 +312,11 @@
    "n": 100,
    "missing": 0,
    "ex": 0.29,
-   "valid_sql": 0.57,
+   "valid_sql": 0.56,
    "exact_match": 0.01,
    "latency_ms_p50": 18265.6,
-   "latency_ms_p95": 79539.4,
-   "tokens_out_mean": 75.3,
+   "latency_ms_p95": 69663.8,
+   "tokens_out_mean": 74.8,
    "api_calls_per_100": 0,
    "cost_per_query_usd": 0.0,
    "by_difficulty": {
@@ -338,11 +338,11 @@
     }
    },
    "errors": {
-    "wrong column or table": 13,
+    "wrong column or table": 12,
     "join error": 5,
     "aggregation": 9,
-    "dialect error": 11,
-    "hallucinated schema": 25,
+    "dialect error": 9,
+    "hallucinated schema": 28,
     "other": 8
    },
    "predictions": "evals/predictions/qwen3.5-0.8b__torch-cpu__own_test.jsonl",

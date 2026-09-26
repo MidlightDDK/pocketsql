@@ -2,14 +2,20 @@
 import {
   AutoModelForCausalLM,
   AutoTokenizer,
+  env,
   type ProgressInfo,
   type Tensor,
 } from "@huggingface/transformers";
 import { buildMessages } from "@pocketsql/sqlgen";
 import schemas from "../../evals/sets/schemas.json";
 
+// huggingface.co answers requests whose Referer is a *.workers.dev page with a
+// 404 and no CORS headers, so model downloads go out without a referrer.
+env.fetch = (input, init) =>
+  fetch(input, { ...init, referrerPolicy: "no-referrer" });
+
 const MODEL = "MidlightDDK/pocketsql-base-0.5b";
-const REVISION = "aca5ef37e8bac940679391652fa2eda9225b2493";
+const REVISION = "cdb0fbdbb0af527488cdae1029a0c11af0da8a5d";
 const QUESTIONS = [
   "How many customers are there?",
   "Which 3 artists have the most albums? Show the artist name and album count.",
