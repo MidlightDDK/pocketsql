@@ -5,8 +5,13 @@ const env = {
   ASSETS: { fetch: async () => new Response("placeholder page") },
 } as unknown as Env;
 
+type WorkerRequest = Parameters<typeof worker.fetch>[0];
+
 const call = (path: string, init?: RequestInit) =>
-  worker.fetch(new Request(`https://pocket-sql.test${path}`, init), env);
+  worker.fetch(
+    new Request(`https://pocket-sql.test${path}`, init) as WorkerRequest,
+    env,
+  );
 
 describe("worker", () => {
   it("reports health", async () => {
