@@ -1,8 +1,9 @@
 """Zero-shot PyTorch predictions on CPU (greedy, thinking disabled).
 
 `uv run --project training --group infer python -m pocketsql.evalx.predict_torch
---model qwen3-0.6b --set own_test` writes
-evals/predictions/<model>__torch-cpu__<set>.jsonl and resumes an interrupted run.
+--model qwen3-0.6b --set own_test [--path <local dir>]` writes
+evals/predictions/<model>__torch-cpu__<set>.jsonl and resumes an interrupted run;
+--path loads local weights (a run's merged model) instead of the pinned Hub revision.
 """
 
 import argparse
@@ -27,6 +28,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--model", required=True, choices=sorted(MODELS))
     parser.add_argument("--set", required=True, choices=SET_NAMES)
     parser.add_argument("--limit", type=int, help="first N items only")
+    parser.add_argument("--path", help="local model dir instead of the Hub revision")
     args = parser.parse_args(argv)
     spec = MODELS[args.model]
     out = PREDICTIONS / f"{args.model}__torch-cpu__{args.set}.jsonl"
@@ -34,10 +36,16 @@ def main(argv: list[str] | None = None) -> int:
     items = [i for i in load_set(args.set)[: args.limit] if i["id"] not in done]
     schemas = load_schemas()
 
-    tok = AutoTokenizer.from_pretrained(spec["hf_repo"], revision=spec["revision"])
-    model = AutoModelForCausalLM.from_pretrained(
-        spec["hf_repo"], revision=spec["revision"], dtype=torch.float32
-    ).eval()
+    source = (
+        {"pretrained_model_name_or_path": args.path}
+        if args.path
+        else {
+            "pretrained_model_name_or_path": spec["hf_repo"],
+            "revision": spec["revision"],
+        }
+    )
+    tok = AutoTokenizer.from_pretrained(**source)
+    model = AutoModelForCausalLM.from_pretrained(**source, dtype=torch.float32).eval()
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("a", encoding="utf-8", newline="\n") as f:
         for n, item in enumerate(items, 1):

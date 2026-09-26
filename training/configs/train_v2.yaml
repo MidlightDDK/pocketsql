@@ -1,0 +1,26 @@
+# Run v2 = v1 + the 591 synthetic demo-schema pairs (dataset v1, M3); nothing else
+# changes. v1 failed the release gate on own_test (20% vs the base export's 29%).
+run_id: v2
+base_model: qwen2.5-coder-0.5b # key in pocketsql.evalx.models.MODELS (pinned revision)
+dataset:
+  repo: MidlightDDK/pocketsql-data
+  revision: b078ef1fa000c95020ebd50f093abde126126e4e
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.0
+  target_modules: all-linear
+train:
+  epochs: 2
+  learning_rate: 2.0e-4
+  lr_scheduler: cosine
+  warmup: 0.03 # fraction of total steps
+  max_seq_len: 1024 # longer pairs are dropped, not truncated
+  per_device_batch: 8
+  grad_accum: 4 # effective batch 32 on one GPU
+  seed: 42
+eval:
+  batch_size: 32
+  max_new_tokens: 256
+export:
+  dtypes: [q4f16, q4]

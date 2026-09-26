@@ -1,8 +1,10 @@
 """Export parity: ONNX greedy outputs vs PyTorch on the 20 parity prompts.
 
 `python -m pocketsql.export.parity --reference <model>__torch-cpu
---candidates <name>__onnx-<dtype>-<device> … [--report]` reads the reference from its
-own_test/spider_dev_100 prediction files and each candidate from its `__parity` file.
+--candidates <name>__onnx-<dtype>-<device> … [--set val_50] [--report]` compares each
+candidate's `__<set>` file with the reference. For the default `parity` set (20 prompts,
+M2) the reference comes from its own_test/spider_dev_100 files; `val_50` is the release
+parity check (shipped ONNX vs merged PyTorch on 50 val prompts, M5).
 Gate (.claude/rules/training.md): the unquantized (fp32) export must match on ≥ 18/20
 prompts; fp16 and the 4-bit variants are reported, since fp16 drifts from fp32 PyTorch.
 """
@@ -31,18 +33,19 @@ def _result(con: duckdb.DuckDBPyConnection, sql: str) -> list[tuple] | None:
         return None
 
 
-def compare(reference: str, candidate: str) -> dict:
+def compare(reference: str, candidate: str, set_name: str = "parity") -> dict:
+    bases = PARITY if set_name == "parity" else (set_name,)
     ref = {
         p["id"]: p["sql"]
-        for base in PARITY
+        for base in bases
         for p in read_jsonl(PREDICTIONS / f"{reference}__{base}.jsonl")
     }
     cand = {
         p["id"]: p["sql"]
-        for p in read_jsonl(PREDICTIONS / f"{candidate}__parity.jsonl")
+        for p in read_jsonl(PREDICTIONS / f"{candidate}__{set_name}.jsonl")
     }
     same_text = same_result = 0
-    items = load_set("parity")
+    items = load_set(set_name)
     for item in items:
         a, b = ref[item["id"]].strip(), cand[item["id"]].strip()
         same_text += a == b
@@ -58,6 +61,7 @@ def compare(reference: str, candidate: str) -> dict:
     return {
         "reference": reference,
         "candidate": candidate,
+        "set": set_name,
         "n": len(items),
         "same_output": same_text,
         "same_result": same_result,
@@ -69,9 +73,10 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="pocketsql.export.parity")
     parser.add_argument("--reference", required=True)
     parser.add_argument("--candidates", nargs="+", required=True)
+    parser.add_argument("--set", default="parity", choices=("parity", "val_50"))
     parser.add_argument("--report", action="store_true", help="update latest.json")
     args = parser.parse_args(argv)
-    rows = [compare(args.reference, c) for c in args.candidates]
+    rows = [compare(args.reference, c, args.set) for c in args.candidates]
     failed = False
     for r in rows:
         gated = "-fp32-" in r["candidate"]
@@ -87,9 +92,12 @@ def main(argv: list[str] | None = None) -> int:
         keep = [
             p
             for p in report.get("export_parity", [])
-            if p["candidate"] not in args.candidates
+            if (p["candidate"], p.get("set", "parity"))
+            not in {(c, args.set) for c in args.candidates}
         ]
-        report["export_parity"] = sorted(keep + rows, key=lambda p: p["candidate"])
+        report["export_parity"] = sorted(
+            keep + rows, key=lambda p: (p.get("set", "parity"), p["candidate"])
+        )
         REPORT.write_text(
             json.dumps(report, indent=1, ensure_ascii=False) + "\n",
             encoding="utf-8",

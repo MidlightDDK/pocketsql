@@ -7,10 +7,15 @@ import { join } from "node:path";
 export const EVALS = join(import.meta.dirname, "..");
 const SETS = join(EVALS, "sets");
 const FILES: Record<string, string> = {
-  own_test: "own_test.jsonl",
-  spider_dev: "spider_dev_duckdb.jsonl",
+  own_test: join(SETS, "own_test.jsonl"),
+  spider_dev: join(SETS, "spider_dev_duckdb.jsonl"),
+  val_50: join(EVALS, "parity", "val_50.jsonl"),
 };
 const SUBSET_SEED = "pocketsql-dev100-v1";
+const SUBSETS: Record<string, number> = {
+  spider_dev_100: 100,
+  spider_dev_200: 200,
+};
 
 export interface Item {
   id: string;
@@ -33,19 +38,20 @@ const byKey = <T>(a: [string, T], b: [string, T]) =>
 
 export function loadSet(name: string): Item[] {
   const file = FILES[name];
-  if (file) return readJsonl<Item>(join(SETS, file));
+  if (file) return readJsonl<Item>(file);
   if (name === "parity") {
     return ["own_test", "spider_dev_100"].flatMap((base) =>
       loadSet(base).filter((_, i) => i % 10 === 0),
     );
   }
-  if (name === "spider_dev_100") {
+  const size = SUBSETS[name];
+  if (size) {
     const hash = (i: Item) =>
       createHash("sha256").update(`${SUBSET_SEED}:${i.id}`).digest("hex");
     return loadSet("spider_dev")
       .map((i): [string, Item] => [hash(i), i])
       .sort(byKey)
-      .slice(0, 100)
+      .slice(0, size)
       .map(([, i]): [string, Item] => [i.id, i])
       .sort(byKey)
       .map(([, i]) => i);

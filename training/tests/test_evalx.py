@@ -45,7 +45,12 @@ def test_sets_are_fixed() -> None:
     dev = load_set("spider_dev_100")
     assert len(dev) == 100 and dev == load_set("spider_dev_100")
     assert len(load_set("parity")) == 20
-    assert {i["db_id"] for i in load_set("own_test")} <= set(load_schemas())
+    dev200 = {i["id"] for i in load_set("spider_dev_200")}
+    assert len(dev200) == 200 and {i["id"] for i in dev} <= dev200
+    val = load_set("val_50")
+    assert len(val) == 50 and all(i["id"].startswith("spider_train_") for i in val)
+    for name in ("own_test", "val_50", "spider_dev"):
+        assert {i["db_id"] for i in load_set(name)} <= set(load_schemas())
 
 
 def test_gold_predictions_score_perfectly(tmp_path: Path) -> None:

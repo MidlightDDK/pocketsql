@@ -1,0 +1,66 @@
+name: Artifact eval
+
+# Reruns the released ONNX artifact (q4 on CPU, the path the WASM fallback takes) on
+# own_test + 200 Spider-dev items and gates it against evals/baseline.json.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * 1"
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      # setup-uv publishes no floating major tag; pin the full release.
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: uv sync --project training --locked
+      - name: Pinned revisions
+        id: pins
+        run: |
+          echo "model=$(jq -r '.hf_repo + "@" + .revision' evals/baseline.json)" >> "$GITHUB_OUTPUT"
+          echo "name=$(jq -r .model evals/baseline.json)" >> "$GITHUB_OUTPUT"
+          uv run --project training python -c 'from pocketsql.data.leakage import HUB_REPO, HUB_REVISION; print(f"data={HUB_REPO}/resolve/{HUB_REVISION}")' >> "$GITHUB_OUTPUT"
+      # Transformers.js caches downloads next to its package (DEFAULT_CACHE_DIR).
+      - uses: actions/cache@v5
+        with:
+          path: node_modules/.pnpm/@huggingface+transformers@*/node_modules/@huggingface/transformers/.cache
+          key: onnx-${{ steps.pins.outputs.model }}
+      - name: Eval databases (val, Spider dev, demo)
+        run: |
+          curl -sSfL -o "$RUNNER_TEMP/databases.zip" "https://huggingface.co/datasets/${{ steps.pins.outputs.data }}/databases.zip"
+          mkdir -p training/data/processed/duckdb
+          unzip -q -o "$RUNNER_TEMP/databases.zip" -d training/data/processed/duckdb
+      - name: Predict (q4, CPU)
+        env:
+          MODEL: ${{ steps.pins.outputs.model }}
+          NAME: ${{ steps.pins.outputs.name }}
+        run: |
+          for set in own_test spider_dev_200; do
+            rm -f "evals/predictions/${NAME}__onnx-q4-cpu__${set}.jsonl"
+            pnpm -s eval:onnx --model "$MODEL" --name "$NAME" --set "$set" --dtype q4 --device cpu
+          done
+      - name: Gate
+        env:
+          NAME: ${{ steps.pins.outputs.name }}
+        run: |
+          uv run --project training python -m pocketsql.release.gate --check \
+            "evals/predictions/${NAME}__onnx-q4-cpu__own_test.jsonl" \
+            "evals/predictions/${NAME}__onnx-q4-cpu__spider_dev_200.jsonl" \
+            | tee -a "$GITHUB_STEP_SUMMARY"

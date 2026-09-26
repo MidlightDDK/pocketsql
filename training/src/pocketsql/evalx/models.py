@@ -57,6 +57,18 @@ MODELS: dict[str, dict] = {
         "revision": "da1453100cf3ff33ef56d17983fc7a8648706db6",
         "download_mib": {"q4f16": 552, "q4": 885},
     },
+    # Releases: the fine-tuned model (training/runs/<run_id>), merged fp16 weights and
+    # ONNX in one Hub repo; torch-cpu rows come from the merged weights.
+    "pocketsql-0.5b-v1": {
+        "base": "qwen2.5-coder-0.5b",
+        "run_id": "v1",
+        "hf_repo": "MidlightDDK/pocketsql-0.5b",
+        "revision": None,
+        "license": "apache-2.0",
+        "params_b": 0.5,
+        "recipe": "LoRA SFT on Spider (run v1), merged; int4 block_size=32",
+        "download_mib": {"q4f16": 276, "q4": 310},
+    },
     # Large API baseline (pocketsql.evalx.predict_groq).
     "gpt-oss-120b": {
         "hf_repo": "openai/gpt-oss-120b",

@@ -20,6 +20,7 @@ from pocketsql.data import paths
 from pocketsql.data.leakage import read_jsonl
 from pocketsql.evalx.compare import has_order_by, result_hash, results_match, run_duckdb
 from pocketsql.evalx.models import MODELS
+from pocketsql.evalx.own_test import check_item, reversed_copy
 from pocketsql.evalx.postprocess import clean_sql
 from pocketsql.evalx.sets import db_path, load_set
 
@@ -49,6 +50,18 @@ def connect(db_id: str) -> duckdb.DuckDBPyConnection:
     return duckdb.connect(
         str(db_path(db_id)), read_only=True, config={"enable_external_access": False}
     )
+
+
+def tie_dependent(item: dict, tries: int = 5) -> bool:
+    """Gold whose result depends on ties or row order (~40 Spider-dev items): its hash
+    is not reproducible, so it is scored against a fresh gold run instead. One check
+    can pass by chance (parallel execution), so any of `tries` flagging it counts."""
+    with connect(item["db_id"]) as con, reversed_copy(item["db_id"]) as rev:
+        for _ in range(tries):
+            problem, _ = check_item(item, con, rev)
+            if problem and ("ties" in problem or "deterministic" in problem):
+                return True
+    return False
 
 
 def _parse(sql: str) -> exp.Expression | None:
@@ -129,6 +142,7 @@ def score_file(path: Path) -> tuple[dict, list[dict]]:
     items = load_set(set_name)
     preds = {p["id"]: p for p in read_jsonl(path)}
     outcomes = []
+    unstable = 0
     by_db: dict[str, list[dict]] = {}
     for item in items:
         by_db.setdefault(item["db_id"], []).append(item)
@@ -138,7 +152,9 @@ def score_file(path: Path) -> tuple[dict, list[dict]]:
                 gold = run_duckdb(con, item["gold_sql"], TIMEOUT_S)
                 ordered = has_order_by(item["gold_sql"])
                 if result_hash(gold, ordered) != item["gold_result_hash"]:
-                    raise SystemExit(f"{item['id']}: gold result hash mismatch")
+                    if not tie_dependent(item):
+                        raise SystemExit(f"{item['id']}: gold result hash mismatch")
+                    unstable += 1
                 pred = preds.get(item["id"], {})
                 sql = clean_sql(pred.get("sql", ""))
                 error, rows = None, None
@@ -204,6 +220,7 @@ def score_file(path: Path) -> tuple[dict, list[dict]]:
         "cost_per_query_usd": round(cost, 6),
         "by_difficulty": by_diff,
         "errors": {t: tags[t] for t in TAGS if tags[t]},
+        "gold_reran": unstable,
         "predictions": path.resolve().relative_to(paths.REPO, walk_up=True).as_posix(),
         "scored": dt.date.today().isoformat(),
     }
