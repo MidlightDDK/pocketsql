@@ -1,7 +1,7 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
   "files": {
-    "includes": ["**", "!training/data", "!evals/reports"]
+    "includes": ["**", "!training/data", "!training/runs", "!evals/reports"]
   },
   "vcs": {
     "enabled": true,
