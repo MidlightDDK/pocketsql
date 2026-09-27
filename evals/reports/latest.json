@@ -43,6 +43,138 @@
    "scored": "2026-09-26"
   },
   {
+   "model": "pocketsql-0.5b-v1",
+   "runtime": "onnx-q4-cpu",
+   "set": "own_test",
+   "n": 100,
+   "missing": 0,
+   "ex": 0.2,
+   "valid_sql": 0.66,
+   "exact_match": 0.16,
+   "latency_ms_p50": 3717.7,
+   "latency_ms_p95": 11354.1,
+   "tokens_out_mean": 33.1,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 19,
+     "ex": 0.7368
+    },
+    "medium": {
+     "n": 33,
+     "ex": 0.1818
+    },
+    "hard": {
+     "n": 27,
+     "ex": 0.0
+    },
+    "extra": {
+     "n": 21,
+     "ex": 0.0
+    }
+   },
+   "errors": {
+    "wrong column or table": 18,
+    "join error": 2,
+    "aggregation": 8,
+    "dialect error": 2,
+    "hallucinated schema": 29,
+    "other": 21
+   },
+   "gold_reran": 0,
+   "predictions": "evals/predictions/pocketsql-0.5b-v1__onnx-q4-cpu__own_test.jsonl",
+   "scored": "2026-09-27"
+  },
+  {
+   "model": "pocketsql-0.5b-v1",
+   "runtime": "onnx-q4f16-webgpu",
+   "set": "own_test",
+   "n": 100,
+   "missing": 0,
+   "ex": 0.2,
+   "valid_sql": 0.66,
+   "exact_match": 0.15,
+   "latency_ms_p50": 552.3,
+   "latency_ms_p95": 1341.8,
+   "tokens_out_mean": 32.6,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 19,
+     "ex": 0.7368
+    },
+    "medium": {
+     "n": 33,
+     "ex": 0.1818
+    },
+    "hard": {
+     "n": 27,
+     "ex": 0.0
+    },
+    "extra": {
+     "n": 21,
+     "ex": 0.0
+    }
+   },
+   "errors": {
+    "wrong column or table": 16,
+    "join error": 1,
+    "aggregation": 8,
+    "dialect error": 2,
+    "hallucinated schema": 30,
+    "other": 23
+   },
+   "gold_reran": 0,
+   "predictions": "evals/predictions/pocketsql-0.5b-v1__onnx-q4f16-webgpu__own_test.jsonl",
+   "scored": "2026-09-27"
+  },
+  {
+   "model": "pocketsql-0.5b-v1",
+   "runtime": "torch-cpu",
+   "set": "own_test",
+   "n": 100,
+   "missing": 0,
+   "ex": 0.26,
+   "valid_sql": 0.67,
+   "exact_match": 0.19,
+   "latency_ms_p50": 5025.6,
+   "latency_ms_p95": 11773.4,
+   "tokens_out_mean": 33.1,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 19,
+     "ex": 0.7895
+    },
+    "medium": {
+     "n": 33,
+     "ex": 0.303
+    },
+    "hard": {
+     "n": 27,
+     "ex": 0.0
+    },
+    "extra": {
+     "n": 21,
+     "ex": 0.0476
+    }
+   },
+   "errors": {
+    "wrong column or table": 13,
+    "join error": 2,
+    "aggregation": 7,
+    "dialect error": 1,
+    "hallucinated schema": 30,
+    "other": 21
+   },
+   "gold_reran": 0,
+   "predictions": "evals/predictions/pocketsql-0.5b-v1__torch-cpu__own_test.jsonl",
+   "scored": "2026-09-27"
+  },
+  {
    "model": "qwen2.5-coder-0.5b",
    "runtime": "torch-cpu",
    "set": "own_test",
@@ -85,6 +217,50 @@
    },
    "predictions": "evals/predictions/qwen2.5-coder-0.5b__torch-cpu__own_test.jsonl",
    "scored": "2026-09-26"
+  },
+  {
+   "model": "qwen2.5-coder-0.5b-export",
+   "runtime": "onnx-q4-cpu",
+   "set": "own_test",
+   "n": 100,
+   "missing": 0,
+   "ex": 0.3,
+   "valid_sql": 0.5,
+   "exact_match": 0.17,
+   "latency_ms_p50": 4148,
+   "latency_ms_p95": 12222.4,
+   "tokens_out_mean": 47.9,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 19,
+     "ex": 0.7895
+    },
+    "medium": {
+     "n": 33,
+     "ex": 0.3333
+    },
+    "hard": {
+     "n": 27,
+     "ex": 0.1481
+    },
+    "extra": {
+     "n": 21,
+     "ex": 0.0
+    }
+   },
+   "errors": {
+    "wrong column or table": 4,
+    "join error": 1,
+    "aggregation": 11,
+    "dialect error": 1,
+    "hallucinated schema": 46,
+    "other": 7
+   },
+   "gold_reran": 0,
+   "predictions": "evals/predictions/qwen2.5-coder-0.5b-export__onnx-q4-cpu__own_test.jsonl",
+   "scored": "2026-09-27"
   },
   {
    "model": "qwen2.5-coder-0.5b-export",
@@ -347,6 +523,95 @@
    },
    "predictions": "evals/predictions/qwen3.5-0.8b__torch-cpu__own_test.jsonl",
    "scored": "2026-09-26"
+  },
+  {
+   "model": "pocketsql-0.5b-v1",
+   "runtime": "onnx-q4f16-webgpu",
+   "set": "spider_dev",
+   "n": 981,
+   "missing": 0,
+   "ex": 0.472,
+   "valid_sql": 0.6881,
+   "exact_match": 0.3313,
+   "latency_ms_p50": 1066.7,
+   "latency_ms_p95": 2492.6,
+   "tokens_out_mean": 33.3,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 236,
+     "ex": 0.6864
+    },
+    "medium": {
+     "n": 433,
+     "ex": 0.4873
+    },
+    "hard": {
+     "n": 164,
+     "ex": 0.3171
+    },
+    "extra": {
+     "n": 148,
+     "ex": 0.2568
+    }
+   },
+   "errors": {
+    "wrong column or table": 87,
+    "join error": 24,
+    "aggregation": 27,
+    "dialect error": 22,
+    "hallucinated schema": 275,
+    "other": 83
+   },
+   "gold_reran": 4,
+   "predictions": "evals/predictions/pocketsql-0.5b-v1__onnx-q4f16-webgpu__spider_dev.jsonl",
+   "scored": "2026-09-27"
+  },
+  {
+   "model": "qwen2.5-coder-0.5b-export",
+   "runtime": "onnx-q4f16-webgpu",
+   "set": "spider_dev",
+   "n": 981,
+   "missing": 0,
+   "ex": 0.3089,
+   "valid_sql": 0.4934,
+   "exact_match": 0.1998,
+   "latency_ms_p50": 1054,
+   "latency_ms_p95": 2302.8,
+   "tokens_out_mean": 34.1,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 236,
+     "ex": 0.5508
+    },
+    "medium": {
+     "n": 433,
+     "ex": 0.3025
+    },
+    "hard": {
+     "n": 164,
+     "ex": 0.1829
+    },
+    "extra": {
+     "n": 148,
+     "ex": 0.0811
+    }
+   },
+   "errors": {
+    "wrong column or table": 88,
+    "join error": 23,
+    "aggregation": 35,
+    "date/time functions": 6,
+    "dialect error": 12,
+    "hallucinated schema": 450,
+    "other": 64
+   },
+   "gold_reran": 4,
+   "predictions": "evals/predictions/qwen2.5-coder-0.5b-export__onnx-q4f16-webgpu__spider_dev.jsonl",
+   "scored": "2026-09-27"
   },
   {
    "model": "gpt-oss-120b",
@@ -688,9 +953,185 @@
    },
    "predictions": "evals/predictions/qwen3.5-0.8b__torch-cpu__spider_dev_100.jsonl",
    "scored": "2026-09-26"
+  },
+  {
+   "model": "pocketsql-0.5b-v1",
+   "runtime": "onnx-q4-cpu",
+   "set": "spider_dev_200",
+   "n": 200,
+   "missing": 0,
+   "ex": 0.43,
+   "valid_sql": 0.665,
+   "exact_match": 0.305,
+   "latency_ms_p50": 3342.9,
+   "latency_ms_p95": 11598.7,
+   "tokens_out_mean": 32.9,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 54,
+     "ex": 0.7037
+    },
+    "medium": {
+     "n": 86,
+     "ex": 0.4535
+    },
+    "hard": {
+     "n": 24,
+     "ex": 0.1667
+    },
+    "extra": {
+     "n": 36,
+     "ex": 0.1389
+    }
+   },
+   "errors": {
+    "wrong column or table": 14,
+    "join error": 8,
+    "aggregation": 5,
+    "dialect error": 5,
+    "hallucinated schema": 61,
+    "other": 21
+   },
+   "gold_reran": 0,
+   "predictions": "evals/predictions/pocketsql-0.5b-v1__onnx-q4-cpu__spider_dev_200.jsonl",
+   "scored": "2026-09-27"
+  },
+  {
+   "model": "pocketsql-0.5b-v1",
+   "runtime": "onnx-q4-cpu",
+   "set": "val_50",
+   "n": 50,
+   "missing": 0,
+   "ex": 0.42,
+   "valid_sql": 0.78,
+   "exact_match": 0.26,
+   "latency_ms_p50": 5867.4,
+   "latency_ms_p95": 9107.8,
+   "tokens_out_mean": 39.0,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 10,
+     "ex": 0.6
+    },
+    "medium": {
+     "n": 24,
+     "ex": 0.5
+    },
+    "hard": {
+     "n": 9,
+     "ex": 0.2222
+    },
+    "extra": {
+     "n": 7,
+     "ex": 0.1429
+    }
+   },
+   "errors": {
+    "wrong column or table": 11,
+    "join error": 2,
+    "aggregation": 2,
+    "dialect error": 3,
+    "hallucinated schema": 8,
+    "other": 3
+   },
+   "gold_reran": 0,
+   "predictions": "evals/predictions/pocketsql-0.5b-v1__onnx-q4-cpu__val_50.jsonl",
+   "scored": "2026-09-27"
+  },
+  {
+   "model": "pocketsql-0.5b-v1",
+   "runtime": "onnx-q4f16-webgpu",
+   "set": "val_50",
+   "n": 50,
+   "missing": 0,
+   "ex": 0.44,
+   "valid_sql": 0.74,
+   "exact_match": 0.26,
+   "latency_ms_p50": 1644.1,
+   "latency_ms_p95": 2925.8,
+   "tokens_out_mean": 39.4,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 10,
+     "ex": 0.7
+    },
+    "medium": {
+     "n": 24,
+     "ex": 0.5
+    },
+    "hard": {
+     "n": 9,
+     "ex": 0.2222
+    },
+    "extra": {
+     "n": 7,
+     "ex": 0.1429
+    }
+   },
+   "errors": {
+    "wrong column or table": 9,
+    "join error": 1,
+    "aggregation": 3,
+    "dialect error": 2,
+    "hallucinated schema": 10,
+    "other": 3
+   },
+   "gold_reran": 0,
+   "predictions": "evals/predictions/pocketsql-0.5b-v1__onnx-q4f16-webgpu__val_50.jsonl",
+   "scored": "2026-09-27"
+  },
+  {
+   "model": "pocketsql-0.5b-v1",
+   "runtime": "torch-cpu",
+   "set": "val_50",
+   "n": 50,
+   "missing": 0,
+   "ex": 0.58,
+   "valid_sql": 0.78,
+   "exact_match": 0.38,
+   "latency_ms_p50": 6719.3,
+   "latency_ms_p95": 11022.9,
+   "tokens_out_mean": 34.5,
+   "api_calls_per_100": 0,
+   "cost_per_query_usd": 0.0,
+   "by_difficulty": {
+    "easy": {
+     "n": 10,
+     "ex": 0.8
+    },
+    "medium": {
+     "n": 24,
+     "ex": 0.625
+    },
+    "hard": {
+     "n": 9,
+     "ex": 0.4444
+    },
+    "extra": {
+     "n": 7,
+     "ex": 0.2857
+    }
+   },
+   "errors": {
+    "wrong column or table": 5,
+    "join error": 2,
+    "aggregation": 3,
+    "dialect error": 1,
+    "hallucinated schema": 8,
+    "other": 2
+   },
+   "gold_reran": 0,
+   "predictions": "evals/predictions/pocketsql-0.5b-v1__torch-cpu__val_50.jsonl",
+   "scored": "2026-09-27"
   }
  ],
- "updated": "2026-09-26",
+ "updated": "2026-09-27",
  "models": {
   "qwen3-0.6b": {
    "hf_repo": "Qwen/Qwen3-0.6B",
@@ -731,7 +1172,7 @@
   "qwen2.5-coder-0.5b-export": {
    "base": "qwen2.5-coder-0.5b",
    "hf_repo": "MidlightDDK/pocketsql-base-0.5b",
-   "revision": "aca5ef37e8bac940679391652fa2eda9225b2493",
+   "revision": "cdb0fbdbb0af527488cdae1029a0c11af0da8a5d",
    "recipe": "int4 block_size=32",
    "download_mib": {
     "q4f16": 276,
@@ -761,6 +1202,19 @@
    "download_mib": {
     "q4f16": 552,
     "q4": 885
+   }
+  },
+  "pocketsql-0.5b-v1": {
+   "base": "qwen2.5-coder-0.5b",
+   "run_id": "v1",
+   "hf_repo": "MidlightDDK/pocketsql-0.5b",
+   "revision": null,
+   "license": "apache-2.0",
+   "params_b": 0.5,
+   "recipe": "LoRA SFT on Spider (run v1), merged; int4 block_size=32",
+   "download_mib": {
+    "q4f16": 276,
+    "q4": 310
    }
   },
   "gpt-oss-120b": {
@@ -846,6 +1300,24 @@
    "same_output": 4,
    "same_result": 10,
    "checked": "2026-09-26"
+  },
+  {
+   "reference": "pocketsql-0.5b-v1__torch-cpu",
+   "candidate": "pocketsql-0.5b-v1__onnx-q4-cpu",
+   "set": "val_50",
+   "n": 50,
+   "same_output": 18,
+   "same_result": 31,
+   "checked": "2026-09-27"
+  },
+  {
+   "reference": "pocketsql-0.5b-v1__torch-cpu",
+   "candidate": "pocketsql-0.5b-v1__onnx-q4f16-webgpu",
+   "set": "val_50",
+   "n": 50,
+   "same_output": 18,
+   "same_result": 32,
+   "checked": "2026-09-27"
   }
  ]
 }

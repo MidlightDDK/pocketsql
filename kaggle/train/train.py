@@ -19,8 +19,8 @@ import urllib.request
 from pathlib import Path
 
 STARTED = time.time()
-CODE_REVISION = "88585e2955fd06173c106cda940a909741723e00"
-CONFIG = "training/configs/train_v1.yaml"
+CODE_REVISION = "661340824035ca3594f19b6b25847a8924ed98b9"
+CONFIG = "training/configs/train_v2.yaml"
 PINS = [
     "accelerate==1.15.0",
     "datasets==5.0.1",

@@ -1,0 +1,100 @@
+{"id": "own_chinook_01", "sql": "SELECT COUNT(*) FROM CUSTOMER;", "latency_ms": 4098.9, "tokens_out": 8}
+{"id": "own_chinook_03", "sql": "SELECT Name FROM GENRE ORDER BY Name;", "latency_ms": 4163.8, "tokens_out": 10}
+{"id": "own_chinook_04", "sql": "SELECT MAX(UnitPrice) FROM TRACK;", "latency_ms": 4551.5, "tokens_out": 9}
+{"id": "own_chinook_05", "sql": "SELECT COUNT(*) FROM CUSTOMER WHERE Country = 'Brazil';", "latency_ms": 4806.2, "tokens_out": 13}
+{"id": "own_chinook_06", "sql": "SELECT FirstName, LastName FROM EMPLOYEE WHERE Title = 'Sales Support Agent';", "latency_ms": 5562.1, "tokens_out": 16}
+{"id": "own_chinook_07", "sql": "SELECT SUM(T2.Total) FROM INVOICE AS T1 JOIN INVOICELINE AS T2 ON T1.InvoiceId = T2.InvoiceId;", "latency_ms": 7140.9, "tokens_out": 33}
+{"id": "own_chinook_09", "sql": "SELECT Title FROM ALBUM WHERE Title ILIKE '%Greatest%';", "latency_ms": 5025.6, "tokens_out": 15}
+{"id": "own_chinook_10", "sql": "SELECT AVG(Milliseconds / 60) FROM TRACK;", "latency_ms": 4690.1, "tokens_out": 13}
+{"id": "own_chinook_11", "sql": "SELECT Name FROM TRACK WHERE Milliseconds > 20000;", "latency_ms": 5398.0, "tokens_out": 16}
+{"id": "own_chinook_13", "sql": "SELECT T2.Name, COUNT(*) FROM GENRE AS T1 JOIN TRACK AS T2 ON T1.GenreId = T2.GenreId GROUP BY T1.GenreId, T2.Name;", "latency_ms": 8852.3, "tokens_out": 43}
+{"id": "own_chinook_14", "sql": "SELECT T2.Name FROM ALBUM AS T1 JOIN ARTIST AS T2 ON T1.ArtistId = T2.ArtistId GROUP BY T2.Name ORDER BY COUNT(*) DESC LIMIT 1;", "latency_ms": 8772.1, "tokens_out": 43}
+{"id": "own_chinook_15", "sql": "SELECT T1.FirstName, T1.LastName, SUM(T2.Total) FROM CUSTOMER AS T1 JOIN INVOICE AS T2 ON T1.CustomerId = T2.CustomerId GROUP BY T1.CustomerId, T1.FirstName, T1.LastName ORDER BY SUM(T2.Total) DESC LIMIT 3;", "latency_ms": 10965.8, "tokens_out": 63}
+{"id": "own_chinook_16", "sql": "SELECT BillingCountry, SUM(T1.Total) FROM INVOICE AS T1 JOIN CUSTOMER AS T2 ON TRUE JOIN INVOICELINE AS T3 ON TRUE JOIN TRACK AS T4 ON T1.InvoiceId = T3.InvoiceId AND T2.CustomerId = T3.CustomerId AND T4.TrackId = T3.TrackId GROUP BY BillingCountry ORDER BY SUM(T1.Total) DESC LIMIT 5;", "latency_ms": 14306.8, "tokens_out": 88}
+{"id": "own_chinook_17", "sql": "SELECT COUNT(*) FROM INVOICE WHERE INVOICEDATE ILIKE '2023%';", "latency_ms": 6052.7, "tokens_out": 22}
+{"id": "own_chinook_18", "sql": "SELECT SUM(T2.Total), T1.Year FROM INVOICE AS T1 JOIN INVOICELINE AS T2 ON T1.InvoiceId = T2.InvoiceId GROUP BY T1.Year ORDER BY T1.Year;", "latency_ms": 9364.4, "tokens_out": 46}
+{"id": "own_chinook_19", "sql": "SELECT Title FROM ALBUM AS T1 JOIN TRACK AS T2 ON T1.AlbumId = T2.AlbumId WHERE T1.ArtistId = 1 AND T2.Composer = 'AC/DC';", "latency_ms": 9181.7, "tokens_out": 46}
+{"id": "own_chinook_20", "sql": "SELECT T2.Name FROM ALBUM AS T1 JOIN TRACK AS T2 ON T1.AlbumId = T2.AlbumId WHERE T1.Title = 'Let There Be Rock';", "latency_ms": 8231.6, "tokens_out": 39}
+{"id": "own_chinook_21", "sql": "SELECT T1.Name, COUNT(*) FROM MEDIATYPE AS T1 JOIN TRACK AS T2 ON T1.MediaTypeId = T2.MediaTypeId GROUP BY T1.MediaTypeId, T1.Name;", "latency_ms": 8432.3, "tokens_out": 41}
+{"id": "own_chinook_22", "sql": "SELECT AVG(T1.Total), T2.BillingCountry FROM INVOICE AS T1 JOIN PLAYLISTTRACK AS T2 ON TRUE JOIN TRACK AS T3 ON T2.TrackId = T3.TrackId AND T1.InvoiceId = T2.InvoiceId AND T3.GenreId = 1 GROUP BY T2.BillingCountry;", "latency_ms": 11994.5, "tokens_out": 72}
+{"id": "own_chinook_23", "sql": "SELECT T2.FirstName, T2.LastName FROM EMPLOYEE AS T1 JOIN EMPLOYEE AS T2 ON T1.ReportsTo = T2.EmployeeId WHERE T1.FirstName = 'Nancy' AND T1.LastName = 'Edwards';", "latency_ms": 9853.0, "tokens_out": 50}
+{"id": "own_chinook_24", "sql": "SELECT FirstName, LastName, COUNT(*) FROM CUSTOMER WHERE SupportRepId = employeeid GROUP BY SupportRepId, FirstName, LastName;", "latency_ms": 6652.5, "tokens_out": 28}
+{"id": "own_chinook_25", "sql": "SELECT T2.PlaylistId, T1.Name FROM Playlist AS T1 JOIN PlaylistTrack AS T2 ON T1.PlaylistId = T2.PlaylistId GROUP BY T2.PlaylistId, T1.Name HAVING COUNT(*) > 1000;", "latency_ms": 10540.4, "tokens_out": 56}
+{"id": "own_chinook_26", "sql": "SELECT T2.Name, AVG(T1.UnitPrice) FROM GENRE AS T1 JOIN TRACK AS T2 ON T1.GenreId = T2.GenreId GROUP BY T2.Name;", "latency_ms": 8450.8, "tokens_out": 41}
+{"id": "own_chinook_28", "sql": "SELECT Composer FROM TRACK GROUP BY Composer HAVING COUNT(*) > 20;", "latency_ms": 5140.3, "tokens_out": 17}
+{"id": "own_chinook_31", "sql": "SELECT T1.Name, SUM(T2.UnitPrice * T2.Quantity) FROM GENRE AS T1 JOIN INVOICELINE AS T2 ON T1.GenreID = T2.GenreID WHERE T1.Name IN (SELECT T1.Name FROM GENRE AS T1 JOIN INVOICELINE AS T2 ON T1.GenreID = T2.GenreID GROUP BY T1.Name ORDER BY SUM(T2.UnitPrice * T2.Quantity) DESC LIMIT 1) GROUP BY T1.Name;", "latency_ms": 16359.9, "tokens_out": 104}
+{"id": "own_chinook_32", "sql": "SELECT T2.Name, COUNT(*) FROM ALBUM AS T1 JOIN TRACK AS T2 ON T1.AlbumId = T2.AlbumId GROUP BY T2.Name ORDER BY COUNT(*) DESC LIMIT 3;", "latency_ms": 8797.2, "tokens_out": 45}
+{"id": "own_chinook_33", "sql": "SELECT T1.FirstName, T1.LastName FROM CUSTOMER AS T1 JOIN INVOICE AS T2 ON T1.CustomerId = T2.CustomerId JOIN TRACK AS T3 ON T2.TrackId = T3.TrackId WHERE T3.GenreId = 1;", "latency_ms": 10026.6, "tokens_out": 56}
+{"id": "own_chinook_34", "sql": "SELECT T1.FirstName, T1.LastName, SUM(T2.revenue) FROM CUSTOMER AS T1 JOIN EMPLOYEE AS T2 ON T1.SupportRepId = T2.EmployeeId GROUP BY T1.SupportRepId, T1.FirstName, T1.LastName;", "latency_ms": 9846.8, "tokens_out": 55}
+{"id": "own_chinook_35", "sql": "SELECT COUNT(*) FROM TRACK WHERE TrackId NOT IN (SELECT TrackId FROM INVOICE);", "latency_ms": 5626.5, "tokens_out": 19}
+{"id": "own_chinook_36", "sql": "SELECT T1.Title, T1.Milliseconds FROM ALBUM AS T1 JOIN TRACK AS T2 ON T1.AlbumId = T2.AlbumId ORDER BY T1.Milliseconds DESC LIMIT 5;", "latency_ms": 8690.1, "tokens_out": 44}
+{"id": "own_chinook_37", "sql": "SELECT T2.Name FROM GENRE AS T1 JOIN TRACK AS T2 ON T1.GenreId = T2.GenreId GROUP BY T2.Name HAVING COUNT(*) > 1;", "latency_ms": 8686.6, "tokens_out": 41}
+{"id": "own_chinook_38", "sql": "SELECT COUNT(*) FROM TRACK WHERE Milliseconds > 5 * 60;", "latency_ms": 5912.5, "tokens_out": 17}
+{"id": "own_chinook_39", "sql": "SELECT FirstName, LastName, HireDate FROM EMPLOYEE ORDER BY LENGTH(CompanyName) DESC LIMIT 1;", "latency_ms": 6282.2, "tokens_out": 22}
+{"id": "own_chinook_41", "sql": "SELECT T1.FirstName, T1.LastName FROM CUSTOMER AS T1 JOIN INVOICE AS T2 ON T1.CustomerId = T2.CustomerId GROUP BY T1.CustomerId, T1.FirstName, T1.LastName HAVING SUM(T2.Total) > (SELECT AVG(T2.Total) FROM INVOICE AS T2);", "latency_ms": 11773.4, "tokens_out": 67}
+{"id": "own_chinook_43", "sql": "SELECT T1.GenreId, T1.Name, SUM(T2.Quantity) FROM GENRE AS T1 JOIN INVOICELINE AS T2 ON T1.GenreId = T2.GenreId GROUP BY T1.GenreId, T1.Name ORDER BY T1.GenreId, T1.Name;", "latency_ms": 11592.0, "tokens_out": 65}
+{"id": "own_chinook_44", "sql": "SELECT MONTH, SUM(revenue), revenue - LAG(revenue) OVER (ORDER BY MONTH) FROM REVENUE WHERE YEAR = 2025 GROUP BY MONTH ORDER BY MONTH;", "latency_ms": 8447.2, "tokens_out": 40}
+{"id": "own_chinook_45", "sql": "SELECT T1.Name, CAST(SUM(T2.UnitPrice * 100 / T1.Bytes) AS REAL) / SUM(T1.Bytes) FROM MEDIATYPE AS T1 JOIN INVOICELINE AS T2 ON T1.MediaTypeId = T2.MediaTypeId GROUP BY T1.MediaTypeId, T1.Name;", "latency_ms": 11950.9, "tokens_out": 67}
+{"id": "own_chinook_46", "sql": "SELECT T1.FirstName, T1.LastName FROM CUSTOMER AS T1 JOIN INVOICE AS T2 ON T1.CustomerId = T2.CustomerId WHERE T2.InvoiceDate >= '2021-01-01' AND T2.InvoiceDate <= '2025-12-31';", "latency_ms": 11621.3, "tokens_out": 69}
+{"id": "own_chinook_47", "sql": "SELECT T1.Name, AVG(T2.Milliseconds / T2.Quantity) FROM GENRE AS T2 JOIN TRACK AS T1 ON T2.GenreID = T1.GenreID GROUP BY T1.Name HAVING COUNT(*) >= 10 ORDER BY AVG(Milliseconds / Quantity) DESC LIMIT 1;", "latency_ms": 10661.3, "tokens_out": 65}
+{"id": "own_chinook_48", "sql": "SELECT T1.FirstName, T1.LastName, T2.FirstName, T2.LastName FROM EMPLOYEE AS T1 JOIN EMPLOYEE AS T2 ON T1.ReportsTo = T2.EmployeeId;", "latency_ms": 7767.1, "tokens_out": 41}
+{"id": "own_chinook_49", "sql": "SELECT MONTH, SUM(revenue) FROM INVOICE GROUP BY MONTH ORDER BY MONTH;", "latency_ms": 5121.9, "tokens_out": 18}
+{"id": "own_chinook_50", "sql": "SELECT PlaylistId FROM PlaylistTrack WHERE PlaylistId NOT IN (SELECT PlaylistId FROM PlaylistTrack);", "latency_ms": 5158.7, "tokens_out": 20}
+{"id": "own_world_bank_01", "sql": "SELECT COUNT(*) FROM countries;", "latency_ms": 1419.7, "tokens_out": 7}
+{"id": "own_world_bank_02", "sql": "SELECT name FROM countries WHERE region = 'South Asia';", "latency_ms": 1980.8, "tokens_out": 12}
+{"id": "own_world_bank_03", "sql": "SELECT capital_city FROM countries WHERE name = 'Japan';", "latency_ms": 2029.1, "tokens_out": 12}
+{"id": "own_world_bank_04", "sql": "SELECT COUNT(*) FROM countries WHERE income_group = 'Low income';", "latency_ms": 2247.1, "tokens_out": 14}
+{"id": "own_world_bank_09", "sql": "SELECT population FROM country_stats WHERE YEAR = 2023 AND name = 'India';", "latency_ms": 2917.6, "tokens_out": 20}
+{"id": "own_world_bank_10", "sql": "SELECT name, population FROM countries ORDER BY population DESC LIMIT 5;", "latency_ms": 2372.5, "tokens_out": 15}
+{"id": "own_world_bank_11", "sql": "SELECT income_group, COUNT(*) FROM countries GROUP BY income_group;", "latency_ms": 2174.4, "tokens_out": 14}
+{"id": "own_world_bank_13", "sql": "SELECT t1.name FROM countries AS t1 JOIN country_stats AS t2 ON t1.iso3 = t2.iso3 WHERE t2.year = 2023 ORDER BY t2.gdp_per_capita_usd DESC LIMIT 1;", "latency_ms": 6503.1, "tokens_out": 52}
+{"id": "own_world_bank_14", "sql": "SELECT SUM(population), YEAR FROM country_stats GROUP BY YEAR ORDER BY YEAR;", "latency_ms": 2540.1, "tokens_out": 17}
+{"id": "own_world_bank_15", "sql": "SELECT t1.name FROM countries AS t1 JOIN country_stats AS t2 ON t1.iso3 = t2.iso3 WHERE t1.region = 'Sub-Saharan Africa' AND t2.life_expectancy_years > 70 AND t2.year = 2023;", "latency_ms": 7172.6, "tokens_out": 58}
+{"id": "own_world_bank_16", "sql": "SELECT unemployment_pct FROM country_stats WHERE name = 'Germany' ORDER BY YEAR;", "latency_ms": 2569.5, "tokens_out": 17}
+{"id": "own_world_bank_18", "sql": "SELECT AVG(fertility_rate), region FROM country_stats WHERE YEAR = 2023 GROUP BY region;", "latency_ms": 3181.5, "tokens_out": 23}
+{"id": "own_world_bank_19", "sql": "SELECT COUNT(*) FROM country_stats WHERE gdp_usd > 10000000;", "latency_ms": 3202.1, "tokens_out": 23}
+{"id": "own_world_bank_20", "sql": "SELECT t1.name FROM countries AS t1 JOIN country_stats AS t2 ON t1.iso3 = t2.iso3 WHERE t1.region = 'Europe & Central Asia' AND t2.fertility_rate = (SELECT MIN(fertility_rate) FROM country_stats WHERE YEAR = 2023);", "latency_ms": 7826.1, "tokens_out": 63}
+{"id": "own_world_bank_21", "sql": "SELECT YEAR, gdp_usd FROM country_stats WHERE YEAR = 2000 INTERSECT SELECT YEAR, gdp_usd FROM country_stats WHERE YEAR = 2023;", "latency_ms": 5287.1, "tokens_out": 41}
+{"id": "own_world_bank_22", "sql": "SELECT t1.region FROM countries AS t1 JOIN country_stats AS t2 ON t1.iso3 = t2.iso3 WHERE t2.internet_users_pct > 70;", "latency_ms": 4833.9, "tokens_out": 37}
+{"id": "own_world_bank_23", "sql": "SELECT population - population FROM country_stats WHERE YEAR BETWEEN 2000 AND 2023;", "latency_ms": 3270.7, "tokens_out": 23}
+{"id": "own_world_bank_24", "sql": "SELECT name, gain FROM country_stats WHERE life_expectancy_years BETWEEN 2000 AND 2023 ORDER BY gain DESC LIMIT 5;", "latency_ms": 4423.9, "tokens_out": 33}
+{"id": "own_world_bank_25", "sql": "SELECT SUM(gdp_usd), income_group FROM country_stats WHERE YEAR = 2023 GROUP BY income_group ORDER BY SUM(gdp_usd) DESC;", "latency_ms": 4612.8, "tokens_out": 35}
+{"id": "own_world_bank_26", "sql": "SELECT name FROM countries WHERE gdp_per_capita_usd > (SELECT AVG(gdp_per_capita_usd) FROM country_stats WHERE YEAR = 2023);", "latency_ms": 4780.9, "tokens_out": 37}
+{"id": "own_world_bank_27", "sql": "SELECT AVG(t1.life_expectancy_years) FROM country_stats AS t1 JOIN countries AS t2 ON t1.iso3 = t2.iso3 WHERE t1.year = 2023;", "latency_ms": 5338.1, "tokens_out": 42}
+{"id": "own_world_bank_28", "sql": "SELECT COUNT(*) FROM country_stats WHERE population < (SELECT MIN(population) FROM country_stats WHERE YEAR = 2010);", "latency_ms": 3818.4, "tokens_out": 28}
+{"id": "own_world_bank_29", "sql": "SELECT name, region, life_expectancy_years FROM country_stats WHERE life_expectancy_years < 60 AND YEAR = 2023;", "latency_ms": 4169.2, "tokens_out": 31}
+{"id": "own_world_bank_30", "sql": "SELECT SUM(population), region FROM country_stats WHERE YEAR = 2023 GROUP BY region;", "latency_ms": 3237.4, "tokens_out": 22}
+{"id": "own_world_bank_31", "sql": "SELECT iso3 FROM countries WHERE iso3 NOT IN (SELECT iso3 FROM country_stats WHERE YEAR = 2023);", "latency_ms": 3647.9, "tokens_out": 27}
+{"id": "own_world_bank_33", "sql": "SELECT gdp_per_capita_usd - LAG(gdp_per_capita_usd) OVER (ORDER BY year) FROM country_stats WHERE iso3 = 'France';", "latency_ms": 4756.0, "tokens_out": 36}
+{"id": "own_world_bank_34", "sql": "SELECT T1.income_group, T2.name, T2.gdp_per_capita_usd FROM countries AS T1 JOIN country_stats AS T2 ON T1.iso3 = T2.iso3 WHERE T2.year = 2023 ORDER BY T2.gdp_per_capita_usd DESC;", "latency_ms": 8118.1, "tokens_out": 65}
+{"id": "own_world_bank_35", "sql": "SELECT t1.region, AVG(t2.urban_population_pct) FROM country_stats AS t1 JOIN countries AS t2 ON t1.iso3 = t2.iso3 WHERE t1.year = 2023 GROUP BY t1.region ORDER BY t2.income_group;", "latency_ms": 7210.3, "tokens_out": 58}
+{"id": "own_world_bank_36", "sql": "SELECT * FROM country_stats WHERE internet_users_pct < 10 AND internet_users_pct > 50 AND YEAR = 2010 OR YEAR = 2023;", "latency_ms": 5099.8, "tokens_out": 39}
+{"id": "own_world_bank_37", "sql": "SELECT gdp_per_capita_usd, life_expectancy_years FROM country_stats WHERE YEAR = 2023;", "latency_ms": 3638.4, "tokens_out": 26}
+{"id": "own_world_bank_38", "sql": "SELECT T1.name, T1.region, T2.population FROM countries AS T1 JOIN country_stats AS T2 ON T1.iso3 = T2.iso3 WHERE T2.year = 2023 ORDER BY T2.population DESC LIMIT 3;", "latency_ms": 6810.9, "tokens_out": 54}
+{"id": "own_world_bank_39", "sql": "SELECT T1.region, T2.name, T1.unemployment_pct FROM country_stats AS T1 JOIN countries AS T2 ON T1.iso3 = T2.iso3 WHERE T1.year = 2020 ORDER BY T1.unemployment_pct DESC;", "latency_ms": 6963.4, "tokens_out": 55}
+{"id": "own_world_bank_40", "sql": "SELECT T1.region, T2.year, AVG(T3.lifetime_expectancy_years) FROM countries AS T1 JOIN country_stats AS T2 ON T1.iso3 = T2.iso3 GROUP BY T1.region, T2.year ORDER BY AVG(T3.lifetime_expectancy_years);", "latency_ms": 7408.1, "tokens_out": 60}
+{"id": "own_penguins_01", "sql": "SELECT COUNT(*) FROM penguins;", "latency_ms": 1304.2, "tokens_out": 8}
+{"id": "own_penguins_02", "sql": "SELECT COUNT(*) FROM penguins WHERE species = 'Gentoo';", "latency_ms": 2133.8, "tokens_out": 15}
+{"id": "own_penguins_03", "sql": "SELECT DISTINCT island FROM penguins;", "latency_ms": 1359.0, "tokens_out": 8}
+{"id": "own_penguins_04", "sql": "SELECT MAX(body_mass_g) FROM penguins;", "latency_ms": 1714.4, "tokens_out": 11}
+{"id": "own_penguins_05", "sql": "SELECT COUNT(*) FROM penguins WHERE sex = 'unknown';", "latency_ms": 1880.0, "tokens_out": 13}
+{"id": "own_penguins_07", "sql": "SELECT AVG(flipper_length_mm) FROM penguins;", "latency_ms": 1904.1, "tokens_out": 13}
+{"id": "own_penguins_09", "sql": "SELECT COUNT(*), species FROM penguins GROUP BY species;", "latency_ms": 1905.9, "tokens_out": 13}
+{"id": "own_penguins_10", "sql": "SELECT AVG(body_mass_g) FROM penguins;", "latency_ms": 1655.6, "tokens_out": 11}
+{"id": "own_penguins_11", "sql": "SELECT COUNT(*), island, YEAR FROM penguins GROUP BY island, YEAR;", "latency_ms": 2384.4, "tokens_out": 17}
+{"id": "own_penguins_12", "sql": "SELECT AVG(bill_length_mm), sex FROM penguins WHERE sex = 'male' UNION SELECT AVG(bill_length_mm), sex FROM penguins WHERE sex = 'female';", "latency_ms": 4479.8, "tokens_out": 36}
+{"id": "own_penguins_13", "sql": "SELECT species FROM penguins GROUP BY species ORDER BY AVG(flipper_length_mm) DESC LIMIT 1;", "latency_ms": 3011.8, "tokens_out": 23}
+{"id": "own_penguins_15", "sql": "SELECT MIN(bill_depth_mm), MAX(bill_depth_mm), species FROM penguins GROUP BY species;", "latency_ms": 2933.9, "tokens_out": 22}
+{"id": "own_penguins_16", "sql": "SELECT island FROM penguins GROUP BY island ORDER BY COUNT(*) DESC LIMIT 1;", "latency_ms": 2421.0, "tokens_out": 18}
+{"id": "own_penguins_19", "sql": "SELECT AVG(body_mass_g), sex FROM penguins WHERE sex <> 'unknown' GROUP BY sex, species;", "latency_ms": 3016.5, "tokens_out": 23}
+{"id": "own_penguins_20", "sql": "SELECT species FROM penguins WHERE body_mass_g = (SELECT MAX(body_mass_g) FROM penguins WHERE sex = 'male') - (SELECT MIN(body_mass_g) FROM penguins WHERE sex = 'female');", "latency_ms": 5419.8, "tokens_out": 44}
+{"id": "own_penguins_21", "sql": "SELECT COUNT(*) FROM penguins WHERE body_mass_g > (SELECT AVG(body_mass_g) FROM penguins);", "latency_ms": 3186.4, "tokens_out": 23}
+{"id": "own_penguins_22", "sql": "SELECT COUNT(*) FROM penguins WHERE species = 'Gentoo' AND island = 'Biscoe' AND sex = 'female';", "latency_ms": 3959.2, "tokens_out": 29}
+{"id": "own_penguins_23", "sql": "SELECT COUNT(*), species, YEAR FROM penguins GROUP BY species, YEAR ORDER BY species, YEAR;", "latency_ms": 2954.8, "tokens_out": 22}
+{"id": "own_penguins_24", "sql": "SELECT DISTINCT island FROM penguins GROUP BY island HAVING COUNT(species) > 1;", "latency_ms": 2688.2, "tokens_out": 20}
+{"id": "own_penguins_25", "sql": "SELECT AVG(bill_length_mm / bill_depth_mm), species FROM penguins GROUP BY species;", "latency_ms": 2656.6, "tokens_out": 20}
+{"id": "own_penguins_26", "sql": "SELECT species, island, body_mass_g FROM penguins ORDER BY body_mass_g DESC LIMIT 1;", "latency_ms": 2976.6, "tokens_out": 22}
+{"id": "own_penguins_27", "sql": "SELECT species, AVG(body_mass_g) FROM penguins WHERE YEAR = 2007 INTERSECT SELECT species, AVG(body_mass_g) FROM penguins WHERE YEAR = 2009;", "latency_ms": 5437.0, "tokens_out": 43}
+{"id": "own_penguins_28", "sql": "SELECT species, island FROM penguins GROUP BY species, island HAVING AVG(flipper_length_mm) > (SELECT AVG(flipper_length_mm) FROM penguins);", "latency_ms": 4557.1, "tokens_out": 36}
+{"id": "own_penguins_29", "sql": "SELECT rank, species, AVG(bill_length_mm) FROM penguins GROUP BY species ORDER BY AVG(bill_length_mm) DESC;", "latency_ms": 3779.2, "tokens_out": 28}
+{"id": "own_penguins_30", "sql": "SELECT AVG(body_mass_g), species FROM penguins GROUP BY species;", "latency_ms": 2123.9, "tokens_out": 15}
