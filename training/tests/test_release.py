@@ -1,5 +1,7 @@
 import pytest
 
+from pocketsql.data import paths
+from pocketsql.evalx.models import MODELS
 from pocketsql.release import gate
 
 
@@ -58,3 +60,12 @@ def test_gate_needs_every_shipped_dtype_complete() -> None:
     assert not gate.gate(CANDIDATE, results, None)[0]
     results.append(row(CANDIDATE, "onnx-q4-cpu", 0.6, missing=3))
     assert not gate.gate(CANDIDATE, results, None)[0]
+
+
+def test_web_pins_the_released_revision() -> None:
+    baseline = gate.load_baseline()
+    assert baseline is not None
+    model_ts = (paths.REPO / "web" / "src" / "model.ts").read_text(encoding="utf-8")
+    assert f'"{baseline["hf_repo"]}"' in model_ts
+    assert f'"{baseline["revision"]}"' in model_ts
+    assert MODELS[baseline["model"]]["revision"] == baseline["revision"]

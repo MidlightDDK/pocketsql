@@ -1,0 +1,50 @@
+{"id": "spider_train_00120", "sql": "SELECT start_station_id FROM trip ORDER BY duration ASC LIMIT 1;", "latency_ms": 3585.8, "tokens_out": 15}
+{"id": "spider_train_00159", "sql": "SELECT MIN(T1.date), T1.zip_code FROM weather AS T1 JOIN station AS T2 ON T1.zip_code = T2.id WHERE T2.city = 'San Francisco' AND T2.dock_count = 0 GROUP BY T1.zip_code HAVING MIN(T1.min_dew_point_f) < (SELECT MIN(min_dew_point_f) FROM weather WHERE T1.zip_code = 94107);", "latency_ms": 12535.4, "tokens_out": 90}
+{"id": "spider_train_00177", "sql": "SELECT name, COUNT(*) FROM station GROUP BY city HAVING COUNT(*) >= 15;", "latency_ms": 4143.5, "tokens_out": 20}
+{"id": "spider_train_00201", "sql": "SELECT date, MAX(T1.max_temperature_f)-MIN(T1.max_temperature_f) AS diff FROM weather AS T1 JOIN trip AS T2 ON T1.date = T2.start_date GROUP BY date ORDER BY diff ASC LIMIT 1;", "latency_ms": 7981.9, "tokens_out": 50}
+{"id": "spider_train_00202", "sql": "SELECT MIN(date), MAX(date) FROM weather GROUP BY date ORDER BY MIN(date) ASC;", "latency_ms": 4188.8, "tokens_out": 20}
+{"id": "spider_train_00412", "sql": "SELECT T1.name FROM aircraft AS T1 JOIN flight AS T2 ON T1.aid = T2.aid WHERE T2.flno = 99;", "latency_ms": 5208.9, "tokens_out": 35}
+{"id": "spider_train_00416", "sql": "SELECT T1.name, COUNT(*) FROM aircraft AS T1 JOIN flight AS T2 ON T1.aid = T2.aid GROUP BY T1.name;", "latency_ms": 4989.7, "tokens_out": 34}
+{"id": "spider_train_01057", "sql": "SELECT Official_native_language FROM country WHERE Official_native_language ILIKE '%English%';", "latency_ms": 3725.2, "tokens_out": 17}
+{"id": "spider_train_01064", "sql": "SELECT Draft_Pick_Number, Draft_Class FROM MATCH_SEASON WHERE POSITION = 'Defender';", "latency_ms": 4052.5, "tokens_out": 20}
+{"id": "spider_train_01069", "sql": "SELECT DISTINCT player, COUNT(*) FROM player GROUP BY player;", "latency_ms": 3234.2, "tokens_out": 13}
+{"id": "spider_train_01087", "sql": "SELECT COUNT(DISTINCT T1.College) FROM country AS T1 JOIN team AS T2 ON T1.Country_id = T2.Team WHERE T2.Name = 'Columbus Crew';", "latency_ms": 6544.8, "tokens_out": 41}
+{"id": "spider_train_01096", "sql": "SELECT POSITION FROM MATCH_SEASON GROUP BY POSITION ORDER BY COUNT(*) DESC LIMIT 1;", "latency_ms": 3931.4, "tokens_out": 19}
+{"id": "spider_train_01324", "sql": "SELECT COUNT(*) FROM classroom WHERE building <> 'Lamberton';", "latency_ms": 3545.2, "tokens_out": 14}
+{"id": "spider_train_01400", "sql": "SELECT MIN(T1.salary) FROM instructor AS T1 JOIN department AS T2 ON T1.dept_name = T2.dept_name;", "latency_ms": 5545.9, "tokens_out": 30}
+{"id": "spider_train_01410", "sql": "SELECT COUNT(*), dept_name FROM student GROUP BY dept_name;", "latency_ms": 3556.9, "tokens_out": 14}
+{"id": "spider_train_01433", "sql": "SELECT T1.name, T1.salary FROM instructor AS T1 JOIN advisor AS T2 ON T1.id = T2.i_id JOIN student AS T3 ON T2.s_id = T3.id WHERE T3.dept_name = 'Math';", "latency_ms": 8157.4, "tokens_out": 52}
+{"id": "spider_train_01444", "sql": "SELECT name FROM instructor EXCEPT SELECT T1.name FROM instructor AS T1 JOIN teaches AS T2 ON T1.id = T2.instructor_id JOIN SECTION AS T3 ON T2.sec_id = T3.sec_id WHERE semester = 'Spring';", "latency_ms": 8283.7, "tokens_out": 52}
+{"id": "spider_train_01467", "sql": "SELECT T1.name FROM instructor AS T1 JOIN department AS T2 ON T1.dept_name = T2.dept_name WHERE T2.dept_name = 'Comp. Sci.' AND T1.salary > 80000;", "latency_ms": 8050.6, "tokens_out": 51}
+{"id": "spider_train_01480", "sql": "SELECT course_id FROM SECTION WHERE semester = 'Fall' EXCEPT SELECT course_id FROM SECTION WHERE semester = 'Spring';", "latency_ms": 4866.3, "tokens_out": 25}
+{"id": "spider_train_01866", "sql": "SELECT Team FROM Elimination GROUP BY Team HAVING COUNT(*) > 3;", "latency_ms": 2886.9, "tokens_out": 17}
+{"id": "spider_train_01875", "sql": "SELECT LOCATION FROM wrestler GROUP BY LOCATION HAVING COUNT(*) > 2;", "latency_ms": 2706.9, "tokens_out": 16}
+{"id": "spider_train_02818", "sql": "SELECT AVG(T2.age), AVG(T2.years_working) FROM journalist AS T1 JOIN news_report AS T2 ON T1.journalist_id = T2.journalist_id GROUP BY T2.role_type;", "latency_ms": 6186.9, "tokens_out": 46}
+{"id": "spider_train_03781", "sql": "SELECT COUNT(DISTINCT student_id) FROM student_course_enrolment;", "latency_ms": 4080.5, "tokens_out": 16}
+{"id": "spider_train_03787", "sql": "SELECT COUNT(*) FROM student_tests_taken WHERE test_result = 'Fail';", "latency_ms": 4297.5, "tokens_out": 15}
+{"id": "spider_train_03789", "sql": "SELECT login_name FROM students WHERE family_name = 'Ward';", "latency_ms": 4019.8, "tokens_out": 14}
+{"id": "spider_train_03790", "sql": "SELECT date_of_latest_logon FROM students WHERE family_name = 'Jaskolski' OR family_name = 'Langosh';", "latency_ms": 5522.8, "tokens_out": 27}
+{"id": "spider_train_03791", "sql": "SELECT date_of_latest_logon FROM students WHERE family_name = 'Jaskolski' OR family_name = 'Langosh';", "latency_ms": 5512.2, "tokens_out": 27}
+{"id": "spider_train_03816", "sql": "SELECT T1.subject_id, T1.subject_name, COUNT(*) FROM COURSES AS T1 JOIN SUBJECTS AS T2 ON T1.course_id = T2.subject_id GROUP BY T1.subject_id, T1.subject_name ORDER BY COUNT(*) ASC;", "latency_ms": 8629.4, "tokens_out": 53}
+{"id": "spider_train_03820", "sql": "SELECT T1.course_name FROM courses AS T1 JOIN student_course_enrolment AS T2 ON T1.course_id = T2.course_id GROUP BY T1.course_name ORDER BY COUNT(*) DESC LIMIT 1;", "latency_ms": 7640.2, "tokens_out": 45}
+{"id": "spider_train_03825", "sql": "SELECT T1.course_name, T1.course_description FROM courses AS T1 JOIN student_course_enrolment AS T2 ON T1.course_id = T2.course_id GROUP BY T2.course_id, T1.course_name, T1.course_description HAVING COUNT(*) > 2;", "latency_ms": 9273.6, "tokens_out": 59}
+{"id": "spider_train_03830", "sql": "SELECT T2.date_test_taken FROM Student_Tests_Taken AS T1 JOIN TESTS AS T2 ON T1.registration_id = T2.registration_id WHERE T1.test_result = 'Fail';", "latency_ms": 7088.6, "tokens_out": 41}
+{"id": "spider_train_04103", "sql": "SELECT Headquarters FROM company GROUP BY Headquarters ORDER BY COUNT(*) DESC LIMIT 1;", "latency_ms": 2808.0, "tokens_out": 17}
+{"id": "spider_train_04904", "sql": "SELECT District_name, City_Population FROM district WHERE City_Population BETWEEN 200000 AND 2000000;", "latency_ms": 5437.3, "tokens_out": 34}
+{"id": "spider_train_04928", "sql": "SELECT T1.product FROM product AS T1 JOIN store_product AS T2 ON T2.Product_ID = T1.product_id JOIN store AS T3 ON T2.Store_ID = T3.Store_ID WHERE T3.Store_Name = 'Miramichi';", "latency_ms": 7469.4, "tokens_out": 52}
+{"id": "spider_train_04930", "sql": "SELECT product FROM product WHERE pages_per_minute_color < 5 INTERSECT SELECT product FROM product WHERE dimensions = 'A4';", "latency_ms": 4643.1, "tokens_out": 27}
+{"id": "spider_train_04939", "sql": "SELECT product FROM product EXCEPT SELECT T1.product FROM product AS T1 JOIN store_product AS T2 ON T1.product_id = T2.product_id GROUP BY T2.product_id, T1.product ORDER BY COUNT(*) DESC LIMIT 1;", "latency_ms": 7378.7, "tokens_out": 51}
+{"id": "spider_train_05516", "sql": "SELECT COUNT(*) FROM products;", "latency_ms": 2796.3, "tokens_out": 7}
+{"id": "spider_train_05519", "sql": "SELECT COUNT(*) FROM Ref_colors;", "latency_ms": 2826.0, "tokens_out": 8}
+{"id": "spider_train_05522", "sql": "SELECT product_name, typical_buying_price FROM products;", "latency_ms": 3343.7, "tokens_out": 12}
+{"id": "spider_train_05546", "sql": "SELECT T2.color_code, T2.color_description FROM products AS T1 JOIN Ref_colors AS T2 ON T1.color_code = T2.color_code WHERE T1.product_name = 'chervil';", "latency_ms": 6970.1, "tokens_out": 43}
+{"id": "spider_train_05547", "sql": "SELECT T2.color_code, T2.color_description FROM products AS T1 JOIN Ref_colors AS T2 ON T1.color_code = T2.color_code WHERE T1.product_name = 'chervil';", "latency_ms": 6916.0, "tokens_out": 43}
+{"id": "spider_train_05548", "sql": "SELECT T1.product_id, T2.color_description FROM Product_Characteristics AS T1 JOIN Products AS T2 ON T1.product_id = T2.product_id GROUP BY T1.product_id, T2.color_description HAVING COUNT(*) >= 2;", "latency_ms": 8009.8, "tokens_out": 52}
+{"id": "spider_train_05576", "sql": "SELECT COUNT(*) FROM products AS t1 JOIN product_characteristics AS t2 ON t1.product_id = t2.product_id JOIN characteristics AS t3 ON t2.characteristic_id = t3.characteristic_id JOIN Ref_colors AS t4 ON t1.color_code = t4.color_code WHERE t4.color_description = 'white' UNION SELECT COUNT(*) FROM products AS t1 JOIN product_characteristics AS t2 ON t1.product_id = t2.product_id JOIN characteristics AS t3 ON t2.characteristic_id = t3.characteristic_id WHERE t3.characteristic_name = 'hot';", "latency_ms": 16390.8, "tokens_out": 121}
+{"id": "spider_train_05579", "sql": "SELECT unit_of_measure FROM Ref_Product_Categories WHERE product_category_code = 'Herbs';", "latency_ms": 4227.7, "tokens_out": 19}
+{"id": "spider_train_06331", "sql": "SELECT town_city, state_province_county FROM addresses;", "latency_ms": 4626.9, "tokens_out": 12}
+{"id": "spider_train_06335", "sql": "SELECT T1.payment_method_code FROM Parties AS T1 JOIN Party_Forms AS T2 ON T1.party_id = T2.party_id GROUP BY T1.payment_method_code HAVING COUNT(*) > 3;", "latency_ms": 9017.7, "tokens_out": 44}
+{"id": "spider_train_06401", "sql": "SELECT document_type_code, document_name, document_description FROM Documents WHERE document_name = 'Noel CV' OR document_name = 'King Book';", "latency_ms": 5030.5, "tokens_out": 30}
+{"id": "spider_train_06407", "sql": "SELECT T1.Project_ID, COUNT(*) FROM Documents AS T1 JOIN Documents_with_Expenses AS T2 ON T1.Document_ID = T2.Document_ID WHERE T1.document_type_code = 'BK' GROUP BY T1.project_id;", "latency_ms": 7273.8, "tokens_out": 50}
+{"id": "spider_train_06441", "sql": "SELECT budget_type_code, budget_type_description FROM Ref_Budget_Codes;", "latency_ms": 3203.9, "tokens_out": 16}
+{"id": "spider_train_06453", "sql": "SELECT budget_type_code, COUNT(*) FROM Documents_with_expenses GROUP BY budget_type_code;", "latency_ms": 3636.5, "tokens_out": 19}

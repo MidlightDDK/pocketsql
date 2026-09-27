@@ -1,0 +1,100 @@
+{"id":"spider_dev_0030","sql":"SELECT country FROM singer WHERE age > 40 INTERSECT SELECT country FROM singer WHERE age < 30;","latency_ms":3488,"tokens_out":25}
+{"id":"spider_dev_0039","sql":"SELECT T2.name, T2.country FROM singer AS T1 JOIN singer_in_concert AS T2 ON T1.singer_id = T2.singer_id WHERE T1.song_name = 'Hey';","latency_ms":4256.1,"tokens_out":43}
+{"id":"spider_dev_0070","sql":"SELECT StuID, weight FROM Pets WHERE pet_age > 1;","latency_ms":1957.7,"tokens_out":16}
+{"id":"spider_dev_0077","sql":"SELECT T2.PetID FROM Has_Pet AS T1 JOIN Pets AS T2 ON T1.PetID = T2.PetID JOIN Student AS T3 ON T3.StuID = T2.StuID WHERE T3.LName = 'Smith';","latency_ms":3316.1,"tokens_out":57}
+{"id":"spider_dev_0079","sql":"SELECT COUNT(*), StuID FROM Has_Pet GROUP BY StuID;","latency_ms":1955.7,"tokens_out":18}
+{"id":"spider_dev_0096","sql":"SELECT Model FROM cars_data ORDER BY Horsepower LIMIT 1;","latency_ms":2148.5,"tokens_out":14}
+{"id":"spider_dev_0100","sql":"SELECT COUNT(DISTINCT maker) FROM car_names AS T1 JOIN car_makers AS T2 ON T1.MakeId = T2.id WHERE T1.year = 1970;","latency_ms":3171.6,"tokens_out":41}
+{"id":"spider_dev_0108","sql":"SELECT T2.CountryName FROM car_makers AS T1 JOIN countries AS T2 ON T1.Country = T2.CountryId GROUP BY T1.Country, T2.CountryName ORDER BY COUNT(*) DESC LIMIT 1;","latency_ms":3379.8,"tokens_out":46}
+{"id":"spider_dev_0128","sql":"SELECT AVG(weight), YEAR FROM cars_data GROUP BY YEAR;","latency_ms":2285.8,"tokens_out":13}
+{"id":"spider_dev_0163","sql":"SELECT COUNT(*) FROM cars_data WHERE Cylinders > 6;","latency_ms":2303.3,"tokens_out":15}
+{"id":"spider_dev_0169","sql":"SELECT MAX(T1.MPG) FROM cars_data AS T1 JOIN model_list AS T2 ON T1.MakeId = T2.MakeId WHERE T2.Cylinders = 8 OR T2.Year < 1980;","latency_ms":3636.1,"tokens_out":50}
+{"id":"spider_dev_0179","sql":"SELECT T2.Country FROM airlines AS T1 JOIN airports AS T2 ON T1.Airline = T2.AirportCode WHERE T1.Abbreviation = 'JetBlue Airways';","latency_ms":3059.9,"tokens_out":41}
+{"id":"spider_dev_0181","sql":"SELECT Abbreviation FROM airlines WHERE Airline = 'JetBlue Airways';","latency_ms":2104.5,"tokens_out":16}
+{"id":"spider_dev_0194","sql":"SELECT airline FROM airlines WHERE abbreviation = 'UAL';","latency_ms":1891.1,"tokens_out":11}
+{"id":"spider_dev_0195","sql":"SELECT COUNT(*) FROM airlines WHERE Country = 'USA';","latency_ms":1830.1,"tokens_out":12}
+{"id":"spider_dev_0201","sql":"SELECT T2.AirportName FROM airports AS T1 JOIN flights AS T2 ON T1.airportcode = T2.destairport WHERE T1.city = 'Aberdeen';","latency_ms":3073.6,"tokens_out":39}
+{"id":"spider_dev_0202","sql":"SELECT airportname FROM airports WHERE city = 'Aberdeen';","latency_ms":1961.2,"tokens_out":14}
+{"id":"spider_dev_0205","sql":"SELECT COUNT(*) FROM flights AS T1 JOIN airports AS T2 ON T1.DestAirport = T2.AirportCode WHERE T2.City = 'ATO';","latency_ms":2753.2,"tokens_out":35}
+{"id":"spider_dev_0227","sql":"SELECT T2.AirportCode FROM flights AS T1 JOIN airports AS T2 ON T1.DestAirport = T2.AirportCode GROUP BY T1.SourceAirport, T2.AirportCode ORDER BY COUNT(*) LIMIT 1;","latency_ms":3428.7,"tokens_out":52}
+{"id":"spider_dev_0239","sql":"SELECT airline FROM flights AS T1 JOIN airlines AS T2 ON T1.Airline = T2.uid WHERE T2.Abbreviation <> 'APG' AND T1.DestAirport = 'CVO';","latency_ms":3111.3,"tokens_out":46}
+{"id":"spider_dev_0259","sql":"SELECT COUNT(*) FROM employee;","latency_ms":2672.3,"tokens_out":7}
+{"id":"spider_dev_0266","sql":"SELECT city FROM employee GROUP BY city HAVING COUNT(*) > 1;","latency_ms":2985,"tokens_out":16}
+{"id":"spider_dev_0268","sql":"SELECT COUNT(*), LOCATION FROM shop GROUP BY LOCATION;","latency_ms":2595.1,"tokens_out":12}
+{"id":"spider_dev_0269","sql":"SELECT T1.name, T1.district FROM shop AS T1 JOIN hiring AS T2 ON T1.shop_id = T2.shop_id ORDER BY T1.number_products DESC LIMIT 1;","latency_ms":3921.6,"tokens_out":41}
+{"id":"spider_dev_0293","sql":"SELECT District FROM shop WHERE Number_products < 3000 INTERSECT SELECT District FROM shop WHERE Number_products > 10000;","latency_ms":3581.1,"tokens_out":32}
+{"id":"spider_dev_0295","sql":"SELECT COUNT(DISTINCT LOCATION) FROM shop;","latency_ms":2592.1,"tokens_out":11}
+{"id":"spider_dev_0303","sql":"SELECT document_id, template_id, document_description FROM documents WHERE document_name = 'Robbin CV';","latency_ms":2749.9,"tokens_out":21}
+{"id":"spider_dev_0320","sql":"SELECT Template_ID, Version_Number, Template_Type_Code FROM Templates;","latency_ms":2536.9,"tokens_out":14}
+{"id":"spider_dev_0326","sql":"SELECT COUNT(*) FROM Templates WHERE Template_Type_Code = 'CV';","latency_ms":2362.1,"tokens_out":14}
+{"id":"spider_dev_0347","sql":"SELECT template_type_code, template_type_description FROM Ref_template_types;","latency_ms":2553.6,"tokens_out":14}
+{"id":"spider_dev_0364","sql":"SELECT T1.Paragraph_ID, T1.Paragraph_Text FROM Documents AS T1 JOIN Paragraphs AS T2 ON T1.Document_ID = T2.Document_ID WHERE T1.Document_Name = 'Welcome to NY';","latency_ms":3558.1,"tokens_out":45}
+{"id":"spider_dev_0371","sql":"SELECT T1.Document_id FROM Documents AS T1 JOIN Paragraphs AS T2 ON T1.Document_id = T2.document_id GROUP BY T1.document_id HAVING COUNT(*) >= 2;","latency_ms":3443,"tokens_out":41}
+{"id":"spider_dev_0374","sql":"SELECT T1.Document_ID, T1.Document_Name FROM Documents AS T1 JOIN Paragraphs AS T2 ON T1.Document_ID = T2.document_id GROUP BY T1.Document_ID, T1.Document_Name ORDER BY COUNT(*) DESC LIMIT 1;","latency_ms":4356.3,"tokens_out":52}
+{"id":"spider_dev_0378","sql":"SELECT document_id FROM paragraphs GROUP BY document_id HAVING COUNT(*) BETWEEN 1 AND 2;","latency_ms":2985.4,"tokens_out":21}
+{"id":"spider_dev_0388","sql":"SELECT name FROM teacher WHERE hometown <> 'Little Lever Urban District';","latency_ms":1992.2,"tokens_out":14}
+{"id":"spider_dev_0389","sql":"SELECT name FROM teacher WHERE age = 32 OR age = 33;","latency_ms":2377.1,"tokens_out":18}
+{"id":"spider_dev_0398","sql":"SELECT T2.Hometown FROM course AS T1 JOIN course_arrange AS T2 ON T1.Course_ID = T2.Course_ID GROUP BY T1.Course_ID, T2.Hometown HAVING COUNT(*) >= 2;","latency_ms":3317.2,"tokens_out":47}
+{"id":"spider_dev_0417","sql":"SELECT open_year, num_of_staff FROM museum WHERE name = 'Plaza Museum';","latency_ms":2006,"tokens_out":18}
+{"id":"spider_dev_0425","sql":"SELECT SUM(Total_spent) FROM visit AS T1 JOIN visitor AS T2 ON T1.visitor_id = T2.id WHERE T2.Level_of_membership = 1;","latency_ms":2856,"tokens_out":38}
+{"id":"spider_dev_0434","sql":"SELECT T2.first_name, T2.birth_date FROM players AS T1 JOIN rankings AS T2 ON T1.player_id = T2.player_id WHERE T1.country_code = 'USA';","latency_ms":4650.5,"tokens_out":40}
+{"id":"spider_dev_0436","sql":"SELECT AVG(loser_age), AVG(winner_age) FROM matches;","latency_ms":3438.5,"tokens_out":15}
+{"id":"spider_dev_0479","sql":"SELECT COUNT(*), ranking_date FROM rankings GROUP BY ranking_date;","latency_ms":3548.5,"tokens_out":14}
+{"id":"spider_dev_0482","sql":"SELECT COUNT(*), YEAR FROM matches GROUP BY YEAR;","latency_ms":3174.9,"tokens_out":12}
+{"id":"spider_dev_0494","sql":"SELECT MAX(toll), MIN(toll) FROM death;","latency_ms":3450.5,"tokens_out":13}
+{"id":"spider_dev_0497","sql":"SELECT name, result FROM battle WHERE bulgarian_commander <> 'Boril';","latency_ms":3484.7,"tokens_out":19}
+{"id":"spider_dev_0509","sql":"SELECT COUNT(*) FROM courses;","latency_ms":7255.8,"tokens_out":7}
+{"id":"spider_dev_0516","sql":"SELECT T1.department_name, T1.department_id FROM DEPARTMENTS AS T1 JOIN COURSES AS T2 ON T1.department_id = T2.course_department_id GROUP BY T1.department_id, T1.department_name ORDER BY COUNT(*) DESC LIMIT 1;","latency_ms":9844.3,"tokens_out":55}
+{"id":"spider_dev_0523","sql":"SELECT T1.section_name, T1.section_description FROM TRANSCRIPT_CONTENTS AS T1 JOIN SECTIONS AS T2 ON T1.student_course_id = T2.course_id;","latency_ms":8662.3,"tokens_out":37}
+{"id":"spider_dev_0531","sql":"SELECT department_description FROM departments WHERE department_name ILIKE '%computer%';","latency_ms":7587.7,"tokens_out":15}
+{"id":"spider_dev_0537","sql":"SELECT T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id = T2.degree_program_id GROUP BY T1.degree_summary_name ORDER BY COUNT(*) DESC LIMIT 1;","latency_ms":10161.7,"tokens_out":51}
+{"id":"spider_dev_0543","sql":"SELECT T1.semester_name FROM SEMESTERS AS T1 JOIN TRANSCRIPTS AS T2 ON T1.semester_id = T2.transcript_id WHERE T2.student_enrolment_id IS NULL;","latency_ms":9183.8,"tokens_out":44}
+{"id":"spider_dev_0552","sql":"SELECT T1.transcript_date, T1.transcript_id FROM TRANSCRIPTS AS T1 JOIN SECTION AS T2 ON T1.transcript_id = T2.section_id GROUP BY T1.transcript_id, T1.transcript_date HAVING COUNT(*) >= 2;","latency_ms":9918.1,"tokens_out":57}
+{"id":"spider_dev_0562","sql":"SELECT T1.address_id, T1.line_1, T1.line_2 FROM Addresses AS T1 JOIN Student_Enrolment AS T2 ON T1.address_id = T2.permanent_address_id GROUP BY T1.address_id, T1.line_1, T1.line_2 ORDER BY COUNT(*) DESC LIMIT 1;","latency_ms":10716.1,"tokens_out":72}
+{"id":"spider_dev_0581","sql":"SELECT section_name FROM sections WHERE section_name = 'h';","latency_ms":8047.3,"tokens_out":13}
+{"id":"spider_dev_0587","sql":"SELECT * FROM Cartoon WHERE Directed_by = 'Ben Jones';","latency_ms":4375.9,"tokens_out":13}
+{"id":"spider_dev_0588","sql":"SELECT Title FROM Cartoon WHERE Directed_by = 'Ben Jones';","latency_ms":4339,"tokens_out":13}
+{"id":"spider_dev_0609","sql":"SELECT T2.series_name FROM Cartoon AS T1 JOIN TV_Channel AS T2 ON T1.Channel = T2.id WHERE T1.Title = 'The Rise of the Blue Beetle!';","latency_ms":5789,"tokens_out":39}
+{"id":"spider_dev_0616","sql":"SELECT Episode, Rating FROM TV_series ORDER BY Rating DESC LIMIT 3;","latency_ms":4653.2,"tokens_out":16}
+{"id":"spider_dev_0617","sql":"SELECT MIN(Share), MAX(Share) FROM TV_series;","latency_ms":4572.1,"tokens_out":14}
+{"id":"spider_dev_0624","sql":"SELECT T2.Series_name FROM TV_series AS T1 JOIN TV_channel AS T2 ON T1.Channel = T2.id WHERE T1.Episode = 'A Love of a Lifetime';","latency_ms":5574.4,"tokens_out":40}
+{"id":"spider_dev_0648","sql":"SELECT COUNT(*) FROM poker_player;","latency_ms":1543.9,"tokens_out":8}
+{"id":"spider_dev_0662","sql":"SELECT T2.Name FROM poker_player AS T1 JOIN people AS T2 ON T1.People_ID = T2.People_ID WHERE T1.Earnings > 300000;","latency_ms":2612.5,"tokens_out":42}
+{"id":"spider_dev_0674","sql":"SELECT Nationality, COUNT(*) FROM people GROUP BY Nationality;","latency_ms":1698.2,"tokens_out":14}
+{"id":"spider_dev_0681","sql":"SELECT Name FROM people WHERE Nationality <> 'Russia';","latency_ms":1618.7,"tokens_out":12}
+{"id":"spider_dev_0686","sql":"SELECT COUNT(DISTINCT Nationality) FROM people;","latency_ms":1779.5,"tokens_out":12}
+{"id":"spider_dev_0689","sql":"SELECT vote_id, phone_number, state FROM votes;","latency_ms":1397.7,"tokens_out":12}
+{"id":"spider_dev_0697","sql":"SELECT COUNT(*) FROM contestants WHERE contestant_number NOT IN (SELECT contestant_number FROM votes);","latency_ms":1534.4,"tokens_out":18}
+{"id":"spider_dev_0704","sql":"SELECT COUNT(*) FROM country WHERE GovernmentForm = 'Republic';","latency_ms":1634,"tokens_out":13}
+{"id":"spider_dev_0723","sql":"SELECT population, gnp FROM country WHERE continent = 'Asia' ORDER BY gnp DESC LIMIT 1;","latency_ms":2061.4,"tokens_out":23}
+{"id":"spider_dev_0736","sql":"SELECT SUM(COUNT(DISTINCT language)) FROM countrylanguage AS T1 JOIN country AS T2 ON T1.CountryCode = T2.Code2 WHERE T2.Name = 'Aruba';","latency_ms":2463.4,"tokens_out":40}
+{"id":"spider_dev_0745","sql":"SELECT COUNT(*) FROM countrylanguage AS T1 JOIN language AS T2 ON T1.Language = T2.Name WHERE T1.CountryCode IN (SELECT CountryCode FROM countrylanguage WHERE IsOfficial = 'T' AND Language = 'English') AND T2.Name = 'Dutch';","latency_ms":3145.3,"tokens_out":58}
+{"id":"spider_dev_0757","sql":"SELECT c.LocalName FROM country c JOIN countrylanguage l ON c.Code = l.CountryCode WHERE l.Language = 'Asian' ORDER BY c.Population DESC LIMIT 1;","latency_ms":2428.1,"tokens_out":36}
+{"id":"spider_dev_0797","sql":"SELECT DISTINCT c.GovernmentForm, SUM(population) FROM country c JOIN countrylanguage l ON c.Code = l.CountryCode GROUP BY c.GovernmentForm HAVING AVG(l.Percentage) > 72;","latency_ms":2790.5,"tokens_out":44}
+{"id":"spider_dev_0814","sql":"SELECT c.Language FROM country AS c JOIN countrylanguage AS lc ON c.Code = lc.CountryCode GROUP BY c.CountryCode, c.Language ORDER BY COUNT(*) DESC LIMIT 1;","latency_ms":2427.1,"tokens_out":37}
+{"id":"spider_dev_0822","sql":"SELECT COUNT(*) FROM conductor;","latency_ms":2640.1,"tokens_out":7}
+{"id":"spider_dev_0824","sql":"SELECT Name FROM conductor ORDER BY Age ASC;","latency_ms":2851.2,"tokens_out":10}
+{"id":"spider_dev_0827","sql":"SELECT Name FROM conductor WHERE Nationality <> 'USA';","latency_ms":2833.9,"tokens_out":12}
+{"id":"spider_dev_0865","sql":"SELECT name, grade FROM highschooler;","latency_ms":1001.9,"tokens_out":10}
+{"id":"spider_dev_0872","sql":"SELECT ID FROM highschooler WHERE name = 'Kyle';","latency_ms":1165.5,"tokens_out":13}
+{"id":"spider_dev_0880","sql":"SELECT grade FROM highschooler GROUP BY grade HAVING COUNT(*) >= 4;","latency_ms":1231.8,"tokens_out":18}
+{"id":"spider_dev_0884","sql":"SELECT T2.name, COUNT(*) FROM likes AS T1 JOIN Friend AS T2 ON T1.friend_id = T2.friend_id GROUP BY T2.name;","latency_ms":1880.8,"tokens_out":34}
+{"id":"spider_dev_0886","sql":"SELECT T2.name FROM likes AS T1 JOIN highschooler AS T2 ON T1.friend_id = T2.id GROUP BY T2.name ORDER BY COUNT(*) DESC LIMIT 1;","latency_ms":1911.2,"tokens_out":40}
+{"id":"spider_dev_0891","sql":"SELECT T1.name FROM likes AS T1 JOIN Friend AS T2 ON T1.student_id = T2.friend_id JOIN Highschooler AS T3 ON T3.id = T2.student_id WHERE T3.name = 'Kyle';","latency_ms":1941.1,"tokens_out":49}
+{"id":"spider_dev_0893","sql":"SELECT COUNT(*) FROM Friend AS T1 JOIN Friend AS T2 ON T1.friend_id = T2.student_id WHERE T1.student_id = (SELECT student_id FROM Friend WHERE T2.friend_id = 'Kyle');","latency_ms":1889.5,"tokens_out":45}
+{"id":"spider_dev_0895","sql":"SELECT ID FROM highschooler EXCEPT SELECT student_id FROM Friend;","latency_ms":1063.6,"tokens_out":15}
+{"id":"spider_dev_0904","sql":"SELECT T3.name, COUNT(*) FROM likes AS T1 JOIN Friend AS T2 ON T1.friend_id = T2.friend_id JOIN Highschooler AS T3 ON T2.student_id = T3.id GROUP BY T3.name;","latency_ms":2066.2,"tokens_out":50}
+{"id":"spider_dev_0910","sql":"SELECT T1.name FROM highschooler AS T1 JOIN likes AS T2 ON T1.id = T2.friend_id WHERE T1.grade > 5 GROUP BY T1.name HAVING COUNT(*) >= 2;","latency_ms":2155.1,"tokens_out":46}
+{"id":"spider_dev_0912","sql":"SELECT COUNT(*) FROM Likes AS T1 JOIN Friend AS T2 ON T1.student_id = T2.friend_id WHERE T2.student_id = 1;","latency_ms":1687.4,"tokens_out":33}
+{"id":"spider_dev_0925","sql":"SELECT T1.name FROM Dogs AS T1 JOIN Owners AS T2 ON T1.owner_id = T2.owner_id EXCEPT SELECT T1.name FROM Dogs AS T1 JOIN Owners AS T2 ON T1.owner_id = T2.owner_id WHERE T2.date_adopted + INTERVAL '1000' DAY > 'now';","latency_ms":9332.3,"tokens_out":71}
+{"id":"spider_dev_0926","sql":"SELECT first_name FROM owners EXCEPT SELECT T1.first_name FROM owners AS T1 JOIN professionals AS T2 ON T1.owner_id = T2.owner_id;","latency_ms":7347.2,"tokens_out":34}
+{"id":"spider_dev_0927","sql":"SELECT first_name FROM owners EXCEPT SELECT T1.first_name FROM owners AS T1 JOIN professionals AS T2 ON T1.owner_id = T2.owner_id;","latency_ms":7451,"tokens_out":34}
+{"id":"spider_dev_0928","sql":"SELECT T1.role_code, T1.first_name, T1.last_name, T1.email_address FROM professionals AS T1 JOIN treatments AS T2 ON T1.role_code = 'Veterenarian' AND T2.dog_id IS NULL;","latency_ms":8095.2,"tokens_out":51}
+{"id":"spider_dev_0945","sql":"SELECT T2.first_name, T2.last_name FROM Treatments AS T1 JOIN Professionals AS T2 ON T1.professional_id = T2.professional_id WHERE T1.cost_of_treatment < (SELECT AVG(cost_of_treatment) FROM Treatments);","latency_ms":8276.7,"tokens_out":54}
+{"id":"spider_dev_0967","sql":"SELECT COUNT(*) FROM Treatments AS T1 JOIN Dogs AS T2 ON T1.dog_id = T2.dog_id;","latency_ms":7086.3,"tokens_out":28}
+{"id":"spider_dev_0984","sql":"SELECT name, age, weight FROM Dogs WHERE abandoned_yn = 1;","latency_ms":6767,"tokens_out":17}
+{"id":"spider_dev_0986","sql":"SELECT AVG(age) FROM Dogs;","latency_ms":6422.2,"tokens_out":8}
+{"id":"spider_dev_0992","sql":"SELECT charge_amount FROM charges ORDER BY charge_type DESC LIMIT 1;","latency_ms":6397.9,"tokens_out":15}
+{"id":"spider_dev_1009","sql":"SELECT Name FROM singer WHERE Birth_Year = 1948 OR Birth_Year = 1949;","latency_ms":1761.5,"tokens_out":26}
+{"id":"spider_dev_1013","sql":"SELECT COUNT(*), citizenship FROM singer GROUP BY citizenship;","latency_ms":1261.2,"tokens_out":12}
+{"id":"spider_dev_1032","sql":"SELECT property_type_description FROM Ref_Property_Types;","latency_ms":3533.5,"tokens_out":11}

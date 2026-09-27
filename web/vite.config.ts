@@ -16,7 +16,7 @@ const dropOrtWasm: Plugin = {
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), dropOrtWasm],
-  // spike.html: the M2 export spike page (loads the model in the browser once).
+  // spike.html: the browser check page (loads the released model, times 3 queries).
   build: { rollupOptions: { input: ["index.html", "spike.html"] } },
   server: {
     // `pnpm dev` runs `wrangler dev` (worker/) on its default port alongside Vite.

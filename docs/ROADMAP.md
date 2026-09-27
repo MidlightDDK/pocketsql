@@ -106,8 +106,8 @@ Acceptance:
 ## M5: Artifact eval, gate, model release
 - Node predictions for the q4f16 and q4 artifacts on `own_test` + Spider-dev; parity report; gate; Hub upload with the model card; `latest.json` updated.
 Acceptance:
-- [ ] Gate passes and the numbers are committed.
-- [ ] Model public on the Hub with a complete card; the web config pins its revision.
+- [x] Gate passes and the numbers are committed.
+- [x] Model public on the Hub with a complete card; the web config pins its revision.
 
 ## M6: Offline web app
 - Runtime, UX, precomputed examples, PWA, `/api/compare`, `/evals`, `/how`, stub e2e in CI, `e2e-real.yml` with the offline test.

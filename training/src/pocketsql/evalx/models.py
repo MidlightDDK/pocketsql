@@ -57,16 +57,35 @@ MODELS: dict[str, dict] = {
         "revision": "da1453100cf3ff33ef56d17983fc7a8648706db6",
         "download_mib": {"q4f16": 552, "q4": 885},
     },
-    # Releases: the fine-tuned model (training/runs/<run_id>), merged fp16 weights and
-    # ONNX in one Hub repo; torch-cpu rows come from the merged weights.
+    # Fine-tuned runs (training/runs/<run_id>), release candidates for the gate. A
+    # release holds merged fp16 weights and ONNX in one Hub repo; torch-cpu rows come
+    # from the merged weights.
     "pocketsql-0.5b-v1": {
         "base": "qwen2.5-coder-0.5b",
-        "run_id": "v1",
-        "hf_repo": "MidlightDDK/pocketsql-0.5b",
-        "revision": None,
+        "run_id": "v1",  # refused by the gate, never uploaded
         "license": "apache-2.0",
         "params_b": 0.5,
         "recipe": "LoRA SFT on Spider (run v1), merged; int4 block_size=32",
+        "download_mib": {"q4f16": 276, "q4": 310},
+    },
+    # Export experiment: run v1's merged weights, q4f16 with the builder's k-quant.
+    "pocketsql-0.5b-v1-kq": {
+        "base": "qwen2.5-coder-0.5b",
+        "run_id": "v1",
+        "license": "apache-2.0",
+        "params_b": 0.5,
+        "recipe": "run v1, merged; int4 block_size=32, algo_config=k_quant",
+        "download_mib": {"q4f16": 283},
+    },
+    "pocketsql-0.5b-v2": {
+        "base": "qwen2.5-coder-0.5b",
+        "run_id": "v2",
+        "hf_repo": "MidlightDDK/pocketsql-0.5b",
+        "revision": "de60f0f6515208c9b24fe9d9d36f56f1dc336506",
+        "license": "apache-2.0",
+        "params_b": 0.5,
+        "recipe": "LoRA SFT on Spider + 591 synthetic pairs (run v2), merged; "
+        "int4 block_size=32",
         "download_mib": {"q4f16": 276, "q4": 310},
     },
     # Large API baseline (pocketsql.evalx.predict_groq).

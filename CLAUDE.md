@@ -121,7 +121,7 @@ When compacting, keep: the goal, current milestone, decisions and constraints, f
 - [x] M2 Own test set, baselines, export spike
 - [x] M3 Synthetic data + dataset release
 - [x] M4 Train v1 on Kaggle
-- [ ] M5 Artifact eval, gate, model release
+- [x] M5 Artifact eval, gate, model release
 - [ ] M6 Offline web app
 - [ ] M7 Cascade + launch
 

@@ -1,4 +1,4 @@
-// M2 export spike: load the re-exported base model in the browser and time 3 queries.
+// Browser check (M2 export spike, now the released model): load it and time 3 queries.
 import {
   AutoModelForCausalLM,
   AutoTokenizer,
@@ -8,14 +8,13 @@ import {
 } from "@huggingface/transformers";
 import { buildMessages } from "@pocketsql/sqlgen";
 import schemas from "../../evals/sets/schemas.json";
+import { MODEL_REPO as MODEL, MODEL_REVISION as REVISION } from "./model";
 
 // huggingface.co answers requests whose Referer is a *.workers.dev page with a
 // 404 and no CORS headers, so model downloads go out without a referrer.
 env.fetch = (input, init) =>
   fetch(input, { ...init, referrerPolicy: "no-referrer" });
 
-const MODEL = "MidlightDDK/pocketsql-base-0.5b";
-const REVISION = "cdb0fbdbb0af527488cdae1029a0c11af0da8a5d";
 const QUESTIONS = [
   "How many customers are there?",
   "Which 3 artists have the most albums? Show the artist name and album count.",
