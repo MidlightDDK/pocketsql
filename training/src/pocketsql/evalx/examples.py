@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 
 from pocketsql.data import paths
+from pocketsql.evalx.compare import has_order_by
 from pocketsql.evalx.score import connect, score_file
 from pocketsql.evalx.sets import load_set
 
@@ -55,6 +56,9 @@ def build() -> tuple[list[dict], list[dict]]:
             cur = con.execute(outcome["sql"])
             columns = [d[0] for d in cur.description]
             rows = [[_cell(v) for v in r] for r in cur.fetchmany(MAX_ROWS)]
+        # Without ORDER BY, DuckDB's row order varies from run to run.
+        if not has_order_by(outcome["sql"]):
+            rows.sort(key=lambda r: [str(v) for v in r])
         examples.append(
             {
                 "id": id_,
@@ -88,7 +92,9 @@ def build() -> tuple[list[dict], list[dict]]:
 
 def _write(path: Path, data: list[dict]) -> None:
     path.write_text(
-        json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+        json.dumps(data, indent=1, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
 
 

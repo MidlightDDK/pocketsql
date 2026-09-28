@@ -74,16 +74,16 @@
   ],
   "rows": [
    [
+    "Adelie",
+    3700.662252
+   ],
+   [
     "Chinstrap",
     3733.088235
    ],
    [
     "Gentoo",
     5076.01626
-   ],
-   [
-    "Adelie",
-    3700.662252
    ]
   ]
  },
@@ -144,32 +144,32 @@
   ],
   "rows": [
    [
-    "Latin America & Caribbean",
-    1.774762
-   ],
-   [
     "East Asia & Pacific",
     2.182432
-   ],
-   [
-    "Middle East, North Africa, Afghanistan & Pakistan",
-    2.53913
    ],
    [
     "Europe & Central Asia",
     1.602069
    ],
    [
+    "Latin America & Caribbean",
+    1.774762
+   ],
+   [
+    "Middle East, North Africa, Afghanistan & Pakistan",
+    2.53913
+   ],
+   [
     "North America",
     1.43
    ],
    [
-    "Sub-Saharan Africa",
-    4.035833
-   ],
-   [
     "South Asia",
     1.853333
+   ],
+   [
+    "Sub-Saharan Africa",
+    4.035833
    ]
   ]
  }
