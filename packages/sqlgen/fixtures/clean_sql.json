@@ -1,0 +1,10 @@
+[
+  ["SELECT 1", "SELECT 1;"],
+  ["  SELECT 1;\nSELECT 2;", "SELECT 1;"],
+  ["```sql\nSELECT a FROM t;\n```\nThis query…", "SELECT a FROM t;"],
+  ["<think>\nhmm; ok\n</think>\n\nSELECT 'a;b' FROM t", "SELECT 'a;b' FROM t;"],
+  ["SELECT \"x;y\" -- c; d\nFROM t;", "SELECT \"x;y\" -- c; d\nFROM t;"],
+  ["SELECT 1 /* a; b */ + 2; SELECT 3", "SELECT 1 /* a; b */ + 2;"],
+  ["```\nSELECT 1", "SELECT 1;"],
+  ["", ""]
+]

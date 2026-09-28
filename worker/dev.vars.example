@@ -1,5 +1,7 @@
 # Copy to worker/.dev.vars (gitignored) and fill in locally. Never commit values.
 # In production, the user sets each one with `wrangler secret put <NAME>`.
 GROQ_API_KEY=
+# Local dev: Cloudflare's always-pass test secret, paired with the test site key in
+# web/src/config.ts: 1x0000000000000000000000000000000AA
 TURNSTILE_SECRET_KEY=
 SESSION_HMAC_SECRET=

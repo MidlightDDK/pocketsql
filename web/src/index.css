@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:hover:bg-zinc-900;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-teal-500 dark:text-zinc-950 dark:hover:bg-teal-400;
+  }
+  .chip {
+    @apply rounded-full border border-zinc-300 px-3 py-1.5 text-sm hover:border-teal-600 aria-pressed:border-teal-700 aria-pressed:bg-teal-700 aria-pressed:text-white dark:border-zinc-700 dark:hover:border-teal-400 dark:aria-pressed:border-teal-500 dark:aria-pressed:bg-teal-500 dark:aria-pressed:text-zinc-950;
+  }
+  .input {
+    @apply rounded-md border border-zinc-300 bg-white px-3 py-2 text-base focus:border-teal-600 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900;
+  }
+  .code {
+    @apply overflow-auto rounded-md border border-zinc-200 bg-zinc-50 p-3 font-mono text-sm whitespace-pre-wrap break-words dark:border-zinc-800 dark:bg-zinc-900;
+  }
+  .link {
+    @apply font-medium text-teal-700 underline underline-offset-4 hover:text-teal-900 dark:text-teal-400 dark:hover:text-teal-300;
+  }
+}

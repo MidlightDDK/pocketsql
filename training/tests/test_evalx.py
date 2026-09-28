@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+from pocketsql.data import paths
 from pocketsql.data.leakage import read_jsonl
 from pocketsql.evalx import own_test, score
 from pocketsql.evalx.postprocess import clean_sql
@@ -11,14 +12,7 @@ from pocketsql.evalx.sets import load_schemas, load_set
 
 @pytest.mark.parametrize(
     ("raw", "sql"),
-    [
-        ("SELECT 1", "SELECT 1;"),
-        ("  SELECT 1;\nSELECT 2;", "SELECT 1;"),
-        ("```sql\nSELECT a FROM t;\n```\nThis query…", "SELECT a FROM t;"),
-        ("<think>\nhmm; ok\n</think>\n\nSELECT 'a;b' FROM t", "SELECT 'a;b' FROM t;"),
-        ('SELECT "x;y" -- c; d\nFROM t;', 'SELECT "x;y" -- c; d\nFROM t;'),
-        ("", ""),
-    ],
+    json.loads((paths.FIXTURES / "clean_sql.json").read_text(encoding="utf-8")),
 )
 def test_clean_sql(raw: str, sql: str) -> None:
     assert clean_sql(raw) == sql

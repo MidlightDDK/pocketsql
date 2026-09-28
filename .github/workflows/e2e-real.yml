@@ -1,0 +1,43 @@
+name: E2E (real model)
+
+# The released model in headless Chromium (no GPU, so the WASM q4 fallback):
+# load → go offline → reload → ask 3 questions → results render.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-real-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @pocketsql/web build
+      - run: pnpm --filter @pocketsql/web exec playwright install --with-deps chromium
+      # The browser profile keeps the model in Cache Storage; the test clears
+      # everything else, so a stale service worker never serves an old build.
+      - uses: actions/cache@v5
+        with:
+          path: ${{ runner.temp }}/e2e-profile
+          key: e2e-profile-${{ hashFiles('web/src/model.ts') }}
+      - run: pnpm --filter @pocketsql/web exec playwright test e2e/real.e2e.ts
+        env:
+          E2E_REAL: "1"
+          E2E_PROFILE: ${{ runner.temp }}/e2e-profile
+      - name: Timings
+        if: always()
+        run: cat web/test-results/real-model.json || true

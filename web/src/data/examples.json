@@ -1,0 +1,176 @@
+[
+ {
+  "id": "own_chinook_16",
+  "db_id": "chinook",
+  "question": "What are the 5 billing countries with the most revenue? Show the country and revenue, highest first.",
+  "sql": "SELECT BillingCountry AS country, SUM(Total) AS revenue FROM Invoice GROUP BY BillingCountry ORDER BY revenue DESC LIMIT 5;",
+  "columns": [
+   "country",
+   "revenue"
+  ],
+  "rows": [
+   [
+    "USA",
+    523.06
+   ],
+   [
+    "Canada",
+    303.96
+   ],
+   [
+    "France",
+    195.1
+   ],
+   [
+    "Brazil",
+    190.1
+   ],
+   [
+    "Germany",
+    156.48
+   ]
+  ]
+ },
+ {
+  "id": "own_chinook_18",
+  "db_id": "chinook",
+  "question": "What was the total revenue in each year? Order by year.",
+  "sql": "SELECT YEAR(InvoiceDate) AS year, SUM(Total) AS revenue FROM Invoice GROUP BY YEAR(InvoiceDate) ORDER BY year;",
+  "columns": [
+   "year",
+   "revenue"
+  ],
+  "rows": [
+   [
+    2021,
+    449.46
+   ],
+   [
+    2022,
+    481.45
+   ],
+   [
+    2023,
+    469.58
+   ],
+   [
+    2024,
+    477.53
+   ],
+   [
+    2025,
+    450.58
+   ]
+  ]
+ },
+ {
+  "id": "own_penguins_10",
+  "db_id": "penguins",
+  "question": "What is the average body mass of each species?",
+  "sql": "SELECT species, AVG(body_mass_g) AS avg_body_mass FROM penguins GROUP BY species;",
+  "columns": [
+   "species",
+   "avg_body_mass"
+  ],
+  "rows": [
+   [
+    "Chinstrap",
+    3733.088235
+   ],
+   [
+    "Gentoo",
+    5076.01626
+   ],
+   [
+    "Adelie",
+    3700.662252
+   ]
+  ]
+ },
+ {
+  "id": "own_penguins_16",
+  "db_id": "penguins",
+  "question": "Which island has the most penguins?",
+  "sql": "SELECT island FROM penguins GROUP BY island ORDER BY COUNT(*) DESC LIMIT 1;",
+  "columns": [
+   "island"
+  ],
+  "rows": [
+   [
+    "Biscoe"
+   ]
+  ]
+ },
+ {
+  "id": "own_world_bank_10",
+  "db_id": "world_bank",
+  "question": "Which 5 countries had the largest population in 2023? Show the name and population, largest first.",
+  "sql": "SELECT c.name, cs.population FROM countries c JOIN country_stats cs ON c.iso3 = cs.iso3 WHERE cs.year = 2023 ORDER BY cs.population DESC LIMIT 5;",
+  "columns": [
+   "name",
+   "population"
+  ],
+  "rows": [
+   [
+    "India",
+    1438069596
+   ],
+   [
+    "China",
+    1410710000
+   ],
+   [
+    "United States",
+    336755052
+   ],
+   [
+    "Indonesia",
+    281190067
+   ],
+   [
+    "Pakistan",
+    247504495
+   ]
+  ]
+ },
+ {
+  "id": "own_world_bank_18",
+  "db_id": "world_bank",
+  "question": "What was the average fertility rate in each region in 2023?",
+  "sql": "SELECT c.region, AVG(cs.fertility_rate) AS avg_fertility FROM country_stats cs JOIN countries c ON cs.iso3 = c.iso3 WHERE cs.year = 2023 GROUP BY c.region;",
+  "columns": [
+   "region",
+   "avg_fertility"
+  ],
+  "rows": [
+   [
+    "Latin America & Caribbean",
+    1.774762
+   ],
+   [
+    "East Asia & Pacific",
+    2.182432
+   ],
+   [
+    "Middle East, North Africa, Afghanistan & Pakistan",
+    2.53913
+   ],
+   [
+    "Europe & Central Asia",
+    1.602069
+   ],
+   [
+    "North America",
+    1.43
+   ],
+   [
+    "Sub-Saharan Africa",
+    4.035833
+   ],
+   [
+    "South Asia",
+    1.853333
+   ]
+  ]
+ }
+]

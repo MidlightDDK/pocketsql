@@ -6,7 +6,8 @@
       "!training/data",
       "!training/runs",
       "!evals/reports",
-      "!evals/baseline.json"
+      "!evals/baseline.json",
+      "!web/src/data"
     ]
   },
   "vcs": {
@@ -19,6 +20,9 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80
+  },
+  "css": {
+    "parser": { "tailwindDirectives": true }
   },
   "linter": {
     "enabled": true,

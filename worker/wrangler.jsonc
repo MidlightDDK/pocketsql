@@ -8,5 +8,22 @@
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
     "run_worker_first": ["/api/*"]
-  }
+  },
+  // /api/compare falls back to gpt-oss-120b on Workers AI (free daily allowance).
+  "ai": { "binding": "AI" },
+  // Approximate and per Cloudflare location; period must be 10 or 60 s
+  // (https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/).
+  // namespace_id is account-wide: 100x are FilingLens's, 200x Browser Analyst's.
+  "ratelimits": [
+    {
+      "name": "RL_COMPARE",
+      "namespace_id": "3001",
+      "simple": { "limit": 5, "period": 60 }
+    },
+    {
+      "name": "RL_SESSION",
+      "namespace_id": "3002",
+      "simple": { "limit": 10, "period": 60 }
+    }
+  ]
 }

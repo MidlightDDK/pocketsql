@@ -1,0 +1,62 @@
+[
+ {
+  "id": "own_chinook_10",
+  "db_id": "chinook",
+  "difficulty": "easy",
+  "question": "What is the average track length in minutes?",
+  "tag": "aggregation",
+  "sql": "SELECT CAST(SUM(Milliseconds)/60000.0 AS DOUBLE) FROM TRACK;",
+  "gold_sql": "SELECT avg(Milliseconds) / 60000.0 FROM Track;",
+  "error": null
+ },
+ {
+  "id": "own_chinook_11",
+  "db_id": "chinook",
+  "difficulty": "easy",
+  "question": "Give the names of tracks longer than 20 minutes.",
+  "tag": "other",
+  "sql": "SELECT Name FROM TRACK WHERE Milliseconds > 20000;",
+  "gold_sql": "SELECT Name FROM Track WHERE Milliseconds > 20 * 60000;",
+  "error": null
+ },
+ {
+  "id": "own_chinook_19",
+  "db_id": "chinook",
+  "difficulty": "medium",
+  "question": "List the titles of all albums by AC/DC.",
+  "tag": "hallucinated schema",
+  "sql": "SELECT T2.Title FROM ALBUM AS T1 JOIN TRACK AS T2 ON T1.AlbumId = T2.AlbumId WHERE T1.ArtistId = 1;",
+  "gold_sql": "SELECT al.Title FROM Album al JOIN Artist ar ON ar.ArtistId = al.ArtistId WHERE ar.Name = 'AC/DC';",
+  "error": "BinderException: Binder Error: Table \"T2\" does not have a column named \"Title\""
+ },
+ {
+  "id": "own_chinook_32",
+  "db_id": "chinook",
+  "difficulty": "hard",
+  "question": "Which 3 artists sold the most tracks? Show the artist name and number of tracks sold, from most to least.",
+  "tag": "wrong column or table",
+  "sql": "SELECT a.Name AS artist_name, COUNT(*) AS track_count FROM Artist a JOIN Album al ON a.ArtistId = al.ArtistId JOIN Track t ON al.AlbumId = t.AlbumId GROUP BY a.ArtistId, a.Name ORDER BY track_count DESC LIMIT 3;",
+  "gold_sql": "SELECT ar.Name, sum(il.Quantity) AS sold FROM InvoiceLine il JOIN Track t ON t.TrackId = il.TrackId JOIN Album al ON al.AlbumId = t.AlbumId JOIN Artist ar ON ar.ArtistId = al.ArtistId GROUP BY ar.ArtistId, ar.Name ORDER BY sold DESC LIMIT 3;",
+  "error": null
+ },
+ {
+  "id": "own_penguins_29",
+  "db_id": "penguins",
+  "difficulty": "extra",
+  "question": "Rank the species by average bill length, longest first. Show the rank, species, and average bill length.",
+  "tag": "dialect error",
+  "sql": "SELECT RANK(), species, AVG(bill_length_mm) AS avg_bill FROM penguins GROUP BY species ORDER BY avg_bill DESC;",
+  "gold_sql": "SELECT rank() OVER (ORDER BY avg(bill_length_mm) DESC) AS rnk, species, avg(bill_length_mm) AS avg_bill FROM penguins GROUP BY species ORDER BY rnk;",
+  "error": "CatalogException: Catalog Error: Scalar Function with name rank does not exist!"
+ },
+ {
+  "id": "own_world_bank_26",
+  "db_id": "world_bank",
+  "difficulty": "hard",
+  "question": "Which countries had a GDP per capita above their region's average in 2023?",
+  "tag": "join error",
+  "sql": "SELECT c.name FROM countries c JOIN country_stats cs ON c.iso3 = cs.iso3 WHERE cs.year = 2023 AND cs.gdp_per_capita_usd > (SELECT AVG(gdp_per_capita_usd) FROM country_stats cs2 JOIN countries c2 ON cs2.iso3 = c2.iso3 WHERE c2.region = c.region);",
+  "gold_sql": "WITH x AS (SELECT c.name, c.region, s.gdp_per_capita_usd AS g FROM country_stats s JOIN countries c ON c.iso3 = s.iso3 WHERE s.year = 2023) SELECT name FROM x WHERE g > (SELECT avg(g) FROM x AS y WHERE y.region = x.region);",
+  "error": null
+ }
+]
