@@ -1700,7 +1700,7 @@
    "scored": "2026-09-27"
   }
  ],
- "updated": "2026-09-27",
+ "updated": "2026-09-28",
  "models": {
   "qwen3-0.6b": {
    "hf_repo": "Qwen/Qwen3-0.6B",

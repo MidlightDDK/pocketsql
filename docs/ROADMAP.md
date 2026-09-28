@@ -119,8 +119,8 @@ Acceptance:
 ## M7: Cascade + launch
 - Publish `packages/sqlgen` to npm if the user wants (otherwise vendor it into Browser Analyst); cascade metrics in both READMEs; README (outline below); `smoke.yml`; demo video.
 Acceptance:
-- [ ] README complete with release numbers.
-- [ ] Smoke workflow green for 3 consecutive days; video linked at the top of the README.
+- [x] README complete with release numbers. (2026-09-28, checked by Claude: follows the outline below; results, speeds, cascade numbers for both projects, Mermaid diagram, $0 box with ~2 GPU hours; only the video link is missing.)
+- [ ] Smoke workflow green for 3 consecutive days; video linked at the top of the README. (Smoke green 2026-09-28, run 36406389595; 65 s captioned video recorded, not yet uploaded.)
 
 ## Iteration (optional, after M5)
 Improve through data or hyperparameters, one change per run, each logged in `summary.json`; new models ship only through the gate.

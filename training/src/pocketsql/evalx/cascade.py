@@ -141,7 +141,7 @@ def main(argv: list[str] | None = None) -> int:
         print(markdown(rows))
     if args.report:
         report = json.loads(REPORT.read_text(encoding="utf-8"))
-        report["cascade"] = rows
+        report.update(updated=dt.date.today().isoformat(), cascade=rows)
         REPORT.write_text(
             json.dumps(report, indent=1, ensure_ascii=False) + "\n",
             encoding="utf-8",
