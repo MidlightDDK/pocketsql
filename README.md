@@ -13,7 +13,13 @@ running entirely in your browser. It keeps working with Wi-Fi off.**
 Model [MidlightDDK/pocketsql-0.5b](https://huggingface.co/MidlightDDK/pocketsql-0.5b) ·
 Dataset [MidlightDDK/pocketsql-data](https://huggingface.co/datasets/MidlightDDK/pocketsql-data)
 
-<!-- demo-video -->
+https://github.com/user-attachments/assets/34a5ced4-593d-4766-8890-69dc684cd24c
+
+**Demo (1 minute, captioned):** play it above or
+[watch it on YouTube](https://youtu.be/Xn-_7zZTkJo). A first visit shows real
+answers instantly while the model downloads, then a question answered on
+WebGPU, then the network cut, a reload, and another answer, then the evals.
+The download and the first answer's warm-up are sped up and labeled.
 
 > **Turn off your Wi-Fi and try it.** Open the demo once and wait for the
 > "Offline ready" badge (the model is a one-time 276 MiB download). Then
