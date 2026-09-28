@@ -346,3 +346,9 @@ Apache-2.0, fine-tuned from
   site until its Worker secrets (Turnstile and a session key) are set.
 - Every number comes from one greedy run per model on 100–981 questions, with
   no variance estimate; ±5 points is the noise level at n = 100.
+
+## Full explanation
+
+New to AI or programming? [FULL_EXPLANATION.md](FULL_EXPLANATION.md) explains
+every part of this project and every decision behind it in plain language, with
+no background needed, plus a short script for explaining it to someone else.
