@@ -1936,5 +1936,49 @@
    "same_result": 31,
    "checked": "2026-09-27"
   }
+ ],
+ "browser": [
+  {
+   "device": "Laptop: Core i5-10300H, Intel UHD integrated GPU",
+   "browser": "Chrome 153",
+   "backend": "WebGPU",
+   "dtype": "q4f16",
+   "load_s": 5.6,
+   "query_s": [
+    6.7,
+    1.8,
+    2.1
+   ],
+   "measured": "2026-09-28",
+   "how": "live site, real Chrome (browser-use); model files cached"
+  },
+  {
+   "device": "Same laptop, CPU only",
+   "browser": "Chromium 153 headless",
+   "backend": "WASM, threaded",
+   "dtype": "q4",
+   "load_s": 3.9,
+   "query_s": [
+    25.7,
+    8.6,
+    8.7
+   ],
+   "measured": "2026-09-28",
+   "how": "web/e2e/real.e2e.ts (vite preview, offline after load)"
+  },
+  {
+   "device": "GitHub Actions runner: ubuntu-24.04, 4 vCPU",
+   "browser": "Chromium 153 headless",
+   "backend": "WASM, threaded",
+   "dtype": "q4",
+   "load_s": 3.0,
+   "query_s": [
+    26.2,
+    7.9,
+    7.9
+   ],
+   "measured": "2026-09-28",
+   "how": "e2e-real.yml run 36400329843; cold download + load 23.3 s"
+  }
  ]
 }

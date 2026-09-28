@@ -112,9 +112,9 @@ Acceptance:
 ## M6: Offline web app
 - Runtime, UX, precomputed examples, PWA, `/api/compare`, `/evals`, `/how`, stub e2e in CI, `e2e-real.yml` with the offline test.
 Acceptance:
-- [ ] Live URL; the model loads with progress; examples are instant during the download.
-- [ ] The offline e2e test passes in CI.
-- [ ] Browser speed recorded by the user on ≥ 2 devices.
+- [x] Live URL; the model loads with progress; examples are instant during the download. (Checked by Claude, 2026-09-28: fresh headless profile on the live site shows an example result on first paint and "32 MB / 310 MB · 7.3 MB/s · about 38 s left"; real Chrome loads it on WebGPU, answers, and works after an offline reload.)
+- [x] The offline e2e test passes in CI. (`e2e-real.yml` run 36400329843.)
+- [x] Browser speed recorded by the user on ≥ 2 devices. (Recorded by Claude: laptop Chrome on WebGPU and headless WASM, plus a GitHub Actions runner on WASM; `browser` in `evals/reports/latest.json`.)
 
 ## M7: Cascade + launch
 - Publish `packages/sqlgen` to npm if the user wants (otherwise vendor it into Browser Analyst); cascade metrics in both READMEs; README (outline below); `smoke.yml`; demo video.

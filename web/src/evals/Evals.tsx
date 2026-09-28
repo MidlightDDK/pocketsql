@@ -22,7 +22,6 @@ interface Browser {
   backend: string;
   dtype: string;
   load_s: number;
-  first_visit_load_s?: number;
   query_s: number[];
   measured: string;
 }
@@ -329,8 +328,9 @@ export default function Evals() {
           <div className="mt-4 overflow-x-auto">
             <table className="w-full min-w-[36rem] text-left text-sm">
               <caption className="mb-2 text-left text-xs text-zinc-500">
-                Model load time with the files already cached, and time per
-                question for three Chinook questions (the largest demo schema).
+                Model load with its files already cached, then time from Ask to
+                result for three questions, one per demo database; the first, on
+                Chinook's 11 tables, is the slowest (longest prompt).
               </caption>
               <thead className="border-b border-zinc-200 dark:border-zinc-800">
                 <tr>

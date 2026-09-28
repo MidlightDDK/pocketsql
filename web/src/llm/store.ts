@@ -135,7 +135,14 @@ export async function loadModel(): Promise<void> {
   const webgpu = params.get("device") !== "wasm" && (await hasWebGpu());
   const device: Device = webgpu ? "webgpu" : "wasm";
   const dtype: Dtype = webgpu ? "q4f16" : "q4";
-  set({ status: "loading", device, dtype, error: null });
+  // The known download size, until the files' own sizes arrive.
+  set({
+    status: "loading",
+    device,
+    dtype,
+    error: null,
+    total: DOWNLOAD_MIB[dtype] * 2 ** 20,
+  });
   worker ??= new Worker(new URL("./worker.ts", import.meta.url), {
     type: "module",
   });
