@@ -1,0 +1,51 @@
+name: Smoke
+
+# Daily check of the live site, with no model download: a precomputed example
+# renders, its SQL runs in DuckDB-WASM, /api/health answers, and the pinned
+# model revision still resolves on the Hub. A failure opens an issue, or
+# comments on the open one.
+on:
+  schedule:
+    - cron: "41 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      E2E_BASE_URL: https://pocket-sql.azar-majed7.workers.dev
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @pocketsql/web exec playwright install --with-deps chromium
+      - name: Example, DuckDB-WASM, /api/health, and the model on the live site
+        run: pnpm --filter @pocketsql/web exec playwright test e2e/smoke.e2e.ts --retries=1
+
+  report:
+    needs: live
+    if: failure()
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - run: |
+          title="Daily smoke test failed"
+          n=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$n" ]; then
+            gh issue comment "$n" --body "Failed again: $RUN_URL"
+          else
+            gh issue create --title "$title" --body "The daily smoke test of the live site failed: $RUN_URL"
+          fi
