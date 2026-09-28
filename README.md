@@ -117,7 +117,7 @@ flowchart LR
    DuckDB, and a pair is kept only if DuckDB returns the same result as SQLite.
    On top of that, 591 synthetic pairs over the three demo databases, kept only
    when independent models' queries agree.
-2. **Training** on Kaggle's free T4: LoRA on Qwen2.5-Coder-0.5B-Instruct, loss on
+2. **Training** on Kaggle's free T4 ([public notebook](https://www.kaggle.com/code/majedazar/pocketsql-train)): LoRA on Qwen2.5-Coder-0.5B-Instruct, loss on
    the SQL only, then merge and export to 4-bit ONNX in the same kernel.
 3. **Evaluation and release.** The exported files are scored in Node with
    Transformers.js, the same runtime as the browser, and published to the Hub
@@ -310,8 +310,8 @@ Checks: `uv run --project training ruff check -q` ·
 `pnpm -s test` · `pnpm -s e2e`.
 
 Repo layout: `training/` (Python package `pocketsql`: data, synthetic pairs,
-training, export, scoring, release gate) · `kaggle/train/` (the training
-kernel) · `packages/sqlgen/` (TypeScript schema serializer, prompt builder, SQL
+training, export, scoring, release gate) · `kaggle/train/` (the [training
+kernel](https://www.kaggle.com/code/majedazar/pocketsql-train)) · `packages/sqlgen/` (TypeScript schema serializer, prompt builder, SQL
 clean-up) · `evals/` (test sets, predictions, reports, the ONNX eval runner) ·
 `web/` (Vite + React + Tailwind app) · `worker/` (Cloudflare Worker).
 
