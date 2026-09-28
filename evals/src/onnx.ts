@@ -10,10 +10,11 @@ import {
 import { buildMessages } from "@pocketsql/sqlgen";
 import { EVALS, loadSchemas, loadSet, readJsonl } from "./sets.ts";
 
-// Greedy ONNX predictions through Transformers.js in Node:
+// ONNX predictions through Transformers.js in Node, greedy unless --temperature:
 // `pnpm eval:onnx --model <hf-repo>@<revision>|<local dir> --name <model>
-//   --set own_test --dtype q4f16 --device webgpu [--limit N]`
-// writes evals/predictions/<name>__onnx-<dtype>-<device>__<set>.jsonl (resumable).
+//   --set own_test --dtype q4f16 --device webgpu [--limit N] [--temperature 0.3]`
+// writes evals/predictions/<name>__onnx-<dtype>-<device>[-t<T>]__<set>.jsonl
+// (resumable). A sampled run is the cascade's second sample (web retry: T 0.3).
 const { values } = parseArgs({
   options: {
     model: { type: "string" },
@@ -22,6 +23,7 @@ const { values } = parseArgs({
     dtype: { type: "string", default: "q4f16" },
     device: { type: "string", default: "webgpu" },
     limit: { type: "string" },
+    temperature: { type: "string" },
   },
 });
 if (!values.model)
@@ -44,7 +46,8 @@ if (existsSync(values.model)) {
   [id, revision] = values.model.split("@") as [string, string | undefined];
 }
 const name = values.name ?? basename(id).toLowerCase();
-const runtime = `onnx-${values.dtype}-${values.device}`;
+const temperature = values.temperature ? Number(values.temperature) : undefined;
+const runtime = `onnx-${values.dtype}-${values.device}${temperature ? `-t${temperature}` : ""}`;
 const out = join(
   EVALS,
   "predictions",
@@ -77,7 +80,8 @@ for (const [n, item] of items.entries()) {
   const output = (await model.generate({
     ...inputs,
     max_new_tokens: MAX_NEW_TOKENS,
-    do_sample: false,
+    do_sample: Boolean(temperature),
+    ...(temperature ? { temperature } : {}),
   })) as Tensor;
   const latency = performance.now() - start;
   const promptLength = inputs.input_ids.dims[1] ?? 0;

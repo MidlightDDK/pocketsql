@@ -1,11 +1,12 @@
 import json
 from pathlib import Path
 
+import duckdb
 import pytest
 
 from pocketsql.data import paths
 from pocketsql.data.leakage import read_jsonl
-from pocketsql.evalx import own_test, score
+from pocketsql.evalx import cascade, own_test, score
 from pocketsql.evalx.postprocess import clean_sql
 from pocketsql.evalx.sets import load_schemas, load_set
 
@@ -79,3 +80,48 @@ GOLD = "SELECT a FROM t JOIN s ON s.k = t.k;"
 )
 def test_error_tags(sql: str, error: str | None, tag: str) -> None:
     assert score.error_tag(sql, error, GOLD, None) == tag
+
+
+def test_cascade_escalation_reasons() -> None:
+    con = duckdb.connect()
+    con.execute("CREATE TABLE t AS SELECT * FROM (VALUES (1, 'a'), (2, NULL)) v(k, s)")
+    ok = "SELECT k FROM t ORDER BY k"
+    assert cascade.escalation(con, "SELECT nope FROM t", ok) == "error"
+    assert cascade.escalation(con, "SELECT k FROM t WHERE k > 5", ok) == "empty"
+    assert cascade.escalation(con, "SELECT s FROM t WHERE k = 2", ok) == "empty"
+    assert cascade.escalation(con, ok, "SELECT k FROM t WHERE k = 1") == "disagree"
+    assert cascade.escalation(con, ok, "SELECT broken") == "disagree"
+    assert cascade.escalation(con, ok, "SELECT k FROM t ORDER BY k DESC") == "disagree"
+    assert cascade.escalation(con, ok, "SELECT k FROM t") is None
+
+
+def test_cascade_summary() -> None:
+    def item(reason: str | None, local_ex: bool, big_ex: bool) -> dict:
+        return {
+            "reason": reason,
+            "local_ex": local_ex,
+            "big_ex": big_ex,
+            "big_cost": 1e-4,
+        }
+
+    outcomes = [
+        item(None, True, True),
+        item("disagree", False, True),
+        item("error", False, True),
+        item("empty", False, False),
+    ]
+    valid = cascade.summarize(outcomes, "valid")
+    assert (valid["answered_locally"], valid["local_precision"], valid["ex"]) == (
+        0.5,
+        0.5,
+        0.5,
+    )
+    assert valid["api_calls_per_100"] == 50 and valid["cost_per_query_usd"] == 5e-5
+    agree = cascade.summarize(outcomes, "agree")
+    assert (agree["answered_locally"], agree["local_precision"], agree["ex"]) == (
+        0.25,
+        1,
+        0.75,
+    )
+    assert agree["escalations"] == {"error": 1, "empty": 1, "disagree": 1}
+    assert (agree["local_ex"], agree["big_ex"]) == (0.25, 0.75)

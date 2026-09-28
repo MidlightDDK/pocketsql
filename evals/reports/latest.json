@@ -1980,5 +1980,85 @@
    "measured": "2026-09-28",
    "how": "e2e-real.yml run 36400329843; cold download + load 23.3 s"
   }
+ ],
+ "cascade": [
+  {
+   "set": "own_test",
+   "local": "pocketsql-0.5b-v2/onnx-q4f16-webgpu",
+   "big": "gpt-oss-120b/groq",
+   "rule": "valid",
+   "n": 100,
+   "answered_locally": 0.78,
+   "local_precision": 0.5769,
+   "ex": 0.59,
+   "local_ex": 0.45,
+   "big_ex": 0.77,
+   "api_calls_per_100": 22.0,
+   "cost_per_query_usd": 2.9e-05,
+   "escalations": {
+    "error": 17,
+    "empty": 5
+   },
+   "scored": "2026-09-28"
+  },
+  {
+   "set": "own_test",
+   "local": "pocketsql-0.5b-v2/onnx-q4f16-webgpu",
+   "big": "gpt-oss-120b/groq",
+   "rule": "agree",
+   "n": 100,
+   "answered_locally": 0.69,
+   "local_precision": 0.6232,
+   "ex": 0.62,
+   "local_ex": 0.45,
+   "big_ex": 0.77,
+   "api_calls_per_100": 31.0,
+   "cost_per_query_usd": 4.1e-05,
+   "escalations": {
+    "error": 17,
+    "empty": 5,
+    "disagree": 9
+   },
+   "scored": "2026-09-28"
+  },
+  {
+   "set": "spider_dev_100",
+   "local": "pocketsql-0.5b-v2/onnx-q4f16-webgpu",
+   "big": "gpt-oss-120b/groq",
+   "rule": "valid",
+   "n": 100,
+   "answered_locally": 0.64,
+   "local_precision": 0.7812,
+   "ex": 0.74,
+   "local_ex": 0.53,
+   "big_ex": 0.73,
+   "api_calls_per_100": 36.0,
+   "cost_per_query_usd": 4.1e-05,
+   "escalations": {
+    "error": 31,
+    "empty": 5
+   },
+   "scored": "2026-09-28"
+  },
+  {
+   "set": "spider_dev_100",
+   "local": "pocketsql-0.5b-v2/onnx-q4f16-webgpu",
+   "big": "gpt-oss-120b/groq",
+   "rule": "agree",
+   "n": 100,
+   "answered_locally": 0.59,
+   "local_precision": 0.8475,
+   "ex": 0.75,
+   "local_ex": 0.53,
+   "big_ex": 0.73,
+   "api_calls_per_100": 41.0,
+   "cost_per_query_usd": 4.7e-05,
+   "escalations": {
+    "error": 31,
+    "empty": 5,
+    "disagree": 5
+   },
+   "scored": "2026-09-28"
+  }
  ]
 }

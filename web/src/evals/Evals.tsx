@@ -16,6 +16,16 @@ interface Row {
   by_difficulty: Record<string, { n: number; ex: number }>;
   errors: Record<string, number>;
 }
+interface Cascade {
+  set: string;
+  rule: "valid" | "agree";
+  n: number;
+  answered_locally: number;
+  local_precision: number;
+  ex: number;
+  big_ex: number;
+  api_calls_per_100: number;
+}
 interface Browser {
   device: string;
   browser: string;
@@ -33,6 +43,16 @@ const models = report.models as Record<
 >;
 const browser = ((report as { browser?: Browser[] }).browser ??
   []) as Browser[];
+const cascade = ((report as { cascade?: Cascade[] }).cascade ??
+  []) as Cascade[];
+const SET_LABEL: Record<string, string> = {
+  own_test: "Own test set",
+  spider_dev_100: "Spider dev (100)",
+};
+const RULE_LABEL = {
+  valid: "SQL runs and returns rows",
+  agree: "…and a second sample agrees",
+};
 
 const SHIPPED = "pocketsql-0.5b-v2";
 const BASE_EXPORT = "qwen2.5-coder-0.5b-export";
@@ -195,6 +215,9 @@ export default function Evals() {
   const big = find(BIG, "groq", "own_test");
   const devShipped = find(SHIPPED, "onnx-q4f16-webgpu", "spider_dev");
   const devBase = find(BASE_EXPORT, "onnx-q4f16-webgpu", "spider_dev");
+  const devCascade = cascade.find(
+    (c) => c.set === "spider_dev_100" && c.rule === "agree",
+  );
   const byDiff = [
     ["PocketSQL q4f16", shipped],
     ["Base q4f16", base],
@@ -320,6 +343,89 @@ export default function Evals() {
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section className="mt-12">
+        <h2 className="text-xl font-semibold">Local first, API when unsure</h2>
+        <p className="mt-2 max-w-3xl text-sm text-zinc-600 dark:text-zinc-400">
+          A cascade: PocketSQL answers every question first, for free, and the
+          question goes to gpt-oss-120b only when the local answer looks wrong:
+          its SQL fails to run or returns nothing, or (second rule) a second
+          sample at temperature 0.3 returns a different result. The same model
+          is tier 0 of the cascade in{" "}
+          <a
+            className="link"
+            href="https://github.com/MidlightDDK/browser-analyst"
+          >
+            Browser Analyst
+          </a>
+          .
+        </p>
+        {cascade.length ? (
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full min-w-[40rem] text-left text-sm">
+              <caption className="mb-2 text-left text-xs text-zinc-500">
+                Execution accuracy of the local answers kept, of the whole
+                cascade, and of the API model on every question.
+              </caption>
+              <thead className="border-b border-zinc-200 dark:border-zinc-800">
+                <tr>
+                  <th scope="col" className="py-2 pr-4 font-medium">
+                    Set
+                  </th>
+                  <th scope="col" className="py-2 pr-4 font-medium">
+                    Keep the local answer if
+                  </th>
+                  <th scope="col" className="py-2 pr-4 text-right font-medium">
+                    Answered locally
+                  </th>
+                  <th scope="col" className="py-2 pr-4 text-right font-medium">
+                    Local answers right
+                  </th>
+                  <th scope="col" className="py-2 pr-4 text-right font-medium">
+                    Cascade
+                  </th>
+                  <th scope="col" className="py-2 pr-4 text-right font-medium">
+                    API alone
+                  </th>
+                  <th scope="col" className="py-2 text-right font-medium">
+                    API calls per 100
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-900">
+                {cascade.map((c) => (
+                  <tr key={`${c.set}-${c.rule}`}>
+                    <td className="py-2 pr-4">{SET_LABEL[c.set] ?? c.set}</td>
+                    <td className="py-2 pr-4">{RULE_LABEL[c.rule]}</td>
+                    <td className="py-2 pr-4 text-right tabular-nums">
+                      {pct(c.answered_locally)}
+                    </td>
+                    <td className="py-2 pr-4 text-right tabular-nums">
+                      {pct(c.local_precision)}
+                    </td>
+                    <td className="py-2 pr-4 text-right font-medium tabular-nums">
+                      {pct(c.ex)}
+                    </td>
+                    <td className="py-2 pr-4 text-right tabular-nums">
+                      {pct(c.big_ex)}
+                    </td>
+                    <td className="py-2 text-right tabular-nums">
+                      {c.api_calls_per_100}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
+        <p className="mt-3 max-w-3xl text-sm text-zinc-600 dark:text-zinc-400">
+          On Spider dev the cascade beats the API model alone while making{" "}
+          {devCascade?.api_calls_per_100 ?? "–"} calls per 100 questions. On the
+          demo databases most of PocketSQL's wrong answers are valid SQL that
+          returns the wrong rows, which these checks cannot see, so the cascade
+          trades accuracy for fewer calls.
+        </p>
       </section>
 
       <section className="mt-12">
