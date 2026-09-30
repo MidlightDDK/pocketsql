@@ -123,5 +123,5 @@ When compacting, keep: the goal, current milestone, decisions and constraints, f
 - [x] M4 Train v1 on Kaggle
 - [x] M5 Artifact eval, gate, model release
 - [x] M6 Offline web app
-- [ ] M7 Cascade + launch
+- [x] M7 Cascade + launch
 
